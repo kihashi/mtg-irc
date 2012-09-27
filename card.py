@@ -15,7 +15,12 @@ def card(phenny, input):
     if not input.group(2):
         phenny.say('Perhaps you meant ".card Storm Crow"?')
     else:
-        string = cards[index_containing_substring(cards, input.group(2))]
+        index = index_containing_substring(cards, input.group(2))
+        if index < 0:
+            phenny.say("No card was found by that name.")
+            return
+
+        string = cards[index]
         card_listing = string.split("\n")
         for line in card_listing:
             phenny.say(line)
