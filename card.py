@@ -7,7 +7,7 @@ Author: John Cleaver
 Site: https://github.com/kihashi/mtg-irc
 License: BSD 3 Clause.
 '''
-
+import re
 cards = []
 
 def card(phenny, input):
@@ -44,7 +44,7 @@ def card_list():
 
 def index_containing_substring(the_list, substring):
     for i, s in enumerate(the_list):
-        if substring in s:
-              return i
+        if re.match(substring + "\n", s):
+            return i
     return -1
 
