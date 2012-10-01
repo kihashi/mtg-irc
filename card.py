@@ -10,6 +10,7 @@ License: BSD 3 Clause.
 import re
 cards = []
 
+
 def card(phenny, input):
     card_list()
     if not input.group(2):
@@ -25,10 +26,9 @@ def card(phenny, input):
         for line in card_listing:
             phenny.say(line)
 
-
-
 card.commands = ['card']
 card.priority = 'medium'
+
 
 def card_list():
     file = open('modules/oracle.txt', 'r')
@@ -41,6 +41,7 @@ def card_list():
             internal_entry = ''
         else:
             internal_entry += line
+
 
 def index_containing_substring(the_list, substring):
     for i, s in enumerate(the_list):
