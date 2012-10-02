@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 
 partner_key = "TCGTEST"
 secret_api_url = ""
-tcg_player_url = secret_api_url + "pk=" + partner_key + "s=" + "p="
+tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 
 
 def price(phenny, input):
@@ -34,7 +34,7 @@ def get_tcg_price(card_name):
     url = tcg_player_url + card_name
     xml_return = urllib.urlopen(url)
 
-    return xml_return.read()
+    return xml_return
 
 
 def parse_tcg_player_xml(xml):
