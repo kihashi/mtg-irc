@@ -21,6 +21,9 @@ tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 
 def price(phenny, input):
     card_dict = parse_tcg_player_xml(get_tcg_price(input.group(2)))
+    if not card_dict:
+        phenny.say(input.nick + ": I don't recognize that card name.")
+        return
     output_string = input.nick + ": " + input.group(2)
     for key, val in card_dict.items():
         output_string += " | " + key + ": " + val
@@ -41,6 +44,9 @@ def get_tcg_price(card_name):
 def parse_tcg_player_xml(xml):
     tree = ET.parse(xml)
     root = tree.getroot()
+
+    if not root:
+        return None
 
     card = OrderedDict([('Hi', root[0][1].text),
                         ('Low', root[0][2].text),
