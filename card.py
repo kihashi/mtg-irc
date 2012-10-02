@@ -44,7 +44,7 @@ def card_list():
 
 def index_containing_substring(the_list, substring):
     for i, s in enumerate(the_list):
-        if re.match(substring + "\n", s):
+        if re.match(substring + "\n", s, re.IGNORECASE):
             return i
     return -1
 
