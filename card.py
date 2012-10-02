@@ -22,9 +22,8 @@ def card(phenny, input):
             return
 
         string = cards[index]
-        card_listing = string.split("\n")
-        for line in card_listing:
-            phenny.say(line)
+        card_listing = string.replace("\n", " | ")
+        phenny.say(card_listing)
 
 card.commands = ['card']
 card.priority = 'medium'
