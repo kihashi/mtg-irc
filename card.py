@@ -39,6 +39,19 @@ def rulings(phenny, input):
 rulings.commands = ['rulings']
 rulings.priority = 'medium'
 
+def sets(phenny, input):
+    if not input.group(2):
+        phenny.say(input.nick + 'Perhaps you meant ".set Storm Crow"?')
+    else:
+        card_json = get_card_json(input.group(2))
+        if not card_json:
+            phenny.say(input.nick + ": I could not find a card by that name.")
+        else:
+            phenny.say(input.nick + ": " + format_sets(card_json))
+
+sets.commands = ['sets']
+sets.priority = 'medium'
+
 def get_card_json(card):
     card_url = json_url + card
 
@@ -66,5 +79,12 @@ def format_rulings(card_dict):
     output = []
     for ruling in card_dict['rulings']:
         output.append(ruling[0] + ": " + ruling[1])
+
+    return output
+
+def format_sets(card_dict):
+    output = ''
+    for version in card_dict['versions']:
+        output += card_dict['versions'][version]['expansion'] + " - " + card_dict['versions'][version]['rarity'] + " | "
 
     return output
