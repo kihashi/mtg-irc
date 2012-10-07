@@ -61,6 +61,19 @@ def image(phenny, input):
 image.commands = ['image']
 image.priority = 'medium'
 
+def flavor(phenny, input):
+    if not input.group(2):
+        phenny.say(input.nick + 'Perhaps you meant ".image Storm Crow"?')
+    else:
+        card_json = get_card_json(input.group(2))
+        if not card_json:
+            phenny.say(input.nick + ": I could not find a card by that name.")
+        else:
+            for flavor_text in format_flavor_text(card_json):
+                phenny.msg(input.nick, flavor_text)
+flavor.commands = ['flavor']
+flavor.priority = 'medium'
+
 def get_card_json(card):
     card_url = json_url + card
 
@@ -111,3 +124,11 @@ def format_sets(card_dict):
 
 def format_image(card_dict):
     return card_dict['image_url']
+
+def format_flavor_text(card_dict):
+    output = []
+    for version in card_dict['versions']:
+        version_card_dict = get_card_json(version)
+        output.append(version_card_dict['expansion'] + " - " + version_card_dict['flavor_text'])
+
+    return output
