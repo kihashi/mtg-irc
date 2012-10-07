@@ -84,7 +84,10 @@ def cardfr(phenny, input):
         if not card_json:
             phenny.say(input.nick + ": I could not find a card by that name.")
         else:
-            phenny.say(card_json['fr']['name'])
+            if "fr" in card_json:
+                phenny.say(input.nick + ": " + card_json['fr']['name'])
+            else:
+                phenny.say(input.nick + ": That card does not have French Language printing")
 cardfr.commands = ['cardfr']
 flavor.priority = 'medium'
 
