@@ -69,6 +69,9 @@ def format_text(card_dict):
 
     output += "| " + card_dict['text']
 
+    if "power" in card_dict:
+        output += " | " + card_dict['power'] + "/" + card_dict['toughness']
+
     output = output.replace("\n", " ")
 
     return output
