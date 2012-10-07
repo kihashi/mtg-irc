@@ -10,7 +10,7 @@ License: BSD 3 Clause.
 import json
 import urllib
 
-json_url = "http://localhost:3000/card/"
+json_url = "http://ec2-107-21-148-64.compute-1.amazonaws.com:3000/card/"
 
 def card(phenny, input):
     if not input.group(2):
@@ -34,8 +34,6 @@ def rulings(phenny, input):
         else:
             for ruling in format_rulings(card_json):
                 phenny.msg(input.nick, ruling)
-            else:
-                phenny.msg(input.nick, "There are no rulings for that card.")
 rulings.commands = ['rulings']
 rulings.priority = 'medium'
 
@@ -77,8 +75,11 @@ def format_text(card_dict):
 
 def format_rulings(card_dict):
     output = []
-    for ruling in card_dict['rulings']:
-        output.append(ruling[0] + ": " + ruling[1])
+    if card_dict['rulings'] == []:
+        output.append("There are no rulings for that card.")
+    else:
+        for ruling in card_dict['rulings']:
+            output.append(ruling[0] + ": " + ruling[1])
 
     return output
 
