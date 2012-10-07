@@ -101,6 +101,9 @@ def format_text(card_dict):
     if "power" in card_dict:
         output += " | " + str(card_dict['power']) + "/" + str(card_dict['toughness'])
 
+    if "loyalty" in card_dict:
+        output += " | " + str(card_dict['loyalty'])
+
     output = output.replace("\n", " ")
 
     return output
