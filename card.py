@@ -41,7 +41,7 @@ rulings.priority = 'medium'
 
 def sets(phenny, input):
     if not input.group(2):
-        phenny.say(input.nick + 'Perhaps you meant ".set Storm Crow"?')
+        phenny.say(input.nick + ': Perhaps you meant ".set Storm Crow"?')
     else:
         card_json = get_card_json(input.group(2))
         if not card_json:
@@ -53,7 +53,7 @@ sets.priority = 'medium'
 
 def image(phenny, input):
     if not input.group(2):
-        phenny.say(input.nick + 'Perhaps you meant ".image Storm Crow"?')
+        phenny.say(input.nick + ': Perhaps you meant ".image Storm Crow"?')
     else:
         card_json = get_card_json(input.group(2))
         if not card_json:
@@ -65,7 +65,7 @@ image.priority = 'medium'
 
 def flavor(phenny, input):
     if not input.group(2):
-        phenny.say(input.nick + 'Perhaps you meant ".image Storm Crow"?')
+        phenny.say(input.nick + ': Perhaps you meant ".flavor Storm Crow"?')
     else:
         card_json = get_card_json(input.group(2))
         if not card_json:
