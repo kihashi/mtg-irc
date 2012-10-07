@@ -46,9 +46,20 @@ def sets(phenny, input):
             phenny.say(input.nick + ": I could not find a card by that name.")
         else:
             phenny.say(input.nick + ": " + format_sets(card_json))
-
 sets.commands = ['sets']
 sets.priority = 'medium'
+
+def image(phenny, input):
+    if not input.group(2):
+        phenny.say(input.nick + 'Perhaps you meant ".image Storm Crow"?')
+    else:
+        card_json = get_card_json(input.group(2))
+        if not card_json:
+            phenny.say(input.nick + ": I could not find a card by that name.")
+        else:
+            phenny.say(input.nick + ": " + format_image(card_json))
+image.commands = ['image']
+image.priority = 'medium'
 
 def get_card_json(card):
     card_url = json_url + card
@@ -97,3 +108,6 @@ def format_sets(card_dict):
         output += card_dict['versions'][version]['expansion'] + " - " + card_dict['versions'][version]['rarity'] + " | "
 
     return output
+
+def format_image(card_dict):
+    return card_dict['image_url']
