@@ -67,6 +67,11 @@ def format_text(card_dict):
     for card_type in card_dict['types']:
         output += card_type + " "
 
+    if card_dict['subtypes'] != []:
+        output += " - "
+        for subtype in card_dict['subtypes']:
+            output += subtype + " "
+
     output += "| " + card_dict['text']
 
     if "power" in card_dict:
