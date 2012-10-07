@@ -10,7 +10,9 @@ License: BSD 3 Clause.
 import json
 import urllib
 
-json_url = "http://ec2-107-21-148-64.compute-1.amazonaws.com:3000/card/"
+api_server = "http://ec2-107-21-148-64.compute-1.amazonaws.com:3000/"
+json_url = api_server + "card/"
+language_url = api_server + "language/"
 
 def card(phenny, input):
     if not input.group(2):
@@ -76,6 +78,17 @@ flavor.priority = 'medium'
 
 def get_card_json(card):
     card_url = json_url + card
+
+    card_json = urllib.urlopen(card_url)
+    card_dict = json.load(card_json)
+
+    if "error" in card_dict:
+        return None
+    else:
+        return card_dict
+
+def get_language_json(card):
+    card_url = language_url + card
 
     card_json = urllib.urlopen(card_url)
     card_dict = json.load(card_json)
