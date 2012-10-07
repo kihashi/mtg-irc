@@ -76,6 +76,19 @@ def flavor(phenny, input):
 flavor.commands = ['flavor']
 flavor.priority = 'medium'
 
+def cardfr(phenny, input):
+    if not input.group(2):
+        phenny.say(input.nick + ': Perhaps you meant ".flavor Storm Crow"?')
+    else:
+        card_json = get_language_json(input.group(2))
+        if not card_json:
+            phenny.say(input.nick + ": I could not find a card by that name.")
+        else:
+            phenny.say(card_json['fr']['name'])
+cardfr.commands = ['cardfr']
+flavor.priority = 'medium'
+
+
 def get_card_json(card):
     card_url = json_url + card
 
