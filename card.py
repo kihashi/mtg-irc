@@ -115,7 +115,10 @@ def get_language_json(card):
         return card_dict
 
 def format_text(card_dict):
-    output = card_dict['name'] + " | " + card_dict['mana_cost'] + " | "
+    output = card_dict['name'] + " | "
+
+    if "mana_cost" in card_dict:
+        output += card_dict['mana_cost'] + " | "
 
     for card_type in card_dict['types']:
         output += card_type + " "
