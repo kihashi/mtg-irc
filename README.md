@@ -8,8 +8,11 @@ A module for the IRC Bot [Phenny][] that allows users to query magic cards.
 Dependencies
 ------------
 
-1. [Phenny][http://inamidst.com/phenny/]
-2. [Tutor][https://github.com/davidchambers/tutor]
+1. [Phenny][]
+2. [Tutor][]
+
+[Phenny]: http://inamidst.com/phenny/
+[Tutor]: https://github.com/davidchambers/tutor
 
 NOTE: Tutor must be installed and running on a server that is accessible from the computer that Phenny is running on.
 
