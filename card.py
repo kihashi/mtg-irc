@@ -164,6 +164,7 @@ def format_flavor_text(card_dict):
     output = []
     for version in card_dict['versions']:
         version_card_dict = get_card_json(version)
-        output.append(version_card_dict['expansion'] + " - " + version_card_dict['flavor_text'])
+        if "flavor_text" in version_card_dict:
+            output.append(version_card_dict['expansion'] + " - " + version_card_dict['flavor_text'])
 
     return output
