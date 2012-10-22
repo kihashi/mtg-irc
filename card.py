@@ -124,7 +124,7 @@ def format_text(card_dict):
         output += card_type + " "
 
     if card_dict['subtypes'] != []:
-        output += " - "
+        output += "- "
         for subtype in card_dict['subtypes']:
             output += subtype + " "
 
