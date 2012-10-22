@@ -128,7 +128,8 @@ def format_text(card_dict):
         for subtype in card_dict['subtypes']:
             output += subtype + " "
 
-    output += "| " + card_dict['text']
+    if "text" in card_dict:
+        output += "| " + card_dict['text']
 
     if "power" in card_dict:
         output += " | " + str(card_dict['power']) + "/" + str(card_dict['toughness'])
