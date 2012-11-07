@@ -9,24 +9,31 @@ License: BSD 3 Clause.
 '''
 import json
 import urllib
+from nick import *
 
 api_server = "http://ec2-107-21-148-64.compute-1.amazonaws.com:3000/"
 json_url = api_server + "card/"
 language_url = api_server + "language/"
 
 def card(phenny, input):
+    """Gets the text for a specified card."""
     if not input.group(2):
         phenny.say(input.nick + 'Perhaps you meant ".card Storm Crow"?')
     else:
-        card_json = get_card_json(input.group(2))
+        if input.group(2).lower() in nicknames:
+            card_json = get_card_json(nicknames[input.group(2)])
+        else:
+            card_json = get_card_json(input.group(2))
         if not card_json:
             phenny.say(input.nick + ": I could not find a card by that name.")
         else:
             phenny.say(input.nick + ": " + format_text(card_json))
 card.commands = ['card']
 card.priority = 'medium'
+card.example = '.card Storm Crow'
 
 def rulings(phenny, input):
+    """Messages the rulings for a particular card."""
     if not input.group(2):
         phenny.say(input.nick + 'Perhaps you meant ".rulings Storm Crow"?')
     else:
@@ -38,8 +45,10 @@ def rulings(phenny, input):
                 phenny.msg(input.nick, ruling)
 rulings.commands = ['rulings']
 rulings.priority = 'medium'
+rulings.example = '.rulings Humility'
 
 def sets(phenny, input):
+    """Messages all of the sets and rarities that a card has been printed in."""
     if not input.group(2):
         phenny.say(input.nick + ': Perhaps you meant ".set Storm Crow"?')
     else:
@@ -50,8 +59,10 @@ def sets(phenny, input):
             phenny.say(input.nick + ": " + format_sets(card_json))
 sets.commands = ['sets']
 sets.priority = 'medium'
+sets.example = '.sets Birds of Paradise'
 
 def image(phenny, input):
+    """Returns an image link for a card."""
     if not input.group(2):
         phenny.say(input.nick + ': Perhaps you meant ".image Storm Crow"?')
     else:
@@ -62,8 +73,10 @@ def image(phenny, input):
             phenny.say(input.nick + ": " + format_image(card_json))
 image.commands = ['image']
 image.priority = 'medium'
+image.example = '.image Forest'
 
 def flavor(phenny, input):
+    """Messages all of the flavor texts for printings of a particular card."""
     if not input.group(2):
         phenny.say(input.nick + ': Perhaps you meant ".flavor Storm Crow"?')
     else:
@@ -75,8 +88,10 @@ def flavor(phenny, input):
                 phenny.msg(input.nick, flavor_text)
 flavor.commands = ['flavor']
 flavor.priority = 'medium'
+flavor.example = '.flavor Lightning Bolt'
 
 def cardfr(phenny, input):
+    """Gets the French name for a card."""
     if not input.group(2):
         phenny.say(input.nick + ': Perhaps you meant ".flavor Storm Crow"?')
     else:
@@ -90,6 +105,8 @@ def cardfr(phenny, input):
                 phenny.say(input.nick + ": That card does not have French Language printing")
 cardfr.commands = ['cardfr']
 flavor.priority = 'medium'
+cardfr.example = '.cardfr Angel of Retribution'
+
 
 
 def get_card_json(card):
