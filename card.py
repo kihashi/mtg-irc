@@ -104,7 +104,7 @@ def cardfr(phenny, input):
             else:
                 phenny.say(input.nick + ": That card does not have French Language printing")
 cardfr.commands = ['cardfr']
-flavor.priority = 'medium'
+cardfr.priority = 'medium'
 cardfr.example = '.cardfr Angel of Retribution'
 
 
