@@ -20,6 +20,7 @@ tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 
 
 def price(phenny, input):
+    """Gets the TCG Player Prices for a specified card."""
     card_dict = parse_tcg_player_xml(get_tcg_price(input.group(2)))
     if not card_dict:
         phenny.say(input.nick + ": I don't recognize that card name.")
@@ -32,6 +33,7 @@ def price(phenny, input):
 
 price.commands = ['price']
 price.priority = 'medium'
+price.example = '.price Black Lotus'
 
 
 def get_tcg_price(card_name):
