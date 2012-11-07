@@ -9,7 +9,6 @@ License: BSD 3 Clause.
 '''
 import json
 import urllib
-from nick import *
 
 api_server = "http://localhost:3000/" #Change this to the address of the 
                                       #server that Tutor is running on.
