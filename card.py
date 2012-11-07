@@ -10,7 +10,8 @@ License: BSD 3 Clause.
 import json
 import urllib
 
-api_server = "http://ec2-107-21-148-64.compute-1.amazonaws.com:3000/"
+api_server = "http://localhost:3000/" #Change this to the address of the 
+                                      #server that Tutor is running on.
 json_url = api_server + "card/"
 language_url = api_server + "language/"
 
