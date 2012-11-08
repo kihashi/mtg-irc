@@ -22,7 +22,7 @@ def card(phenny, input):
         phenny.say(input.nick + 'Perhaps you meant ".card Storm Crow"?')
     else:
         if input.group(2).lower().title() in nick.nicknames:
-            card_json = get_card_json(nick.nicknames[input.group(2)])
+            card_json = get_card_json(nick.nicknames[input.group(2).lower().title()])
         else:
             card_json = get_card_json(input.group(2))
         if not card_json:
