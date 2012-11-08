@@ -9,6 +9,7 @@ License: BSD 3 Clause.
 '''
 import json
 import urllib
+from modules import nick
 
 api_server = "http://localhost:3000/" #Change this to the address of the 
                                       #server that Tutor is running on.
@@ -20,8 +21,8 @@ def card(phenny, input):
     if not input.group(2):
         phenny.say(input.nick + 'Perhaps you meant ".card Storm Crow"?')
     else:
-        if input.group(2).lower() in nicknames:
-            card_json = get_card_json(nicknames[input.group(2)])
+        if input.group(2).lower().title() in nick.nicknames:
+            card_json = get_card_json(nick.nicknames[input.group(2)])
         else:
             card_json = get_card_json(input.group(2))
         if not card_json:
