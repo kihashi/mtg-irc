@@ -13,5 +13,6 @@ nicknames = {
     "Skittles": "Skithiryx, the Blight Dragon",
     "Tim": "Prodigal Sorceror",
     "Pimp": "Putrid Imp",
-    "The Rock": "Phyrexian Negator"
+    "The Rock": "Phyrexian Negator",
+    "Prime Time": "Primeval Titan"
 }
