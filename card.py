@@ -11,10 +11,11 @@ import json
 import urllib
 from modules import nick
 
-api_server = "http://localhost:3000/" #Change this to the address of the 
-                                      #server that Tutor is running on.
+api_server = "http://localhost:3000/"  # Change this to the address of the
+                                       # server that Tutor is running on.
 json_url = api_server + "card/"
 language_url = api_server + "language/"
+
 
 def card(phenny, input):
     """Gets the text for a specified card."""
@@ -33,6 +34,7 @@ card.commands = ['card']
 card.priority = 'medium'
 card.example = '.card Storm Crow'
 
+
 def rulings(phenny, input):
     """Messages the rulings for a particular card."""
     if not input.group(2):
@@ -48,6 +50,7 @@ rulings.commands = ['rulings']
 rulings.priority = 'medium'
 rulings.example = '.rulings Humility'
 
+
 def sets(phenny, input):
     """Messages all of the sets and rarities that a card has been printed in."""
     if not input.group(2):
@@ -61,6 +64,7 @@ def sets(phenny, input):
 sets.commands = ['sets']
 sets.priority = 'medium'
 sets.example = '.sets Birds of Paradise'
+
 
 def image(phenny, input):
     """Returns an image link for a card."""
@@ -76,6 +80,7 @@ image.commands = ['image']
 image.priority = 'medium'
 image.example = '.image Forest'
 
+
 def flavor(phenny, input):
     """Messages all of the flavor texts for printings of a particular card."""
     if not input.group(2):
@@ -90,6 +95,7 @@ def flavor(phenny, input):
 flavor.commands = ['flavor']
 flavor.priority = 'medium'
 flavor.example = '.flavor Lightning Bolt'
+
 
 def cardfr(phenny, input):
     """Gets the French name for a card."""
@@ -109,7 +115,6 @@ cardfr.priority = 'medium'
 cardfr.example = '.cardfr Angel of Retribution'
 
 
-
 def get_card_json(card):
     card_url = json_url + card
 
@@ -121,6 +126,7 @@ def get_card_json(card):
     else:
         return card_dict
 
+
 def get_language_json(card):
     card_url = language_url + card
 
@@ -131,6 +137,7 @@ def get_language_json(card):
         return None
     else:
         return card_dict
+
 
 def format_text(card_dict):
     output = card_dict['name'] + " | "
@@ -159,6 +166,7 @@ def format_text(card_dict):
 
     return output
 
+
 def format_rulings(card_dict):
     output = []
     if card_dict['rulings'] == []:
@@ -169,6 +177,7 @@ def format_rulings(card_dict):
 
     return output
 
+
 def format_sets(card_dict):
     output = ''
     for version in card_dict['versions']:
@@ -176,8 +185,10 @@ def format_sets(card_dict):
 
     return output
 
+
 def format_image(card_dict):
     return card_dict['image_url']
+
 
 def format_flavor_text(card_dict):
     output = []
