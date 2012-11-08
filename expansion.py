@@ -91,7 +91,7 @@ sets = {
     "Duel Decks: Ajani vs. Nicol Bolas": "ddh",
     "Duel Decks: Knights vs. Dragons": "ddg",
     "Duel Decks: Elspeth vs. Tezzeret": "ddf",
-    "Duel Decks: Phyrexia vs. The Coalition": "pvc",
+    "Duel Decks: Phyrexia vs. the Coalition": "pvc",
     "Duel Decks: Garruk vs. Liliana": "gvl",
     "Duel Decks: Divine vs. Demonic": "dvd",
     "Duel Decks: Jace vs. Chandra": "jvc",
