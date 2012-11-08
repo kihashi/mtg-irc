@@ -109,7 +109,7 @@ sets = {
     "Duels of the Planeswalkers": "dpa",
     "Chronicles": "ch",
     "Planechase 2012 Edition": "pc2",
-    "Commander": "cmd",
+    "Magic: The Gathering-Commander": "cmd",
     "Archenemy": "arc",
     "Planechase": "pch",
     "Coldsnap Theme Decks": "cstd",
