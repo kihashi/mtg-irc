@@ -9,7 +9,7 @@ License: BSD 3 Clause.
 '''
 import json
 import urllib
-from modules import nick
+from modules import nick, expansion
 
 api_server = "http://localhost:3000/"  # Change this to the address of the
                                        # server that Tutor is running on.
@@ -161,6 +161,10 @@ def format_text(card_dict):
 
     if "loyalty" in card_dict:
         output += " | " + str(card_dict['loyalty'])
+
+    card_set = card_dict['versions'][max(card_dict['versions'].iterkeys(), key=int)]
+    if card_set['expansion'] in expansion.sets:
+        output += " | " + expansion.sets[card_set['expansion']].upper() + " - " + card_set['rarity'][0]
 
     output = output.replace("\n", " ")
 
