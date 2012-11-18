@@ -8,7 +8,7 @@ Site: https://github.com/kihashi/mtg-irc
 License: BSD 3 Clause.
 '''
 import json
-import urllib
+import urllib2
 from modules import nick, expansion
 
 api_server = "http://localhost:3000/"  # Change this to the address of the
@@ -118,7 +118,7 @@ cardfr.example = '.cardfr Angel of Retribution'
 def get_card_json(card):
     card_url = json_url + card
 
-    card_json = urllib.urlopen(card_url)
+    card_json = urllib2.urlopen(card_url.encode('utf-8'))
     card_dict = json.load(card_json)
 
     if "error" in card_dict:
@@ -130,7 +130,7 @@ def get_card_json(card):
 def get_language_json(card):
     card_url = language_url + card
 
-    card_json = urllib.urlopen(card_url)
+    card_json = urllib2.urlopen(card_url.encode('utf-8'))
     card_dict = json.load(card_json)
 
     if "error" in card_dict:
