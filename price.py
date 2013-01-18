@@ -14,7 +14,7 @@ import urllib
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 
-partner_key = "TCGTEST"
+partner_key = "MTGIRC"
 secret_api_url = ""
 tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 
