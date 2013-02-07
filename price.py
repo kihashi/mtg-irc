@@ -25,7 +25,7 @@ def price(phenny, input):
     if not card_dict:
         phenny.say(input.nick + ": I don't recognize that card name.")
         return
-    output_string = input.nick + ": " + input.group(2)
+    output_string = input.nick + ": " + input.group(2).title()
     for key, val in card_dict.items():
         output_string += " | " + key + ": " + val
 
