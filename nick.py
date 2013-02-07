@@ -20,7 +20,7 @@ nicknames = {
     "Tiago": "Snapcaster Mage",
     "Sad Robot": "Solemn Simulacrum",
     "Skittles": "Skithiryx, the Blight Dragon",
-    "Tim": "Prodigal Sorceror",
+    "Tim": "Prodigal Sorcerer",
     "Pimp": "Putrid Imp",
     "The Rock": "Phyrexian Negator",
     "Prime Time": "Primeval Titan",
