@@ -23,5 +23,7 @@ nicknames = {
     "Tim": "Prodigal Sorceror",
     "Pimp": "Putrid Imp",
     "The Rock": "Phyrexian Negator",
-    "Prime Time": "Primeval Titan"
+    "Prime Time": "Primeval Titan",
+    "O-Stone": "Oblivion Stone",
+    "O Stone": "Oblivion Stone"
 }
