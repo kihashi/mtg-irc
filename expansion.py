@@ -1,4 +1,5 @@
 sets = {
+    "Gatecrash": "gtc",
     "Return to Ravnica": "rtr",
     "Avacyn Restored": "avr",
     "Dark Ascension": "dka",
