@@ -11,8 +11,8 @@ import urllib
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 
-partner_key = "MTGIRC"
-secret_api_url = ""
+partner_key = "MTGIRC" #This is the partner code assigned with you TCGPlayer API account.
+secret_api_url = "" #This is the URL that the TCGPlayer Rep assigns you for API access.
 tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 
 
@@ -34,6 +34,7 @@ price.example = '.price Black Lotus'
 
 
 def get_tcg_price(card_name):
+    """ Makes the API call and returns the resultsing XML. """
     url = tcg_player_url + card_name
     xml_return = urllib.urlopen(url)
 
@@ -41,6 +42,7 @@ def get_tcg_price(card_name):
 
 
 def parse_tcg_player_xml(xml):
+    """ Converts the XML response from the API into an ordered dict. """
     tree = ET.parse(xml)
     root = tree.getroot()
 
