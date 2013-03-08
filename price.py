@@ -5,10 +5,7 @@ prices for cards.
 
 Author: John Cleaver
 
-License: All Rights Reserved.
-         Because the TCG Player API is not openly available, this source
-         code shall remain private. If it is to be released openly, the api
-         information must be removed.
+License: BSD 3 Clause
 """
 import urllib
 import xml.etree.ElementTree as ET
