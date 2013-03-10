@@ -118,8 +118,11 @@ cardfr.example = '.cardfr Angel of Retribution'
 def get_card_json(card):
     card_url = json_url + card
 
-    card_json = urllib.urlopen(card_url)
-    card_dict = json.load(card_json)
+    try:
+        card_json = urllib.urlopen(card_url)
+        card_dict = json.load(card_json)
+    except:
+        return None
 
     if "error" in card_dict:
         return None
