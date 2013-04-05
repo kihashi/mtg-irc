@@ -18,7 +18,7 @@ def card(phenny, input):
     else:
         card_name = input.group(2)
         if card_name.lower().title() in nick.nicknames:
-            card_name = nick.nicknames[input.group(2)]
+            card_name = nick.nicknames[input.group(2).lower().title()]
         card_text = get_card(card_name)
         if card_text:
             phenny.reply(card_text)
