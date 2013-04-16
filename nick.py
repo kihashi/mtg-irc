@@ -25,5 +25,6 @@ nicknames = {
     "The Rock": "Phyrexian Negator",
     "Prime Time": "Primeval Titan",
     "O-Stone": "Oblivion Stone",
-    "O Stone": "Oblivion Stone"
+    "O Stone": "Oblivion Stone",
+    "Swagtusk": "Thragtusk"
 }
