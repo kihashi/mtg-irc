@@ -30,6 +30,8 @@ def eprice(phenny, input):
             for edition in card:
                 output += " | " + edition + ": " + card[edition]['reg_price']
 
+            output += " | " + card.values()[0]['link'][:-5]
+
             phenny.reply(output)
         else:
             phenny.reply("I don't recognize that card.")
