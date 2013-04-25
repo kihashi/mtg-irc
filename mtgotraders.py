@@ -24,7 +24,7 @@ def parse_list(price_file):
             if line_list[3].lower() not in card_dict:
                 card_dict[line_list[3].lower()] = {}
 
-            if line_list[0] not in card_dict[line_list[3]]:
+            if line_list[0] not in card_dict[line_list[3].lower()]:
                 card_dict[line_list[3].lower()][line_list[0]] = {}
 
             if line_list[2] == "R":
