@@ -21,7 +21,7 @@ def parse_list(price_file):
     for line in price_file:
         line_list = line.split("|")
         if line_list[0] != "BOOSTER" and line_list[0] != "" and line_list[1] != "EVENT":
-            if line_list[3] not in card_dict:
+            if line_list[3].lower() not in card_dict:
                 card_dict[line_list[3].lower()] = {}
 
             if line_list[0] not in card_dict[line_list[3]]:
