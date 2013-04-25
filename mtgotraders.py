@@ -22,7 +22,7 @@ def parse_list(price_file):
         line_list = line.split("|")
         if line_list[0] != "BOOSTER" and line_list[0] != "" and line_list[1] != "EVENT":
             if line_list[3] not in card_dict:
-                card_dict[line_list[3]] = {}
+                card_dict[line_list[3].lower()] = {}
 
             if line_list[0] not in card_dict[line_list[3]]:
                 card_dict[line_list[3]][line_list[0]] = {}
@@ -41,7 +41,7 @@ def main():
     raw_list = get_raw_list()
     card_dict = parse_list(raw_list)
 
-    print(card_dict['Grizzly Bears'])
+    print(card_dict['Garruk, Primal Hunter'])
 
 if __name__ == '__main__':
     main()

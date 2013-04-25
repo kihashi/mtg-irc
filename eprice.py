@@ -24,8 +24,8 @@ def eprice(phenny, input):
             get_card_list()
 
         output = ""
-        if card_name.lower() in {k.lower() for k in card_dict}:
-            card = card_dict[card_name]
+        if card_name.lower() in card_dict:
+            card = card_dict[card_name.lower()]
             output += card_name
             for edition in card:
                 output += " | " + edition + ": " + card[edition]['reg_price']
