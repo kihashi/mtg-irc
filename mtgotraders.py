@@ -25,14 +25,14 @@ def parse_list(price_file):
                 card_dict[line_list[3].lower()] = {}
 
             if line_list[0] not in card_dict[line_list[3]]:
-                card_dict[line_list[3]][line_list[0]] = {}
+                card_dict[line_list[3].lower()][line_list[0]] = {}
 
             if line_list[2] == "R":
-                card_dict[line_list[3]][line_list[0]]["reg_price"] = line_list[5]
+                card_dict[line_list[3].lower()][line_list[0]]["reg_price"] = line_list[5]
             else:
-                card_dict[line_list[3]][line_list[0]]["foil_price"] = line_list[5]
+                card_dict[line_list[3].lower()][line_list[0]]["foil_price"] = line_list[5]
 
-            card_dict[line_list[3]][line_list[0]]["link"] = store_url + line_list[6]
+            card_dict[line_list[3].lower()][line_list[0]]["link"] = store_url + line_list[6]
 
     return card_dict
 
