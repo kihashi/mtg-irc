@@ -10,7 +10,6 @@ License: BSD 3 Clause.
 from modules import nick
 import re
 
-
 def card(phenny, input):
     """Gets the text for a specified card."""
     if not input.group(2):
