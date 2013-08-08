@@ -9,15 +9,17 @@ License: BSD 3 Clause
 class MagicCard():
     def __init__(self,
                  name,
-                 card_type,
+                 card_types,
                  expansions,
-                 supertype=None,
+                 rarity,
+                 supertypes=None,
+                 subtypes=None,
                  mana_cost=None,
                  rules_text=None):
 
         self.name = name
-        self.supertype = supertype
-        self.card_type = card_type
+        self.supertypes = supertypes
+        self.card_types = card_types
         self.expansions = expansions
         self.mana_cost = mana_cost
         self.rules_text = rules_text
@@ -29,7 +31,7 @@ class MagicCard():
                 sets_string += ', '
             sets_string += key + '-' + value
 
-        return "{NAME} | {MANA} | {SUPERTYPE} {TYPE} |" +
+        return "{NAME} | {MANA} | {TYPES} |" +
                " {RULES} | {SETS}".format(NAME=self.name,
                                           MANA=self.mana_cost,
                                           SUPERTYPE=supertype,
@@ -39,22 +41,56 @@ class MagicCard():
 
 
 class CreatureCard(MagicCard):
-    def __init__(self, name, card_type, subtypes, expansions, power, toughness, supertype=None, mana_cost=None, rules_text=None):
-        MagicCard.__init__(name, u'Creature', expansions, supertype, mana_cost, rules_text)
+    def __init__(self,
+                 name,
+                 card_types,
+                 expansions,
+                 rarity,
+                 supertypes=None,
+                 subtypes=None,
+                 mana_cost=None,
+                 rules_text=None,
+                 power=None,
+                 toughness=None):
+
+        MagicCard.__init__(self,
+                           name,
+                           card_types,
+                           expansions,
+                           rarity,
+                           supertypes,
+                           subtypes,
+                           mana_cost,
+                           rules_text)
         self.power = power
         self.toughness = toughness
-        self.subtypes = subtypes
 
     def __str__(self):
-        sets_string = ''
-        subtypes_string = ''
+        sets_string = MagicCard.__str__(self)
+        return sets_string += " | {POWER}/{TOUGHNESS}".format(POWER=self.power,
+                                                              TOUGHNESS=self.toughness)
 
-        for key, value in self.expansions.iteritems():
-            if sets_string != '':
-                sets_string += ', '
-            sets_string += key + '-' + value
+class PlaneswalkerCard(MagicCard):
+    def __init__(self,
+                 name,
+                 card_types,
+                 expansions,
+                 rarity,
+                 supertypes=None,
+                 subtypes=None,
+                 mana_cost=None,
+                 rules_text=None,
+                 loyalty=None):
 
-        for sub in self.subtypes:
-            subtypes_string += " " + sub
+        MagicCard.__init__(self,
+                           name,
+                           card_types,
+                           expansions,
+                           rarity,
+                           supertypes,
+                           subtypes,
+                           mana_cost,
+                           rules_text)
 
-        return "{NAME} | {MANA} | {SUPERTYPE} {TYPE} -- {SUBS} | {RULES} | {SETS}".format(NAME=self.name, MANA=self.mana_cost, SUPERTYPE=supertype, TYPE=self.card_type, SUBS=subtypes_string, RULES=self.rules_text, SETS=sets_string)
+        self.loyalty = loyalty
+
