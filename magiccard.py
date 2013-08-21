@@ -31,7 +31,7 @@ class MagicCard():
                 sets_string += ', '
             sets_string += key + '-' + value
 
-        return "{NAME} | {MANA} | {TYPES} |" +
+        return "{NAME} | {MANA} | {TYPES} |" + \
                " {RULES} | {SETS}".format(NAME=self.name,
                                           MANA=self.mana_cost,
                                           SUPERTYPE=supertype,
@@ -70,6 +70,7 @@ class CreatureCard(MagicCard):
         return sets_string += " | {POWER}/{TOUGHNESS}".format(POWER=self.power,
                                                               TOUGHNESS=self.toughness)
 
+
 class PlaneswalkerCard(MagicCard):
     def __init__(self,
                  name,
@@ -94,3 +95,67 @@ class PlaneswalkerCard(MagicCard):
 
         self.loyalty = loyalty
 
+    def __str__(self):
+        sets_string = MagicCard.__str__(self)
+        return sets_string += " | {LOYALTY}".format(POWER=self.loyalty)
+
+
+class SplitCard(MagicCard):
+    def __init__(self,
+                 name,
+                 card_types,
+                 expansions,
+                 rarity,
+                 alt_side,
+                 supertypes=None,
+                 subtypes=None,
+                 mana_cost=None,
+                 rules_text=None):
+
+        MagicCard.__init__(self,
+                           name,
+                           card_types,
+                           expansions,
+                           rarity,
+                           supertypes,
+                           subtypes,
+                           mana_cost,
+                           rules_text)
+
+        self.alt_side = alt_side
+
+    def __str__(self):
+        sets_string = MagicCard.__str__(self)
+        return sets_string += " | [Alt: {OTHERSIDE}]".format(OTHERSIDE=self.alt_side)
+
+
+class DoubleFacedCard(CreatureCard):
+    def __init__(self,
+                 name,
+                 card_types,
+                 expansions,
+                 rarity,
+                 alt_side,
+                 supertypes=None,
+                 subtypes=None,
+                 mana_cost=None,
+                 rules_text=None,
+                 power=None,
+                 toughness=None):
+
+        CreatureCard.__init__(self,
+                              name,
+                              card_types,
+                              expansions,
+                              rarity,
+                              supertypes,
+                              subtypes,
+                              mana_cost,
+                              rules_text,
+                              power,
+                              toughness)
+        self.alt_side = alt_side
+
+    def __str__(self):
+        sets_string = CreatureCard.__str__(self)
+        return sets_string += " | [Alt: {OTHERSIDE}]".format(OTEHRSIDE=alt_side)
