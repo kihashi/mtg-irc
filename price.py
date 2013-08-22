@@ -10,6 +10,7 @@ License: BSD 3 Clause
 import urllib
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
+import string
 
 partner_key = "MTGIRC" #This is the partner code assigned with you TCGPlayer API account.
 secret_api_url = "" #This is the URL that the TCGPlayer Rep assigns you for API access.
@@ -22,7 +23,7 @@ def price(phenny, input):
     if not card_dict:
         phenny.say(input.nick + ": I don't recognize that card name.")
         return
-    output_string = input.nick + ": " + input.group(2).title()
+    output_string = input.nick + ": " + string.capwords(input.group(2))
     for key, val in card_dict.items():
         output_string += " | " + key + ": " + val
 
