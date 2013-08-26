@@ -15,7 +15,7 @@ def card(phenny, input):
     if not input.group(2):
         phenny.say(input.nick + 'Perhaps you meant ".card Storm Crow"?')
     else:
-        card_name = input.group(2).trim().lower().title()
+        card_name = input.group(2).strip().lower().title()
         if card_name in nick.nicknames:
             card_name = nick.nicknames[card_name]
         card_text = get_card(card_name)
