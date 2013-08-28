@@ -31,7 +31,8 @@ def eprice(phenny, input):
                 if 'reg_price' in card[edition]:
                     output += " | " + edition + ": " + card[edition]['reg_price']
 
-            output += " | " + card.values()[0]['link'][:-5]
+            if 'link' in card[edition]:
+                output += " | " + card.values()[0]['link'][:-5]
 
             phenny.reply(output)
         else:
