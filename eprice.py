@@ -37,7 +37,7 @@ def eprice(phenny, input):
             phenny.reply(output)
         else:
             phenny.reply("I don't recognize that card.")
-eprice.commands = ['eprice', 'mtgoprice', '.pricemtgo']
+eprice.commands = ['eprice', 'mtgoprice', 'pricemtgo']
 eprice.priority = 'medium'
 
 
