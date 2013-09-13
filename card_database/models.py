@@ -32,6 +32,9 @@ class Color(Entity):
     color = Field(Unicode(10))
     cards = ManyToMany('MagicCards')
 
+    def __repr__(self):
+        return self.color
+
 
 class SuperType(Entity):
     supertype = Field(Unicode(30))
@@ -69,3 +72,6 @@ class Expansion(Entity):
     expansion = Field(Unicode(30))
     abbreviation = Field(Unicode(10))
     cards = ManyToMany('MagicCard')
+
+    def __repr__(self):
+        return self.abbreviation
