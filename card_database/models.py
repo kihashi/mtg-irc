@@ -19,5 +19,11 @@ class MagicCard(Entity):
     toughness = Field(Unicode(30))
     loyalty = Field(Integer)
     expansions = ManyToMany('Expansion')
-    rulings = ManyToMany('Ruling')
+    rulings = OneToMany('Ruling')
+
+
+class Ruling(Entity):
+    date = Field(Date)
+    text = Field(UnicodeText())
+    card = ManyToOne('MagicCard')
 
