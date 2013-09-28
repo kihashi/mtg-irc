@@ -27,6 +27,9 @@ class Ruling(Entity):
     text = Field(UnicodeText())
     card = ManyToOne('MagicCard')
 
+    def __repr__(self):
+        return "[{DATE}]: {TEXT}".format(DATE=self.date, TEXT=self.text)
+
 
 class Color(Entity):
     color = Field(Unicode(10))
