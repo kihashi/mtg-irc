@@ -3,6 +3,7 @@ from elixir import *
 metadata.bind = "sqlite:///cards.sqlite"
 metadata.bind.echo = True
 
+
 class MagicCard(Entity):
     layout = ManyToOne('Layout')
     name = Field(Unicode(50))
@@ -70,6 +71,7 @@ class Rarity(Entity):
 
     def __repr__(self):
         return self.abbreviation
+
 
 class Expansion(Entity):
     expansion = Field(Unicode(30))
