@@ -22,6 +22,54 @@ class MagicCard(Entity):
     expansions = ManyToMany('Expansion')
     rulings = OneToMany('Ruling')
 
+    def get_card_text(self):
+        card_string = self.name
+
+        if self.mana_cost:
+            card_string += " | " + self.mana_cost
+
+        card_string += " |"
+
+        for supers in self.supertypes:
+            card_string += " " + supers
+
+        for types in self.card_types:
+            card_string += " " + types
+
+        if self.subtypes:
+            card_string += " --"
+            for subs in self.subtypes:
+                card_string += " " + subs
+
+        if self.rules_text:
+            card_string += " | " + self.rules_text
+
+        if self.power and self.toughness:
+            card_string += " | " + self.power + "/" + self.toughness
+
+        if self.loyalty:
+            card_string += " | " + self.loyalty
+
+        if self.expansions:
+            card_string += " | "
+            for expansion in self.expansions:
+                card_string += expansion + ", "
+            card_string = card_string[0, -2]
+
+        if self.rarity:
+            card_string += " | " + self.rarity
+
+        if self.alt_side:
+            card_string += " | " + "Alt: " + self.alt_side
+
+        return card_string
+
+    def get_rulings(self, ruling_number=None):
+        if ruling_number is None:
+            return self.rulings
+        else:
+            return self.rulings[ruling_number]
+
 
 class Ruling(Entity):
     date = Field(Date)
