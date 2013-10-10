@@ -49,5 +49,19 @@ def load_card(card_json):
                 db_supertype = models.SuperType(supertype=card_supertype)
             db_card.supertype.append(db_supertype)
 
+    if 'types' in card_json:
+        for card_type in card_json['types']:
+            db_type = models.CardType.get_by(cardtype=card_type)
+            if not db_type:
+                db_type = models.CardTye(cardtype=card_type)
+            db_card.card_types.append(db_type)
+
+    if 'subtypes' in card_json:
+        for card_subtype in card_json['subtypes']:
+            db_subtype = models.SubType.get_by(subtype=card_subtype)
+            if not db_subtype:
+                db_subtype = models.SubType(subtype=card_subtype)
+            db_card.subtypes.append(db_subtype) 
+
 
 def determine_alt_side(name, names):
