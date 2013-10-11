@@ -63,5 +63,11 @@ def load_card(card_json):
                 db_subtype = models.SubType(subtype=card_subtype)
             db_card.subtypes.append(db_subtype) 
 
+    if 'rarity' in card_json:
+        db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
+        if not db_rarity:
+            db_rarity = models.Rarity.(rarity=card_json['rarity'],
+                                       abbreviation=card_json['rarity'][0])
+
 
 def determine_alt_side(name, names):
