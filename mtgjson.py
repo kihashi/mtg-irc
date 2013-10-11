@@ -6,14 +6,22 @@ Author: John Cleaver
 License: BSD 3-Clause
 '''
 
+import datetime
 import json
 from card_database import models
 
 
-def parse_file(file):
+def parse_file(file_json):
+    for set_json in file_json:
+        _parse_set(set_json)
 
 
-def load_card(card_json):
+def _parse_set(set_json):
+    for card in set_json['cards']:
+        _parse_card(card)
+
+
+def _parse_card(card_json):
     db_card = models.MagicCard()
 
     db_card.layout = card_json['layout']
@@ -68,6 +76,20 @@ def load_card(card_json):
         if not db_rarity:
             db_rarity = models.Rarity.(rarity=card_json['rarity'],
                                        abbreviation=card_json['rarity'][0])
+        db_card.rarity = db_rarity
+
+    if 'printings' in card_json:
+        for printing in card_json['printings']:
+            db_expansion = models.Expansion.get_by(expansion=printing)
+            if not db_expansion:
+                db_expansion = models.Expansion(expansion=printing)
+            db_card.expansions.append(db_expansion)
+
+    if 'rulings' in card_json:
+        for ruling in card_json['rulings']:
+            models.Ruling(date=datetime.datetime.strptime(ruling['date'], "%Y-%m-%d").date(),
+                          text=ruling['text']
+                          card=db_card)
 
 
 def determine_alt_side(name, names):
