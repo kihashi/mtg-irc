@@ -11,7 +11,13 @@ import json
 from card_database import models
 
 
-def parse_file(file_json):
+def parse_mtgojson(file_location):
+    with open(file_location, 'r') as json_file:
+        file_json = json.loads(json_file.read())
+    _parse_file(file_json)
+
+
+def _parse_file(file_json):
     for set_json in file_json:
         _parse_set(set_json)
 
@@ -69,13 +75,12 @@ def _parse_card(card_json):
             db_subtype = models.SubType.get_by(subtype=card_subtype)
             if not db_subtype:
                 db_subtype = models.SubType(subtype=card_subtype)
-            db_card.subtypes.append(db_subtype) 
+            db_card.subtypes.append(db_subtype)
 
     if 'rarity' in card_json:
         db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
         if not db_rarity:
-            db_rarity = models.Rarity.(rarity=card_json['rarity'],
-                                       abbreviation=card_json['rarity'][0])
+            db_rarity = models.Rarity.(rarity=card_json['rarity'], abbreviation=card_json['rarity'][0])
         db_card.rarity = db_rarity
 
     if 'printings' in card_json:
