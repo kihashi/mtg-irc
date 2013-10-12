@@ -16,7 +16,7 @@ def close():
 class MagicCard(Entity):
     layout = ManyToOne('Layout')
     name = Field(Unicode(50))
-    alt_side = OneToOne('MagicCard')
+    alt_side = ManyToOne('MagicCard')
     mana_cost = Field(Unicode(30))
     converted_mana_cost = Field(Integer)
     colors = ManyToMany('Color')
