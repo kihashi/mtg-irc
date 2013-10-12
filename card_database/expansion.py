@@ -1,4 +1,7 @@
 sets = {
+    "Born of the Gods": "bgn",
+    "Theros": "ths",
+    "Dragon's Maze": "dgm",
     "Gatecrash": "gtc",
     "Return to Ravnica": "rtr",
     "Avacyn Restored": "avr",
