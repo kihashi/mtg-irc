@@ -3,6 +3,15 @@ from elixir import *
 metadata.bind = "sqlite:///cards.sqlite"
 metadata.bind.echo = True
 
+def setup():
+    setup_all()
+    create_all()
+
+
+def close():
+    session.commit()
+    
+
 
 class MagicCard(Entity):
     layout = ManyToOne('Layout')
