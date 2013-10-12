@@ -8,13 +8,16 @@ License: BSD 3-Clause
 
 import datetime
 import json
+import sys
 from card_database import models
 
 
 def parse_mtgojson(file_location):
     with open(file_location, 'r') as json_file:
         file_json = json.loads(json_file.read())
+    models.setup()
     _parse_file(file_json)
+    models.close()
 
 
 def _parse_file(file_json):
@@ -97,3 +100,15 @@ def _parse_card(card_json):
             models.Ruling(date=datetime.datetime.strptime(ruling['date'], "%Y-%m-%d").date(),
                           text=ruling['text'],
                           card=db_card)
+
+
+def main(argv):
+    if not argv:
+        print "You must specify an input file to parse."
+        sys.exit()
+    else:
+        parse_mtgojson(argv)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])
