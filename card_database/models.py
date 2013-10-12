@@ -124,7 +124,7 @@ class SubType(Entity):
 
 class Rarity(Entity):
     rarity = Field(Unicode(10))
-    abbreviation = Field(Unicode(1))
+    abbreviation = Field(Unicode(5))
     cards = OneToMany
 
     def __repr__(self):
