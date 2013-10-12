@@ -14,7 +14,7 @@ def create_colors():
               ("Blue", "U"),
               ("Black", "B"),
               ("Red", "R"),
-              ("Green", "G" )]:
+              ("Green", "G")]:
         models.Color(color=c[0], abbreviation=c[1])
 
 
