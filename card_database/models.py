@@ -10,7 +10,7 @@ def setup():
 
 def close():
     session.commit()
-    
+
 
 
 class MagicCard(Entity):
@@ -135,6 +135,14 @@ class Expansion(Entity):
     expansion = Field(Unicode(30))
     abbreviation = Field(Unicode(10))
     cards = ManyToMany('MagicCard')
+
+    def __repr__(self):
+        return self.abbreviation
+
+
+class Layout(Entity):
+    layout = Field(Unicode(30))
+    abbreviation = Field(Unicode(2))
 
     def __repr__(self):
         return self.abbreviation
