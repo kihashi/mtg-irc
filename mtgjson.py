@@ -52,6 +52,12 @@ def _parse_card(card_json):
     if 'loyalty' in card_json:
         db_card.loyalty = card_json['loyalty']
 
+    if 'layout' in card_json:
+        db_layout = models.Layout.get_by(layout=card_json['layout'])
+        if not db_layout:
+            db_layout = models.Layout(layout=card_json['layout'])
+        db_card.layout = db_layout
+
     if 'colors' in card_json:
         for card_color in card_json['colors']:
             db_color = models.Color.get_by(color=card_color)
