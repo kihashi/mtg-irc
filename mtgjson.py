@@ -95,6 +95,3 @@ def _parse_card(card_json):
             models.Ruling(date=datetime.datetime.strptime(ruling['date'], "%Y-%m-%d").date(),
                           text=ruling['text']
                           card=db_card)
-
-
-def determine_alt_side(name, names):
