@@ -92,7 +92,7 @@ class Ruling(Entity):
 class Color(Entity):
     color = Field(Unicode(10))
     abbreviation = Field(Unicode(1))
-    cards = ManyToMany('MagicCards')
+    cards = ManyToMany('MagicCard')
 
     def __repr__(self):
         return self.color
