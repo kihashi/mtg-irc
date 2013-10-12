@@ -80,7 +80,7 @@ def _parse_card(card_json):
     if 'rarity' in card_json:
         db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
         if not db_rarity:
-            db_rarity = models.Rarity.(rarity=card_json['rarity'], abbreviation=card_json['rarity'][0])
+            db_rarity = models.Rarity(rarity=card_json['rarity'], abbreviation=card_json['rarity'][0])
         db_card.rarity = db_rarity
 
     if 'printings' in card_json:
