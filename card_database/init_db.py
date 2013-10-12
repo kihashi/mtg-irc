@@ -27,11 +27,21 @@ def create_expansions():
         models.Expansion(expansion=e, abbreviation=a)
 
 
+def create_layouts():
+    for l in [("Normal", "nml"),
+              ("Split", "spl"),
+              ("Flip", "flp"),
+              ("Double-Faced", "dbl"),
+              ("Token", "tkn")]:
+        models.Layout(layout=l[1], abbreviation=l[2])
+
+
 def main():
     models.setup()
     create_colors()
     create_rarities()
     create_expansions()
+    create_layouts()
     models.close()
 
 if __name__ == '__main__':
