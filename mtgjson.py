@@ -32,8 +32,6 @@ def _parse_set(set_json):
 
 def _parse_card(card_json):
     db_card = models.MagicCard()
-    #TODO: Get the alt side of the card.
-    #TODO: Commit objects to thet database.
 
     db_card.layout = card_json['layout']
     db_card.name = card_json['name']
