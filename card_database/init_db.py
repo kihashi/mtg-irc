@@ -33,7 +33,7 @@ def create_layouts():
               ("Flip", "flp"),
               ("Double-Faced", "dbl"),
               ("Token", "tkn")]:
-        models.Layout(layout=l[1], abbreviation=l[2])
+        models.Layout(layout=l[0], abbreviation=l[1])
 
 
 def main():
