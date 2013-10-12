@@ -12,9 +12,9 @@ from expansion import *
 def create_colors():
     for c in [("White", "W"),
               ("Blue", "U"),
-              ("Red", "R"),
               ("Black", "B"),
-              ("Green", "G")]:
+              ("Red", "R"),
+              ("Green", "G" )]:
         models.Color(color=c[0], abbreviation=c[1])
 
 
