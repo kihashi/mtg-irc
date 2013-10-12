@@ -93,5 +93,5 @@ def _parse_card(card_json):
     if 'rulings' in card_json:
         for ruling in card_json['rulings']:
             models.Ruling(date=datetime.datetime.strptime(ruling['date'], "%Y-%m-%d").date(),
-                          text=ruling['text']
+                          text=ruling['text'],
                           card=db_card)
