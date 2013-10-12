@@ -10,8 +10,12 @@ from expansion import *
 
 
 def create_colors():
-    for c in ["White", "Blue", "Red", "Black", "Green"]:
-        models.Color(color=c, abbreviation=c[0])
+    for c in [("White", "W"),
+              ("Blue", "U"),
+              ("Red", "R"),
+              ("Black", "B"),
+              ("Green", "G")]:
+        models.Color(color=c[0], abbreviation=c[1])
 
 
 def create_rarities():
