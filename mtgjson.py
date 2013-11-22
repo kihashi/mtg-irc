@@ -9,6 +9,7 @@ License: BSD 3-Clause
 import datetime
 import json
 import sys
+import argparse
 from card_database import models
 
 
@@ -114,4 +115,7 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_file", help="The MTG JSON File to be parsed")
+    args = parser.parse_args()
+    main(args.input_file)
