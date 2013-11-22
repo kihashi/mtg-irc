@@ -75,7 +75,7 @@ def _parse_card(card_json):
         for card_type in card_json['types']:
             db_type = models.CardType.get_by(cardtype=card_type)
             if not db_type:
-                db_type = models.CardTye(cardtype=card_type)
+                db_type = models.CardType(cardtype=card_type)
             db_card.card_types.append(db_type)
 
     if 'subtypes' in card_json:
