@@ -28,7 +28,10 @@ def _parse_file(file_json):
 
 def _parse_set(set_json):
     for card in set_json['cards']:
-        _parse_card(card)
+        try:
+            _parse_card(card)
+        except Exception:
+            print(card)
 
 
 def _parse_card(card_json):
