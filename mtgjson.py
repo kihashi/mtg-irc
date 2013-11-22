@@ -23,7 +23,7 @@ def parse_mtgojson(file_location):
 
 def _parse_file(file_json):
     for set_json in file_json:
-        _parse_set(set_json)
+        _parse_set(file_json[set_json])
 
 
 def _parse_set(set_json):
