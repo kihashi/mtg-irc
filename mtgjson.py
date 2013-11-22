@@ -33,7 +33,6 @@ def _parse_set(set_json):
 def _parse_card(card_json):
     db_card = models.MagicCard()
 
-    db_card.layout = card_json['layout']
     db_card.name = card_json['name']
     db_card.converted_mana_cost = card_json['cmc']
 
