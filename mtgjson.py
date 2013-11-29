@@ -13,11 +13,14 @@ import argparse
 from card_database import models
 
 
-def parse_mtgojson(file_location):
+def parse_mtgojson(file_location, argv):
     with open(file_location, 'r') as json_file:
         file_json = json.loads(json_file.read())
     models.setup()
-    _parse_file(file_json)
+    if argv.set:
+        _parse_set(file_json)
+    else:
+        _parse_file(file_json)
     models.close()
 
 
@@ -112,15 +115,17 @@ def _parse_card(card_json):
 
 
 def main(argv):
-    if not argv:
+    if not argv.input_file:
         print "You must specify an input file to parse."
         sys.exit()
     else:
-        parse_mtgojson(argv)
+        parse_mtgojson(argv.input_file, argv)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("input_file", help="The MTG JSON File to be parsed")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-s", "--set", action="store_true", help="Set Mode. For parsing individual sets.")
     args = parser.parse_args()
-    main(args.input_file)
+    main(args)
