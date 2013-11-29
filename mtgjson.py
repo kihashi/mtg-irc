@@ -38,7 +38,9 @@ def _parse_card(card_json):
     db_card = models.MagicCard()
 
     db_card.name = card_json['name']
-    db_card.converted_mana_cost = card_json['cmc']
+
+    if 'cmc' in card_json:
+        db_card.converted_mana_cost = card_json['cmc']
 
     if 'manaCost' in card_json:
         db_card.mana_cost = card_json['manaCost']
