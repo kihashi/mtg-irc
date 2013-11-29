@@ -14,6 +14,8 @@ def close():
 
 
 class MagicCard(Entity):
+    using_options(shortnames=True)
+
     layout = ManyToOne('Layout')
     name = Field(Unicode(50))
     alt_side = ManyToOne('MagicCard')
@@ -81,6 +83,8 @@ class MagicCard(Entity):
 
 
 class Ruling(Entity):
+    using_options(shortnames=True)
+
     date = Field(Date)
     text = Field(UnicodeText())
     card = ManyToOne('MagicCard')
@@ -90,6 +94,8 @@ class Ruling(Entity):
 
 
 class Color(Entity):
+    using_options(shortnames=True)
+
     color = Field(Unicode(10))
     abbreviation = Field(Unicode(1))
     cards = ManyToMany('MagicCard')
@@ -99,6 +105,8 @@ class Color(Entity):
 
 
 class SuperType(Entity):
+    using_options(shortnames=True)
+
     supertype = Field(Unicode(30))
     cards = ManyToMany('MagicCard')
 
@@ -107,6 +115,8 @@ class SuperType(Entity):
 
 
 class CardType(Entity):
+    using_options(shortnames=True)
+
     cardtype = Field(Unicode(30))
     cards = ManyToMany('MagicCard')
 
@@ -115,6 +125,8 @@ class CardType(Entity):
 
 
 class SubType(Entity):
+    using_options(shortnames=True)
+
     subtype = Field(Unicode(30))
     cards = ManyToMany('MagicCard')
 
@@ -123,6 +135,8 @@ class SubType(Entity):
 
 
 class Rarity(Entity):
+    using_options(shortnames=True)
+
     rarity = Field(Unicode(10))
     abbreviation = Field(Unicode(5))
     cards = OneToMany
@@ -132,6 +146,8 @@ class Rarity(Entity):
 
 
 class Expansion(Entity):
+    using_options(shortnames=True)
+
     expansion = Field(Unicode(30))
     abbreviation = Field(Unicode(10))
     cards = ManyToMany('MagicCard')
@@ -141,6 +157,8 @@ class Expansion(Entity):
 
 
 class Layout(Entity):
+    using_options(shortnames=True)
+
     layout = Field(Unicode(30))
     abbreviation = Field(Unicode(2))
 
