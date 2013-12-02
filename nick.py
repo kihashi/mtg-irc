@@ -26,5 +26,11 @@ nicknames = {
     "Prime Time": "Primeval Titan",
     "O-Stone": "Oblivion Stone",
     "O Stone": "Oblivion Stone",
-    "Swagtusk": "Thragtusk"
+    "Swagtusk": "Thragtusk",
+    "Baby Jace": "Jace Beleren",
+    "Papa Jace": "Jace, The Mind Sculptor",
+    "Emo Jace": "Jace, Memory Adept",
+    "New New Jace": "Jace, Architect of Thought",
+    "Two Punch Steve": "Magister Sphinx",
+    "Dirty South": "Assemble the Legion"
 }
