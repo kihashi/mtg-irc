@@ -11,27 +11,25 @@ import urllib
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 import string
+import willie
 
 partner_key = "MTGIRC" #This is the partner code assigned with you TCGPlayer API account.
 secret_api_url = "" #This is the URL that the TCGPlayer Rep assigns you for API access.
 tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 
 
-def price(phenny, input):
+@willie.modules.commands('price')
+def price(bot, trigger):
     """Gets the TCG Player Prices for a specified card."""
-    card_dict = parse_tcg_player_xml(get_tcg_price(input.group(2)))
+    card_dict = parse_tcg_player_xml(get_tcg_price(trigger.group(2)))
     if not card_dict:
-        phenny.say(input.nick + ": I don't recognize that card name.")
+        bot.say(trigger.nick + ": I don't recognize that card name.")
         return
-    output_string = input.nick + ": " + string.capwords(input.group(2))
+    output_price = ""
     for key, val in card_dict.items():
-        output_string += " | " + key + ": " + val
+        output_price += " | " + key + ": " + val
 
-    phenny.say(output_string)
-
-price.commands = ['price']
-price.priority = 'medium'
-price.example = '.price Black Lotus'
+    bot.reply(string.capwords(trigger.group(2)) + output_price)
 
 
 def get_tcg_price(card_name):
