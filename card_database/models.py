@@ -3,6 +3,7 @@ from elixir import *
 metadata.bind = "sqlite:///cards.sqlite"
 metadata.bind.echo = True
 
+
 def setup():
     setup_all()
     create_all()
@@ -12,12 +13,12 @@ def close():
     session.commit()
 
 
-
 class MagicCard(Entity):
     using_options(shortnames=True)
 
     layout = ManyToOne('Layout')
     name = Field(Unicode(50))
+    search_name = Field(Unicode(50))
     alt_side = ManyToOne('MagicCard')
     mana_cost = Field(Unicode(30))
     converted_mana_cost = Field(Integer)
