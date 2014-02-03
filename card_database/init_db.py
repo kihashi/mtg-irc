@@ -32,11 +32,11 @@ def create_expansions():
 
 
 def create_layouts():
-    for l in [("Normal", "nml"),
-              ("Split", "spl"),
-              ("Flip", "flp"),
-              ("Double-Faced", "dbl"),
-              ("Token", "tkn")]:
+    for l in [("normal", "nml"),
+              ("split", "spl"),
+              ("flip", "flp"),
+              ("double-faced", "dbl"),
+              ("token", "tkn")]:
         models.Layout(layout=l[0], abbreviation=l[1])
 
 
