@@ -1,7 +1,7 @@
 from elixir import *
 
 metadata.bind = "sqlite:///cards.sqlite"
-metadata.bind.echo = True
+metadata.bind.echo = False
 
 
 def setup():
