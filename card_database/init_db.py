@@ -10,19 +10,19 @@ from expansion import *
 
 
 def create_colors():
-    for c in [("White", "W"),
-              ("Blue", "U"),
-              ("Black", "B"),
-              ("Red", "R"),
-              ("Green", "G")]:
+    for c in [(u"White", u"W"),
+              (u"Blue", u"U"),
+              (u"Black", u"B"),
+              (u"Red", u"R"),
+              (u"Green", u"G")]:
         models.Color(color=c[0], abbreviation=c[1])
 
 
 def create_rarities():
-    for r in [("Common", "C"),
-              ("Uncommon", "UC"),
-              ("Rare", "R"),
-              ("Mythic Rare", "M")]:
+    for r in [(u"Common", u"C"),
+              (u"Uncommon", u"UC"),
+              (u"Rare", u"R"),
+              (u"Mythic Rare", u"M")]:
         models.Rarity(rarity=r[0], abbreviation=r[1])
 
 
@@ -32,11 +32,11 @@ def create_expansions():
 
 
 def create_layouts():
-    for l in [("normal", "nml"),
-              ("split", "spl"),
-              ("flip", "flp"),
-              ("double-faced", "dbl"),
-              ("token", "tkn")]:
+    for l in [(u"normal", u"nml"),
+              (u"split", u"spl"),
+              (u"flip", u"flp"),
+              (u"double-faced", u"dbl"),
+              (u"token", u"tkn")]:
         models.Layout(layout=l[0], abbreviation=l[1])
 
 
