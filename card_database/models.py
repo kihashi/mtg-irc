@@ -65,7 +65,7 @@ class MagicCard(Entity):
         if self.expansions:
             card_string += " | "
             for expansion in self.expansions:
-                card_string += expansion + ", "
+                card_string += str(expansion).upper() + ", "
             card_string = card_string[:-2]
 
         if self.rarity:
