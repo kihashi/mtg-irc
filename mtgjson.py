@@ -50,7 +50,7 @@ def _parse_card(card_json):
         db_card.mana_cost = card_json['manaCost']
 
     if 'text' in card_json:
-        db_card.rules_text = card_json['text']
+        db_card.rules_text = card_json['text'].replace("\n", "")
 
     if 'power' in card_json:
         db_card.power = card_json['power']
