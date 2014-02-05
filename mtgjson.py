@@ -41,7 +41,8 @@ def _parse_card(card_json):
     db_card = models.MagicCard()
 
     db_card.name = card_json['name']
-    db_card.search_name = card_json['name'].lowercase().replace("'", "")
+    #FIXME: This line breaks everything.
+    #db_card.search_name = card_json['name'].lowercase().replace("'", "")
 
     if 'cmc' in card_json:
         db_card.converted_mana_cost = card_json['cmc']
