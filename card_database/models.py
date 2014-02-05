@@ -118,11 +118,11 @@ class SuperType(Entity):
 class CardType(Entity):
     using_options(shortnames=True)
 
-    cardtype = Field(Unicode(30))
+    magictype = Field(Unicode(30))
     cards = ManyToMany('MagicCard')
 
     def __repr__(self):
-        return self.cardtype
+        return self.magictype
 
 
 class SubType(Entity):
