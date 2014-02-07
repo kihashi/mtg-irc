@@ -21,15 +21,7 @@ tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
 @willie.modules.commands('price')
 def price(bot, trigger):
     """Gets the TCG Player Prices for a specified card."""
-    card_dict = parse_tcg_player_xml(get_tcg_price(trigger.group(2)))
-    if not card_dict:
-        bot.say(trigger.nick + ": I don't recognize that card name.")
-        return
-    output_price = ""
-    for key, val in card_dict.items():
-        output_price += " | " + key + ": " + val
 
-    bot.reply(string.capwords(trigger.group(2)) + output_price)
 
 
 def get_tcg_price(card_name):
@@ -54,3 +46,17 @@ def parse_tcg_player_xml(xml):
                         ('Link', root[0][4].text)])
 
     return card
+    
+
+class tcgprice():
+    def __init__(self, card, hi, low, avg, link):
+        self.card = card
+        self.hi = hi
+        self.low = low
+        self.avg = avg
+        self.link = link
+        
+    def __str__(self):
+        return repr(self.card + " | " + "Avg: " + self.avg + " | " + "Low: " + self.low + " | " + "High: " + self.high + " | " + "Link: " + self.link)
+
+        
