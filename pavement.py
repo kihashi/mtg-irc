@@ -15,7 +15,8 @@ def clean():
 
 @task
 def test():
-    sh('python test.py Thoughtcast')
+    sh('python card.py Thoughtcast')
+    sh('python card.py This is not a card')
 
 
 @task
