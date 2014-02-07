@@ -99,7 +99,8 @@ def _parse_card(card_json):
     if 'rarity' in card_json:
         db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
         if not db_rarity:
-            db_rarity = models.Rarity(rarity=card_json['rarity'], abbreviation=card_json['rarity'][0])
+            db_rarity = models.Rarity(rarity=card_json['rarity'],
+                                      abbreviation=card_json['rarity'][0])
         db_card.rarity = db_rarity
 
     if 'printings' in card_json:
@@ -111,7 +112,8 @@ def _parse_card(card_json):
 
     if 'rulings' in card_json:
         for ruling in card_json['rulings']:
-            models.Ruling(date=datetime.datetime.strptime(ruling['date'], "%Y-%m-%d").date(),
+            models.Ruling(date=datetime.datetime.strptime(ruling['date'],
+                          "%Y-%m-%d").date(),
                           text=ruling['text'],
                           card=db_card)
 
@@ -126,8 +128,12 @@ def main(argv):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("input_file", help="The MTG JSON File to be parsed")
+    parser.add_argument("input_file",
+                        help="The MTG JSON File to be parsed")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("-s", "--set", action="store_true", help="Set Mode. For parsing individual sets.")
+    group.add_argument("-s",
+                       "--set",
+                       action="store_true",
+                       help="Set Mode. For parsing individual sets.")
     args = parser.parse_args()
     main(args)
