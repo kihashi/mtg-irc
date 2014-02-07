@@ -59,4 +59,7 @@ class tcgprice():
     def __str__(self):
         return repr(self.card + " | " + "Avg: " + self.avg + " | " + "Low: " + self.low + " | " + "High: " + self.high + " | " + "Link: " + self.link)
 
-        
+
+class NoUrlException(Exception):
+    def __str__(self):
+        return repr("The TCG API URL is not present. Enter it and reload the module.")       
