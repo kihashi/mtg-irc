@@ -7,7 +7,7 @@ Author: John Cleaver
 
 License: BSD 3 Clause
 """
-import urllib
+import requests
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 import string
@@ -15,7 +15,7 @@ import willie
 
 partner_key = "MTGIRC" #This is the partner code assigned with you TCGPlayer API account.
 secret_api_url = "" #This is the URL that the TCGPlayer Rep assigns you for API access.
-tcg_player_url = secret_api_url + "pk=" + partner_key + "&s=" + "&p="
+get_vars = {"pk":partner_key, "s":"", "p":""}
 
 
 @willie.modules.commands('price')
@@ -26,10 +26,13 @@ def price(bot, trigger):
 
 def get_tcg_price(card_name):
     """ Makes the API call and returns the resultsing XML. """
-    url = tcg_player_url + card_name
-    xml_return = urllib.urlopen(url)
-
-    return xml_return
+    get_vars[p] = card_name
+    try:
+        r = requests.get(url, params=get_vars)
+        r.raise_for_status()
+        return r.text
+    except HTTPError as e:
+        return "TCGPlayer is either down or is having problems. Try again later."
 
 
 def parse_tcg_player_xml(xml):
