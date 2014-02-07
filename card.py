@@ -9,7 +9,9 @@ License: BSD 3 Clause.
 '''
 
 import willie
-import card_database as db
+from card_database import models
+import sys
+import argparse
 
 
 @willie.module.commands('card')
@@ -26,15 +28,26 @@ def card(bot, trigger):
     if not input:
         bot.reply("You must specify a card name when using this command.")
         return
-    input = sanitize(input)
+    try:
+        bot.say(find_card(input).get_card_text())
+    except CardNotFoundError as e:
+        bot.reply("I could not find a card by the name " + str(e))
+
+
+def find_card(input_card):
+    '''
+    Returns the card object that matches the input name.
+    '''
+
+    input_card = sanitize(input_card)
+    models.setup()
     #First try an exact match
-    db_card = db.models.MagicCard.get_by(name=input)
+    db_card = models.MagicCard.get_by(name=input_card)
     if db_card:
-        bot.reply(db_card.get_card_text)
+        return db_card
     else:
-        #Try to find cards that have a similar name
-        #db_card = models.MagicCard.query.filter(models.MagicCard.name.like("%" + input + "%")).all()
-        bot.reply("I could not find a card by that name.")
+        raise CardNotFoundError(input_card)
+    models.close()
 
 
 def sanitize(input):
@@ -42,4 +55,30 @@ def sanitize(input):
     Makes sure that the input string is clean.
     '''
 
-    return input
+    return unicode(input)
+
+
+class CardNotFoundError(Exception):
+    def __init__(self, card_name):
+        self.card_name = card_name
+
+    def __str__(self):
+        return repr(self.card_name)
+
+
+def main(argv):
+    if not argv.card:
+        print "You must specify a card."
+        sys.exit()
+    else:
+        try:
+            print(find_card(" ".join(argv.card)).get_card_text())
+        except CardNotFoundError as e:
+            print("Could not find the card: " + str(e))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("card", nargs="+", help="The Card to find.")
+    args = parser.parse_args()
+    main(args)
