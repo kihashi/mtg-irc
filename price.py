@@ -1,6 +1,6 @@
 """
-prices.py - Phenny Magic: The Gathering Price Lookup Module
-A module for the IRC Bot Phenny that allows a user to get the TCG Player
+prices.py - Willie Magic: The Gathering Price Lookup Module
+A module for the IRC Bot Willie that allows a user to get the TCG Player
 prices for cards.
 
 Author: John Cleaver
