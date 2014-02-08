@@ -11,6 +11,7 @@ import json
 import sys
 import argparse
 from card_database import models
+from unidecode import *
 
 
 def parse_mtgojson(file_location, argv):
@@ -42,7 +43,7 @@ def _parse_card(card_json):
 
     db_card.name = card_json['name']
     #FIXME: This line breaks everything.
-    #db_card.search_name = card_json['name'].lowercase().replace("'", "")
+    db_card.search_name = unidecode(card_json['name'].lower().replace("'", "").replace(",", ""))
 
     if 'cmc' in card_json:
         db_card.converted_mana_cost = card_json['cmc']
@@ -51,7 +52,7 @@ def _parse_card(card_json):
         db_card.mana_cost = card_json['manaCost']
 
     if 'text' in card_json:
-        db_card.rules_text = card_json['text'].replace("\n", "")
+        db_card.rules_text = card_json['text'].replace("\n", " ")
 
     if 'power' in card_json:
         db_card.power = card_json['power']
