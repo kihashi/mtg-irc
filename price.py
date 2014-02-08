@@ -65,4 +65,5 @@ class tcgprice():
 
 class NoUrlException(Exception):
     def __str__(self):
-        return repr("The TCG API URL is not present. Enter it and reload the module.")
+        return repr("""The TCG API URL is not present.
+                    Enter it and reload the module.""")
