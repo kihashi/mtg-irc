@@ -22,15 +22,14 @@ def price(bot, trigger):
     """Gets the TCG Player Prices for a specified card."""
 
 
-
 def get_tcg_price(card_name):
     """ Makes the API call and returns the resultsing XML. """
-    get_vars[p] = card_name
+    get_vars['p'] = card_name
     try:
-        r = requests.get(url, params=get_vars)
+        r = requests.get(secret_api_url, params=get_vars)
         r.raise_for_status()
         return r.text
-    except HTTPError as e:
+    except requests.HTTPError:
         return "TCGPlayer is either down or is having problems. Try again later."
 
 
