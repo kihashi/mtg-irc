@@ -45,3 +45,8 @@ def fromcleanone():
     init()
     oneset()
     test()
+
+
+@task
+def deploy():
+    sh('cp -r * /Library/Python/2.7/site-packages/willie/modules/')
