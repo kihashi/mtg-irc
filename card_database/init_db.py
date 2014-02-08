@@ -20,7 +20,7 @@ def create_colors():
 
 def create_rarities():
     for r in [(u"Common", u"C"),
-              (u"Uncommon", u"UC"),
+              (u"Uncommon", u"U"),
               (u"Rare", u"R"),
               (u"Mythic Rare", u"M")]:
         models.Rarity(rarity=r[0], abbreviation=r[1])
