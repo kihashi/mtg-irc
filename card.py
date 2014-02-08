@@ -9,7 +9,7 @@ License: BSD 3 Clause.
 '''
 
 import willie
-from card_database import models
+import willie.modules.card_database.models as models
 import sys
 import argparse
 
