@@ -13,9 +13,9 @@ from collections import OrderedDict
 import string
 import willie
 
-partner_key = "MTGIRC" #This is the partner code assigned with you TCGPlayer API account.
-secret_api_url = "" #This is the URL that the TCGPlayer Rep assigns you for API access.
-get_vars = {"pk":partner_key, "s":"", "p":""}
+partner_key = "MTGIRC"  # This is the partner code assigned with you TCGPlayer API account.
+secret_api_url = ""  # This is the URL that the TCGPlayer Rep assigns you for API access.
+get_vars = {"pk": partner_key, "s": "", "p": ""}
 
 
 @willie.modules.commands('price')
