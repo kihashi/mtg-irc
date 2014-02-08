@@ -60,7 +60,7 @@ class MagicCard(Entity):
             card_string += " | " + self.power + "/" + self.toughness
 
         if self.loyalty:
-            card_string += " | " + self.loyalty
+            card_string += " | " + str(self.loyalty)
 
         if self.expansions:
             card_string += " | "
