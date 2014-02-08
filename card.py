@@ -46,7 +46,11 @@ def find_card(input_card):
     if db_card:
         return db_card
     else:
-        raise CardNotFoundError(input_card)
+        db_card = models.MagicCard.get_by(search_name=input_card.lower().replace("'", "").replace(",", ""))
+        if db_card:
+            return db_card
+        else:
+            raise CardNotFoundError(input_card)
     models.close()
 
 
