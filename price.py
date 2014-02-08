@@ -1,4 +1,4 @@
-"""
+'''
 prices.py - Willie Magic: The Gathering Price Lookup Module
 A module for the IRC Bot Willie that allows a user to get the TCG Player
 prices for cards.
@@ -6,7 +6,7 @@ prices for cards.
 Author: John Cleaver
 
 License: BSD 3 Clause
-"""
+'''
 import requests
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
@@ -49,7 +49,7 @@ def parse_tcg_player_xml(xml):
                         ('Link', root[0][4].text)])
 
     return card
-    
+
 
 class tcgprice():
     def __init__(self, card, hi, low, avg, link):
@@ -58,11 +58,11 @@ class tcgprice():
         self.low = low
         self.avg = avg
         self.link = link
-        
+
     def __str__(self):
         return repr(self.card + " | " + "Avg: " + self.avg + " | " + "Low: " + self.low + " | " + "High: " + self.high + " | " + "Link: " + self.link)
 
 
 class NoUrlException(Exception):
     def __str__(self):
-        return repr("The TCG API URL is not present. Enter it and reload the module.")       
+        return repr("The TCG API URL is not present. Enter it and reload the module.")
