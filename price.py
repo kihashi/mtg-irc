@@ -10,7 +10,6 @@ License: BSD 3 Clause
 import requests
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
-import string
 import willie
 
 partner_key = "MTGIRC"  # This is the partner code assigned with you TCGPlayer API account.
