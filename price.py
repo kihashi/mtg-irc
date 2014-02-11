@@ -28,9 +28,10 @@ def get_tcg_price(card_name):
     try:
         r = requests.get(secret_api_url, params=get_vars)
         r.raise_for_status()
-        return r.text
     except requests.HTTPError:
         return "TCGPlayer is either down or is having problems. Try again later."
+    else:
+        return r.text
 
 
 def parse_tcg_player_xml(xml):
