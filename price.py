@@ -20,6 +20,20 @@ get_vars = {"pk": partner_key, "s": "", "p": ""}
 @willie.modules.commands('price')
 def price(bot, trigger):
     """Gets the TCG Player Prices for a specified card."""
+    card_name = trigger.group(2)
+    bot.reply(get_tcgplayer_price(card_name)) 
+
+    
+    
+def get_tcgplayer_price(card_name):
+    card_name = sanitize(card_name)
+    tcgxml = get_tcg_price(card_name)
+    try:
+        tcgprice = parse_tcg_player_xml(card_name, tcgxml)
+    except CardNotFoundError as e:
+        return e
+    else:
+        return tcgprice
 
 
 def get_tcg_price(card_name):
@@ -34,23 +48,24 @@ def get_tcg_price(card_name):
         return r.text
 
 
-def parse_tcg_player_xml(xml):
+def parse_tcg_player_xml(card_name, xml):
     """ Converts the XML response from the API into an ordered dict. """
     tree = ET.parse(xml)
     root = tree.getroot()
 
     if not root:
-        return None
+        raise CardNotFoundError(card_name)
 
-    card = OrderedDict([('Hi', root[0][1].text),
-                        ('Low', root[0][2].text),
-                        ('Avg', root[0][3].text),
-                        ('Link', root[0][4].text)])
+    card = TCGPrice(card_name,
+                    root[0][1].text,
+                    root[0][2].text,
+                    root[0][3].text,
+                    root[0][4].text)
 
     return card
 
 
-class tcgprice():
+class TCGPrice():
     def __init__(self, card, hi, low, avg, link):
         self.card = card
         self.hi = hi
