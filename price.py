@@ -11,6 +11,7 @@ import requests
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 import willie
+from exceptions import *
 
 partner_key = "MTGIRC"  # This is the partner code assigned with you TCGPlayer API account.
 secret_api_url = ""  # This is the URL that the TCGPlayer Rep assigns you for API access.
