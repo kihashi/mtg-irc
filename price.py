@@ -29,7 +29,7 @@ def get_tcgplayer_price(card_name):
     card_name = sanitize(card_name)
     try:
         tcgxml = get_tcg_price(card_name)
-    except requests.HTTPError, requests.Timeout as e:
+    except requests.RequestException as e:
         return "TCGPlayer is either down or is having problems. Try again later. " + str(e)
     else:
         try:
