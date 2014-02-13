@@ -12,6 +12,8 @@ import xml.etree.ElementTree as ET
 from collections import OrderedDict
 import willie
 from exceptions import *
+import sys
+import argparse
 
 partner_key = "MTGIRC"  # This is the partner code assigned with you TCGPlayer API account.
 secret_api_url = ""  # This is the URL that the TCGPlayer Rep assigns you for API access.
@@ -82,3 +84,17 @@ class NoUrlException(Exception):
     def __str__(self):
         return repr("""The TCG API URL is not present.
                     Enter it and reload the module.""")
+
+def main(argv):
+    if not argv.card:
+        print "You must specify a card."
+        sys.exit()
+    else:
+        print(get_tcgplayer_price(" ".join(argv.card)))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("card", nargs="+", help="The Card to find.")
+    args = parser.parse_args()
+    main(args)
