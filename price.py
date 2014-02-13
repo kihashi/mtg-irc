@@ -54,7 +54,7 @@ def parse_tcg_player_xml(card_name, xml):
     tree = ET.parse(xml)
     root = tree.getroot()
 
-    if not root:
+    if root is not None:
         raise CardNotFoundError(card_name)
 
     card = TCGPrice(card_name,
