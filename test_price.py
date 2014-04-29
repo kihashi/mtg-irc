@@ -27,6 +27,15 @@ class PriceTestCase(unittest.TestCase):
                           "Snap",
                           "http://johncleaver.com/test.html")
 
+    def test_xml_parse(self):
+        """Tests if the XML was parsed correctly."""
+        card_name = "Bayou"
+        xml = price.get_tcgplayer_xml(card_name)
+        card_price = price.parse_tcg_player_xml(card_name, xml)
+        self.assertIsInstance(card_price,
+                              price.TCGPrice)
+                              
+
     def test_card_not_found(self):
         """Tests to see what happens when a card does not exist."""
         card_name = "nonexistingcard"
