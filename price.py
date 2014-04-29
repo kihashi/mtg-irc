@@ -77,6 +77,15 @@ class NoUrlException(Exception):
         return repr("""The TCG API URL is not present.
                     Enter it and reload the module.""")
 
+
+class CardNotFoundError(Exception):
+    def __init__(self, card_name):
+        self.card_name = card_name
+
+    def __str__(self):
+        return repr(self.card_name)
+
+
 def main(argv):
     if not argv.card:
         print "You must specify a card."
