@@ -12,8 +12,10 @@ import xml.etree.ElementTree as ET
 import sys
 import argparse
 
-partner_key = "MTGIRC"  # This is the partner code assigned with you TCGPlayer API account.
-secret_api_url = ""  # This is the URL that the TCGPlayer Rep assigns you for API access.
+# This is the partner code assigned with you TCGPlayer API account.
+partner_key = "MTGIRC"
+# This is the URL that the TCGPlayer Rep assigns you for API access.
+secret_api_url = ""
 get_vars = {"pk": partner_key, "s": "", "p": ""}
 
 
@@ -22,7 +24,11 @@ def get_tcgplayer_price(card_name):
     try:
         tcgxml = get_tcgplayer_xml(card_name)
     except requests.RequestException as e:
-        return "TCGPlayer is either down or is having problems. Try again later. " + str(e)
+        return "TCGPlayer is either down or is having problems." \
+               + " " \
+               + "Try again later." \
+               + " " \
+               + str(e)
     else:
         try:
             tcgprice = parse_tcg_player_xml(card_name, tcgxml)
@@ -61,15 +67,23 @@ def sanitize(card_name):
 
 
 class TCGPrice():
-    def __init__(self, card, hi, low, avg, link):
+    def __init__(self, card, high, low, avg, link):
         self.card = card
-        self.hi = hi
+        self.high = high
         self.low = low
         self.avg = avg
         self.link = link
 
     def __str__(self):
-        return repr(self.card + " | " + "Avg: " + self.avg + " | " + "Low: " + self.low + " | " + "High: " + self.high + " | " + "Link: " + self.link)
+        return repr(self.card
+                    + " | "
+                    + "Avg: " + self.avg
+                    + " | "
+                    + "Low: " + self.low
+                    + " | "
+                    + "High: " + self.high
+                    + " | "
+                    + "Link: " + self.link)
 
 
 class NoUrlException(Exception):
