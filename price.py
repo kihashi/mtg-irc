@@ -9,9 +9,6 @@ License: BSD 3 Clause
 '''
 import requests
 import xml.etree.ElementTree as ET
-from collections import OrderedDict
-import willie
-from exceptions import *
 import sys
 import argparse
 
