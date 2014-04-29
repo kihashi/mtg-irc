@@ -57,6 +57,10 @@ def parse_tcg_player_xml(card_name, xml):
     return card
 
 
+def sanitize(card_name):
+    return card_name
+
+
 class TCGPrice():
     def __init__(self, card, hi, low, avg, link):
         self.card = card
