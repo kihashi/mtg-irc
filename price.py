@@ -32,10 +32,10 @@ def get_tcgplayer_price(card_name):
             return tcgprice
 
 
-def get_tcgplayer_xml(card_name):
+def get_tcgplayer_xml(card_name, url=secret_api_url):
     """ Makes the API call and returns the resultsing XML. """
     get_vars['p'] = card_name
-    r = requests.get(secret_api_url, params=get_vars)
+    r = requests.get(url, params=get_vars)
     r.raise_for_status()
     return r.text
 
