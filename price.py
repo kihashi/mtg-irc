@@ -85,6 +85,10 @@ class TCGPrice():
                     + " | "
                     + "Link: " + self.link)
 
+    def __iter__(self):
+        for attr, value in self.__dict__.iteritems():
+            yield attr, value
+
 
 class NoUrlException(Exception):
     def __str__(self):
