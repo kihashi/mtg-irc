@@ -34,6 +34,8 @@ class PriceTestCase(unittest.TestCase):
         card_price = price.parse_tcg_player_xml(card_name, xml)
         self.assertIsInstance(card_price,
                               price.TCGPrice)
+        for key, value in card_price:
+            self.assertTrue(value != "")
                               
 
     def test_card_not_found(self):
