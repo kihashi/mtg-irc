@@ -50,7 +50,7 @@ def parse_tcg_player_xml(card_name, xml):
     """ Converts the XML response from the API into an ordered dict. """
     root = ET.fromstring(xml)
 
-    if root is not None:
+    if root.text is None:
         raise CardNotFoundError(card_name)
 
     card = TCGPrice(card_name,
