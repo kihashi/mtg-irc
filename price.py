@@ -17,14 +17,6 @@ secret_api_url = ""  # This is the URL that the TCGPlayer Rep assigns you for AP
 get_vars = {"pk": partner_key, "s": "", "p": ""}
 
 
-@willie.modules.commands('price')
-def price(bot, trigger):
-    """Gets the TCG Player Prices for a specified card."""
-    card_name = trigger.group(2)
-    bot.reply(get_tcgplayer_price(card_name)) 
-
-    
-    
 def get_tcgplayer_price(card_name):
     card_name = sanitize(card_name)
     try:
