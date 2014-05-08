@@ -165,3 +165,11 @@ class Layout(Entity):
 
     def __repr__(self):
         return self.abbreviation
+
+
+class mtgoprice(Entity):
+    using_options(short_names=True)
+
+    card = ManyToOne('MagicCard')
+    expansion = ManyToOne('Expansion')
+    price = Field(Float)
