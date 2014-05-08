@@ -40,7 +40,6 @@ def find_card(input_card):
     '''
 
     input_card = sanitize(input_card)
-    models.setup()
     #First try an exact match
     db_card = models.MagicCard.get_by(name=input_card)
     if db_card:
@@ -51,7 +50,6 @@ def find_card(input_card):
             return db_card
         else:
             raise CardNotFoundError(input_card)
-    models.close()
 
 
 def sanitize(input):

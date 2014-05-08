@@ -15,7 +15,7 @@ import argparse
 # This is the partner code assigned with you TCGPlayer API account.
 partner_key = "MTGIRC"
 # This is the URL that the TCGPlayer Rep assigns you for API access.
-secret_api_url = ""
+secret_api_url = "***REMOVED***"
 get_vars = {"pk": partner_key, "s": "", "p": ""}
 
 
