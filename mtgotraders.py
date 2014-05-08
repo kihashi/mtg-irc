@@ -5,22 +5,27 @@ Author: John Cleaver
 License: BSD 3 Clause License
 '''
 
-import urllib
+import requests
 
 store_url = "http://www.mtgotraders.com/store/"
 price_api_url = ""  # Url can be obtained from MTGO Traders.
 
 
-def get_raw_list():
-    file = urllib.urlopen(price_api_url)
-    return file
+def get_raw_list(url):
+    r = requests.get(url)
+    r.raise_for_status()
+    return r.text
 
 
-def parse_list(price_file):
+def parse_list(price_text):
     card_dict = {}
-    for line in price_file:
+    for line in price_text:
         line_list = line.split("|")
-        if line_list[0] != "BOOSTER" and line_list[0] != "" and line_list[1] != "EVENT":
+        if line_list[0] != "BOOSTER" \
+           and \
+           line_list[0] != "" \
+           and \
+           line_list[1] != "EVENT":
             if line_list[3].lower() not in card_dict:
                 card_dict[line_list[3].lower()] = {}
 
@@ -28,10 +33,13 @@ def parse_list(price_file):
                 card_dict[line_list[3].lower()][line_list[0]] = {}
 
             if line_list[2] == "R":
-                card_dict[line_list[3].lower()][line_list[0]]["reg_price"] = line_list[5]
-                card_dict[line_list[3].lower()][line_list[0]]["link"] = store_url + line_list[6]
+                card_dict[line_list[3].lower()][line_list[0]]["reg_price"] \
+                    = line_list[5]
+                card_dict[line_list[3].lower()][line_list[0]]["link"] \
+                    = store_url + line_list[6]
             else:
-                card_dict[line_list[3].lower()][line_list[0]]["foil_price"] = line_list[5]
+                card_dict[line_list[3].lower()][line_list[0]]["foil_price"] \
+                    = line_list[5]
 
     return card_dict
 
