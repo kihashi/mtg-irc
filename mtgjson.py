@@ -43,7 +43,7 @@ def _parse_set(set_json):
 
 def _parse_card(card_json, expansion):
     try:
-        db_card = card_funcs.find_card(card_json['name'])
+        db_card = card_funcs.find_card_by_name(card_json['name'])
     except card_funcs.CardNotFoundError:
         db_card = models.MagicCard()
 
