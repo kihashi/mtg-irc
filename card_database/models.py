@@ -168,7 +168,7 @@ class Layout(Entity):
 
 
 class mtgoprice(Entity):
-    using_options(short_names=True)
+    using_options(shortnames=True)
 
     card = ManyToOne('MagicCard')
     expansion = ManyToOne('Expansion')
