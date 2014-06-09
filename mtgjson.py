@@ -10,7 +10,7 @@ import datetime
 import json
 import sys
 import argparse
-import willie.modules.card_database.models as models
+import card_database.models as models
 from unidecode import *
 import card as card_funcs
 
