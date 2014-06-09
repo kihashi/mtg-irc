@@ -111,10 +111,10 @@ def _parse_card(card_json, expansion):
             db_card.rarity = db_rarity
 
         if 'rulings' in card_json:
-            for ruling in card_json['rulings']:
-                models.Ruling(date=datetime.datetime.strptime(ruling['date'],
+            for card_ruling in card_json['rulings']:
+                models.Ruling(date=datetime.datetime.strptime(card_ruling['date'],
                               "%Y-%m-%d").date(),
-                              text=ruling['text'],
+                              text=card_ruling['text'],
                               card=db_card)
     finally:
         try:
