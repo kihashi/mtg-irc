@@ -19,16 +19,15 @@ def find_card(input_card):
     '''
 
     input_card = sanitize(input_card)
-    #First try an exact match
-    db_card = models.MagicCard.get_by(name=input_card)
-    if db_card:
-        return db_card
-    else:
-        db_card = models.MagicCard.get_by(search_name=input_card.lower().replace("'", "").replace(",", ""))
-        if db_card:
-            return db_card
-        else:
-            raise CardNotFoundError(input_card)
+    models.setup()
+    try:
+        return find_card_by_name(input_card)
+    except NameNotFoundError:
+        try:
+            return find_card_by_search_name(input_card)
+        except SearchNameNotFoundError:
+            return find_cards_like(input_card)
+    models.close()
 
 
 def sanitize(input):
@@ -39,12 +38,47 @@ def sanitize(input):
     return unicode(input)
 
 
+def find_card_by_name(input_card):
+    db_card = models.MagicCard.get_by(name=input_card)
+    if not db_card:
+        raise NameNotFoundError(input_card)
+    else:
+        return db_card
+
+
+def find_card_by_search_name(input_card):
+    db_card = models.MagicCard.get_by(search_name=
+                                      input_card.lower()
+                                      .replace("'", "")
+                                      .replace(",", ""))
+    if not db_card:
+        raise SearchNameNotFoundError(input_card)
+    else:
+        return db_card
+
+
+def find_cards_like(input_card):
+    raise LikeCardsNotFoundError(input_card)
+
+
 class CardNotFoundError(Exception):
     def __init__(self, card_name):
         self.card_name = card_name
 
     def __str__(self):
         return repr(self.card_name)
+
+
+class NameNotFoundError(CardNotFoundError):
+    pass
+
+
+class SearchNameNotFoundError(CardNotFoundError):
+    pass
+
+
+class LikeCardsNotFoundError(CardNotFoundError):
+    pass
 
 
 def main(argv):
