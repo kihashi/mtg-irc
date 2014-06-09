@@ -11,6 +11,7 @@ License: BSD 3 Clause.
 import card_database.models as models
 import sys
 import argparse
+import pprint
 
 
 def find_card(input_card):
@@ -87,7 +88,14 @@ def main(argv):
         sys.exit()
     else:
         try:
-            print(find_card(" ".join(argv.card)).get_card_text())
+            card_obj = find_card(" ".join(argv.card))
+            if argv.text:
+                print card_obj.get_card_text()
+            if argv.rulings:
+                pp = pprint.PrettyPrinter(indent=4)
+                pp.pprint(card_obj.get_rulings())
+            if not argv.text and not argv.rulings:
+                print card_obj.get_card_text()
         except CardNotFoundError as e:
             print("Could not find the card: " + str(e))
 
@@ -95,5 +103,13 @@ def main(argv):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("card", nargs="+", help="The Card to find.")
+    parser.add_argument("-r",
+                        "--rulings",
+                        action="store_true",
+                        help="Get the rulings for the specified card.")
+    parser.add_argument("-t",
+                        "--text",
+                        action="store_true",
+                        help="Get the text for a specific card.")
     args = parser.parse_args()
     main(args)
