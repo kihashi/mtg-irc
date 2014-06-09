@@ -33,7 +33,7 @@ def get_tcgplayer_price(card_name):
         try:
             tcgprice = parse_tcg_player_xml(card_name, tcgxml)
         except CardNotFoundError as e:
-            return e
+            return "Could not find the card: " + str(e)
         else:
             return tcgprice
 
