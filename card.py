@@ -8,30 +8,9 @@ Site: https://github.com/kihashi/mtg-irc
 License: BSD 3 Clause.
 '''
 
-import willie
-import willie.modules.card_database.models as models
+import card_database.models as models
 import sys
 import argparse
-
-
-@willie.module.commands('card')
-def card(bot, trigger):
-    '''
-    Returns the oracle text of the specified card as a reply to the user.
-
-    Example:
-    .card Storm Crow
-    Storm Crow | {1}{U} | Creature  - Bird | Flying (This creature can't be blocked except by creatures with flying or reach.) | 1/2
-    '''
-
-    input = trigger.group(2)
-    if not input:
-        bot.reply("You must specify a card name when using this command.")
-        return
-    try:
-        bot.say(find_card(input).get_card_text())
-    except CardNotFoundError as e:
-        bot.reply("I could not find a card by the name " + str(e))
 
 
 def find_card(input_card):
