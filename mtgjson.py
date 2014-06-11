@@ -103,13 +103,6 @@ def _parse_card(card_json, expansion):
                     db_subtype = models.SubType(subtype=card_subtype)
                 db_card.subtypes.append(db_subtype)
 
-        if 'rarity' in card_json:
-            db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
-            if not db_rarity:
-                db_rarity = models.Rarity(rarity=card_json['rarity'],
-                                          abbreviation=card_json['rarity'][0])
-            db_card.rarity = db_rarity
-
         if 'rulings' in card_json:
             for card_ruling in card_json['rulings']:
                 models.Ruling(date=datetime.datetime.strptime(card_ruling['date'],
@@ -118,7 +111,23 @@ def _parse_card(card_json, expansion):
                               card=db_card)
     finally:
         try:
-            db_card.expansions.append(expansion)
+            db_cardrelease = models.CardRelease()
+            db_cardrelease.expansion = expansion
+            db_cardrelease.card = db_card
+
+            if 'rarity' in card_json:
+                db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
+                if not db_rarity:
+                    db_rarity = models.Rarity(rarity=card_json['rarity'],
+                                              abbreviation=card_json['rarity'][0])
+                db_card.rarity = db_rarity
+
+            if 'multiverseid' in card_json:
+                db_cardrelease.multiverse_id = card_json['multiverseid']
+
+            if 'flavor' in card_json:
+                db_cardrelease.flavor_text = card_json['flavor']
+
         except Exception as e:
             print e
             print card_json
