@@ -23,10 +23,10 @@ def find_card(input_card):
     models.setup()
     try:
         return find_card_by_name(input_card)
-    except NameNotFoundError:
+    except CardNotFoundError:
         try:
             return find_card_by_search_name(input_card)
-        except SearchNameNotFoundError:
+        except CardNotFoundError:
             return find_cards_like(input_card)
     models.close()
 
