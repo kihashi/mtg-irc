@@ -26,12 +26,11 @@ class MagicCard(Entity):
     supertypes = ManyToMany('SuperType')
     card_types = ManyToMany('CardType')
     subtypes = ManyToMany('SubType')
-    rarity = ManyToOne('Rarity')
     rules_text = Field(UnicodeText())
     power = Field(Unicode(30))
     toughness = Field(Unicode(30))
     loyalty = Field(Integer)
-    expansions = ManyToMany('Expansion')
+    releases = OneToMany("CardRelease")
     rulings = OneToMany('Ruling')
 
     def get_card_text(self):
@@ -62,14 +61,11 @@ class MagicCard(Entity):
         if self.loyalty:
             card_string += " | " + str(self.loyalty)
 
-        if self.expansions:
+        if self.releases:
             card_string += " | "
-            for expansion in self.expansions:
-                card_string += str(expansion).upper() + ", "
+            for release in self.releases:
+                card_string += str(release.expansion).upper() + str(release.rarity).upper() + ", "
             card_string = card_string[:-2]
-
-        if self.rarity:
-            card_string += " | " + str(self.rarity)
 
         if self.alt_side:
             card_string += " | " + "Alt: " + str(self.alt_side)
@@ -140,7 +136,7 @@ class Rarity(Entity):
 
     rarity = Field(Unicode(10))
     abbreviation = Field(Unicode(5))
-    cards = OneToMany
+    cards = ManyToMany("CardRelease")
 
     def __repr__(self):
         return self.abbreviation
@@ -149,12 +145,20 @@ class Rarity(Entity):
 class Expansion(Entity):
     using_options(shortnames=True)
 
-    expansion = Field(Unicode(30))
+    name = Field(Unicode(30))
     abbreviation = Field(Unicode(10))
-    cards = ManyToMany('MagicCard')
+    cards = ManyToOne("CardRelease")
 
     def __repr__(self):
         return self.abbreviation
+
+
+class CardRelease(Entity):
+    using_options(shortnames=True)
+
+    expansion = ManyToOne("Expansion")
+    card = ManyToOne("MagicCard")
+    rarity = ManyToMany("Rarity")
 
 
 class Layout(Entity):
