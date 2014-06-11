@@ -70,18 +70,6 @@ class CardNotFoundError(Exception):
         return repr(self.card_name)
 
 
-class NameNotFoundError(CardNotFoundError):
-    pass
-
-
-class SearchNameNotFoundError(CardNotFoundError):
-    pass
-
-
-class LikeCardsNotFoundError(CardNotFoundError):
-    pass
-
-
 def main(argv):
     if not argv.card:
         print "You must specify a card."

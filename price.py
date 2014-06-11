@@ -101,7 +101,7 @@ class CardNotFoundError(Exception):
         self.card_name = card_name
 
     def __str__(self):
-        return repr(self.card_name)
+        return self.card_name
 
 
 def main(argv):
