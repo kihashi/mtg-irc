@@ -42,7 +42,7 @@ def sanitize(input):
 def find_card_by_name(input_card):
     db_card = models.MagicCard.get_by(name=input_card)
     if not db_card:
-        raise NameNotFoundError(input_card)
+        raise CardNotFoundError(input_card)
     else:
         return db_card
 
@@ -53,13 +53,13 @@ def find_card_by_search_name(input_card):
                                       .replace("'", "")
                                       .replace(",", ""))
     if not db_card:
-        raise SearchNameNotFoundError(input_card)
+        raise CardNotFoundError(input_card)
     else:
         return db_card
 
 
 def find_cards_like(input_card):
-    raise LikeCardsNotFoundError(input_card)
+    raise CardNotFoundError(input_card)
 
 
 class CardNotFoundError(Exception):
