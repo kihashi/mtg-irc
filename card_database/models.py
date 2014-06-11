@@ -160,6 +160,7 @@ class CardRelease(Entity):
     card = ManyToOne("MagicCard")
     rarity = ManyToMany("Rarity")
     flavor_text = Field(Unicode(50))
+    multiverse_id = Field(Integer)
 
 
 class Layout(Entity):
