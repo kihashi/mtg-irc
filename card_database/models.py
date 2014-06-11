@@ -159,6 +159,7 @@ class CardRelease(Entity):
     expansion = ManyToOne("Expansion")
     card = ManyToOne("MagicCard")
     rarity = ManyToMany("Rarity")
+    flavor_text = Field(Unicode(50))
 
 
 class Layout(Entity):
