@@ -75,15 +75,15 @@ class TCGPrice():
         self.link = link
 
     def __str__(self):
-        return repr(self.card
-                    + " | "
-                    + "Avg: " + self.avg
-                    + " | "
-                    + "Low: " + self.low
-                    + " | "
-                    + "High: " + self.high
-                    + " | "
-                    + "Link: " + self.link)
+        return (self.card
+                + " | "
+                + "Avg: " + self.avg
+                + " | "
+                + "Low: " + self.low
+                + " | "
+                + "High: " + self.high
+                + " | "
+                + "Link: " + self.link)
 
     def __iter__(self):
         for attr, value in self.__dict__.iteritems():
