@@ -8,7 +8,7 @@ Site: https://github.com/kihashi/mtg-irc
 License: BSD 3 Clause.
 '''
 
-import card_database.models as models
+from card_database import models
 import sys
 import argparse
 import pprint
