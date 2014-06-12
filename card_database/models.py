@@ -78,6 +78,16 @@ class MagicCard(Entity):
         else:
             return self.rulings[ruling_number]
 
+    def get_flavor_text(self, flavor_expansion=None):
+        if flavor_expansion is None:
+            flavor_array = []
+            for release in self.releases:
+                flavor_array.append(str(release.get_flavor_text()))
+            return flavor_array
+        else:
+            #TODO: return flavor text from the specific expansion.
+            return flavor_expansion
+
 
 class Ruling(Entity):
     using_options(shortnames=True)
@@ -161,6 +171,12 @@ class CardRelease(Entity):
     rarity = ManyToMany("Rarity")
     flavor_text = Field(Unicode(50))
     multiverse_id = Field(Integer)
+
+    def __str__(self):
+        return self.card.name + "-" + self.expansion
+
+    def get_flavor_text(self):
+        return "[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text)
 
 
 class Layout(Entity):
