@@ -28,3 +28,8 @@ def card(bot, trigger):
 def rulings(bot, trigger):
     card_rulings = mtgcard.find_card(trigger.group(2))
     bot.reply(card_rulings.get_rulings())
+
+@willie.module.commands("flavor")
+def flavor(bot, trigger):
+    find_card = mtgcard.find_card(trigger.group(2))
+    bot.reply(find_card.get_flavor_text())
