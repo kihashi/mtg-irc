@@ -157,7 +157,7 @@ class Expansion(Entity):
 
     name = Field(Unicode(30))
     abbreviation = Field(Unicode(10))
-    cards = ManyToOne("CardRelease")
+    cards = OneToMany("CardRelease")
 
     def __repr__(self):
         return self.abbreviation
