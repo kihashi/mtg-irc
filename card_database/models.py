@@ -64,7 +64,7 @@ class MagicCard(Entity):
         if self.releases:
             card_string += " | "
             for release in self.releases:
-                card_string += str(release.expansion).upper() + str(release.rarity).upper() + ", "
+                card_string += str(release.expansion).upper() + "-" + str(release.rarity).upper() + ", "
             card_string = card_string[:-2]
 
         if self.alt_side:
@@ -146,7 +146,7 @@ class Rarity(Entity):
 
     rarity = Field(Unicode(10))
     abbreviation = Field(Unicode(5))
-    cards = ManyToMany("CardRelease")
+    cards = OneToMany("CardRelease")
 
     def __repr__(self):
         return self.abbreviation
@@ -168,12 +168,12 @@ class CardRelease(Entity):
 
     expansion = ManyToOne("Expansion")
     card = ManyToOne("MagicCard")
-    rarity = ManyToMany("Rarity")
+    rarity = ManyToOne("Rarity")
     flavor_text = Field(Unicode(50))
     multiverse_id = Field(Integer)
 
     def __str__(self):
-        return self.card.name + "-" + self.expansion
+        return str(self.card.name) + "-" + str(self.expansion)
 
     def get_flavor_text(self):
         return "[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text)
