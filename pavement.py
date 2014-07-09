@@ -32,8 +32,15 @@ def oneset():
 
 
 @task
+def download_data():
+    sh('wget http://mtgjson.com/json/AllSets-x.json')
+    sh('wget http://mtgjson.com/json/MRD-x.json')
+
+
+@task
 def fromcleanall():
     clean()
+    download_data()
     init()
     allsets()
     test()
@@ -42,6 +49,7 @@ def fromcleanall():
 @task
 def fromcleanone():
     clean()
+    download_data()
     init()
     oneset()
     test()
