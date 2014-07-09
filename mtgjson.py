@@ -120,7 +120,7 @@ def _parse_card(card_json, expansion):
                 if not db_rarity:
                     db_rarity = models.Rarity(rarity=card_json['rarity'],
                                               abbreviation=card_json['rarity'][0])
-                db_card.rarity = db_rarity
+                db_cardrelease.rarity = db_rarity
 
             if 'multiverseid' in card_json:
                 db_cardrelease.multiverse_id = card_json['multiverseid']
