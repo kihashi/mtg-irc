@@ -33,7 +33,7 @@ def _parse_file(file_json):
 
 def _parse_set(set_json):
     if "name" in set_json:
-        db_expansion = models.Expansion.get_by(expansion=set_json['name'])
+        db_expansion = models.Expansion.get_by(name=set_json['name'])
         if not db_expansion:
             db_expansion = models.Expansion(name=set_json['name'],
                                             abbreviation=set_json['code'])
