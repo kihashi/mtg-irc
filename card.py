@@ -36,7 +36,7 @@ def sanitize(input):
     Makes sure that the input string is clean.
     '''
 
-    return unicode(input.trim())
+    return unicode(input.strip())
 
 
 def find_card_by_name(input_card):
