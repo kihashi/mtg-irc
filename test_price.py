@@ -25,7 +25,7 @@ class PriceTestCase(unittest.TestCase):
         self.assertRaises(price.requests.RequestException,
                           price.get_tcgplayer_xml,
                           "Snap",
-                          "http://johncleaver.com/test.html")
+                          "http://localhost/")
 
     def test_xml_parse(self):
         """Tests if the XML was parsed correctly."""
@@ -36,7 +36,6 @@ class PriceTestCase(unittest.TestCase):
                               price.TCGPrice)
         for key, value in card_price:
             self.assertTrue(value != "")
-                              
 
     def test_card_not_found(self):
         """Tests to see what happens when a card does not exist."""
