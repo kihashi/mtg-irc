@@ -12,7 +12,7 @@ def init():
 @task
 def clean():
     if os.path.isfile('cards.sqlite'):
-    sh('rm cards.sqlite')
+        sh('rm cards.sqlite')
     else:
         print 'Card Database not present.'
 
@@ -38,9 +38,9 @@ def oneset():
 @task
 def download_data():
     if not os.path.isfile('Allsets-x.json'):
-    sh('wget http://mtgjson.com/json/AllSets-x.json')
+        sh('wget http://mtgjson.com/json/AllSets-x.json')
     if not os.path.isfile('MRD-x.json'):
-    sh('wget http://mtgjson.com/json/MRD-x.json')
+        sh('wget http://mtgjson.com/json/MRD-x.json')
 
 
 @task
