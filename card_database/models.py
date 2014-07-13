@@ -74,7 +74,10 @@ class MagicCard(Entity):
 
     def get_rulings(self, ruling_number=None):
         if ruling_number is None:
-            return self.rulings
+            rulings_array = []
+            for ruling in self.rulings:
+                rulings_array.append(ruling)
+            return rulings_array
         else:
             return self.rulings[ruling_number]
 
