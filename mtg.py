@@ -26,8 +26,24 @@ def card(bot, trigger):
 
 @willie.module.commands("rulings")
 def rulings(bot, trigger):
-    card_rulings = mtgcard.find_card(trigger.group(2))
-    bot.reply(card_rulings.get_rulings())
+    output_text = ""
+    input_text = trigger.group(2).split("|")
+    card_name = input_text[0]
+#TODO: Move this logic into the model.
+    if len(input_text) > 1:
+        ruling_no = input_text[1]
+    else:
+        ruling_no = None
+    card_rulings = mtgcard.find_card(card_name).get_rulings()
+    if ruling_no is None:
+        output_text = card_rulings[0]
+    else:
+        if ruling_no >= len(input_text):
+            output_text = card_rulings[-1]
+        else:
+            output_text = card_rulings[int(ruling_no)]
+    bot.reply(output_text + " --- " + len(card_rulings))
+
 
 @willie.module.commands("flavor")
 def flavor(bot, trigger):
