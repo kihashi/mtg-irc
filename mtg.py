@@ -48,4 +48,5 @@ def rulings(bot, trigger):
 @willie.module.commands("flavor")
 def flavor(bot, trigger):
     find_card = mtgcard.find_card(trigger.group(2))
-    bot.reply(find_card.get_flavor_text())
+    for flavor in find_card.get_flavor_text():
+        bot.reply(flavor)
