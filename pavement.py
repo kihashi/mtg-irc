@@ -63,4 +63,7 @@ def fromcleanone():
 
 @task
 def deploy():
-    sh('cp -r * /Library/Python/2.7/site-packages/willie/modules/')
+    sh('cp -r card_database ../willie/willie/modules/')
+    sh('cp mtg.py ../willie/willie/modules/')
+    sh('cp card.py ../willie/willie/modules/')
+    sh('cp price.py ../willie/willie/modules')
