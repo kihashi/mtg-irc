@@ -37,6 +37,8 @@ def get_tcgplayer_price(card_name):
 
 def get_tcgplayer_xml(card_name, url=config.tcgplayer_api_url):
     """ Makes the API call and returns the resultsing XML. """
+    if not url:
+        raise NoUrlException()
     get_vars['p'] = card_name
     r = requests.get(url, params=get_vars)
     r.raise_for_status()
