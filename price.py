@@ -11,12 +11,9 @@ import requests
 import xml.etree.ElementTree as ET
 import sys
 import argparse
+import config
 
-# This is the partner code assigned with you TCGPlayer API account.
-partner_key = "MTGIRC"
-# This is the URL that the TCGPlayer Rep assigns you for API access.
-secret_api_url = ""
-get_vars = {"pk": partner_key, "s": "", "p": ""}
+get_vars = {"pk": config.tcgplayer_partner_code, "s": "", "p": ""}
 
 
 def get_tcgplayer_price(card_name):
@@ -38,7 +35,7 @@ def get_tcgplayer_price(card_name):
             return tcgprice
 
 
-def get_tcgplayer_xml(card_name, url=secret_api_url):
+def get_tcgplayer_xml(card_name, url=config.tcgplayer_api_url):
     """ Makes the API call and returns the resultsing XML. """
     get_vars['p'] = card_name
     r = requests.get(url, params=get_vars)
