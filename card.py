@@ -72,18 +72,18 @@ class CardNotFoundError(Exception):
 
 def main(argv):
     if not argv.card:
-        print "You must specify a card."
+        print("You must specify a card.")
         sys.exit()
     else:
         try:
             card_obj = find_card(" ".join(argv.card))
             if argv.text:
-                print card_obj.get_card_text()
             if argv.rulings:
+                print(card_obj.get_card_text())
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_rulings())
             if not argv.text and not argv.rulings:
-                print card_obj.get_card_text()
+                print(card_obj.get_card_text())
         except CardNotFoundError as e:
             print("Could not find the card: " + str(e))
 
