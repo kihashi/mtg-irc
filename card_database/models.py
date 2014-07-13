@@ -82,7 +82,7 @@ class MagicCard(Entity):
         if flavor_expansion is None:
             flavor_array = []
             for release in self.releases:
-                flavor_array.append(str(release.get_flavor_text()))
+                flavor_array.append(release.get_flavor_text())
             return flavor_array
         else:
             #TODO: return flavor text from the specific expansion.
@@ -97,7 +97,7 @@ class Ruling(Entity):
     card = ManyToOne('MagicCard')
 
     def __repr__(self):
-        return "[{DATE}]: {TEXT}".format(DATE=self.date, TEXT=self.text)
+        return u"[{DATE}]: {TEXT}".format(DATE=self.date, TEXT=self.text).encode('utf-8')
 
 
 class Color(Entity):
@@ -176,7 +176,7 @@ class CardRelease(Entity):
         return str(self.card.name) + "-" + str(self.expansion)
 
     def get_flavor_text(self):
-        return "[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text)
+        return u"[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text).encode('utf-8')
 
 
 class Layout(Entity):
