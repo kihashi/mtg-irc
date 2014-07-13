@@ -82,6 +82,9 @@ def main(argv):
             elif argv.rulings:
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_rulings())
+            elif argv.flavor:
+                pp = pprint.PrettyPrinter(indent=4)
+                pp.pprint(card_obj.get_flavor_text())
             else:
                 print(card_obj.get_card_text())
         except CardNotFoundError as e:
@@ -99,5 +102,9 @@ if __name__ == "__main__":
                         "--text",
                         action="store_true",
                         help="Get the text for a specific card.")
+    parser.add_argument("-f",
+                        "--flavor",
+                        action="store_true",
+                        help="Get the flavor texts for a specific card")
     args = parser.parse_args()
     main(args)
