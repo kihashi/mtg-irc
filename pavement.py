@@ -66,4 +66,6 @@ def deploy():
     sh('cp -r card_database ../willie/willie/modules/')
     sh('cp mtg.py ../willie/willie/modules/')
     sh('cp card.py ../willie/willie/modules/')
-    sh('cp price.py ../willie/willie/modules')
+    sh('cp price.py ../willie/willie/modules/')
+    if os.path.isfile('config.py'):
+        sh('cp config.py ../willie/willie/modules/')
