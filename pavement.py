@@ -1,6 +1,7 @@
 from paver.easy import *
 import paver.doctools
 from paver.setuputils import setup
+import os.path
 
 
 @task
@@ -10,7 +11,10 @@ def init():
 
 @task
 def clean():
+    if os.path.isfile('cards.sqlite'):
     sh('rm cards.sqlite')
+    else:
+        print 'Card Database not present.'
 
 
 @task
@@ -33,7 +37,9 @@ def oneset():
 
 @task
 def download_data():
+    if not os.path.isfile('Allsets-x.json'):
     sh('wget http://mtgjson.com/json/AllSets-x.json')
+    if not os.path.isfile('MRD-x.json'):
     sh('wget http://mtgjson.com/json/MRD-x.json')
 
 
