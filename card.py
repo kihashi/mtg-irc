@@ -78,11 +78,11 @@ def main(argv):
         try:
             card_obj = find_card(" ".join(argv.card))
             if argv.text:
-            if argv.rulings:
                 print(card_obj.get_card_text())
+            elif argv.rulings:
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_rulings())
-            if not argv.text and not argv.rulings:
+            else:
                 print(card_obj.get_card_text())
         except CardNotFoundError as e:
             print("Could not find the card: " + str(e))
