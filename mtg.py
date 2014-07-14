@@ -28,7 +28,6 @@ def rulings(bot, trigger):
     output_text = ""
     input_text = trigger.group(2).split("|")
     card_name = input_text[0]
-#TODO: Move this logic into the model.
     if len(input_text) > 1:
         ruling_no = input_text[1]
         try:
@@ -40,12 +39,14 @@ def rulings(bot, trigger):
         ruling_no = None
     card_rulings = mtgcard.find_card(card_name).get_rulings()
     if ruling_no is None:
-        output_text = card_rulings[0]
+        output_text = str(card_rulings[0])
+        ruling_no = 1
     else:
-        if ruling_no >= len(input_text):
-            output_text = card_rulings[-1]
+        if ruling_no >= len(card_rulings):
+            output_text = str(card_rulings[-1])
+            ruling_no = len(card_rulings)
         else:
-            output_text = card_rulings[int(ruling_no)]
+            output_text = str(card_rulings[int(ruling_no) - 1])
     bot.reply(output_text + " | " + str(ruling_no) + " of " + str(len(card_rulings)))
 
 
