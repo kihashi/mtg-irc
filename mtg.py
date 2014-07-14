@@ -31,6 +31,11 @@ def rulings(bot, trigger):
 #TODO: Move this logic into the model.
     if len(input_text) > 1:
         ruling_no = input_text[1]
+        try:
+            ruling_no = int(ruling_no)
+        except ValueError:
+            bot.reply("That is is not a number. Try .ruling CardName | 1")
+            return
     else:
         ruling_no = None
     card_rulings = mtgcard.find_card(card_name).get_rulings()
