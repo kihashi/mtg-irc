@@ -9,7 +9,6 @@ License: BSD 3-clause
 import willie
 from willie.modules import price as mtgprice
 from willie.modules import card as mtgcard
-from willie.modules import card_database
 
 
 @willie.module.commands("price")
