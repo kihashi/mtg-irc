@@ -27,7 +27,7 @@ def test():
 
 @task
 def allsets():
-    sh('python mtgjson.py Allsets-x.json')
+    sh('python mtgjson.py AllSets-x.json')
 
 
 @task
@@ -37,7 +37,7 @@ def oneset():
 
 @task
 def download_data():
-    if not os.path.isfile('Allsets-x.json'):
+    if not os.path.isfile('AllSets-x.json'):
         sh('wget http://mtgjson.com/json/AllSets-x.json')
     if not os.path.isfile('MRD-x.json'):
         sh('wget http://mtgjson.com/json/MRD-x.json')
