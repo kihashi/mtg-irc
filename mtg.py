@@ -46,7 +46,7 @@ def rulings(bot, trigger):
             output_text = card_rulings[-1]
         else:
             output_text = card_rulings[int(ruling_no)]
-    bot.reply(output_text + " --- " + len(card_rulings))
+    bot.reply(output_text + " | " + str(ruling_no) + " of " + str(len(card_rulings)))
 
 
 @willie.module.commands("flavor")
