@@ -90,6 +90,8 @@ class MagicCard(Entity):
             for release in self.releases:
                 flavor_array.append(release.get_flavor_text())
             return flavor_array
+        if flavor_expansion is None:
+            return self.releases[-1].get_flavor_text()
         else:
             #TODO: return flavor text from the specific expansion.
             return flavor_expansion
