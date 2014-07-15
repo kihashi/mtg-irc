@@ -94,7 +94,7 @@ class MagicCard(Entity):
             return self.releases[-1].get_flavor_text()
         else:
             #TODO: return flavor text from the specific expansion.
-            return flavor_expansion
+            return ""
 
 
 class Ruling(Entity):
