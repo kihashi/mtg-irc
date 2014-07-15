@@ -19,7 +19,10 @@ def price(bot, trigger):
 
 @willie.module.commands("card")
 def card(bot, trigger):
-    card_text = mtgcard.find_card(trigger.group(2)).get_card_text()
+    try:
+        card_text = mtgcard.find_card(trigger.group(2)).get_card_text()
+    except mtgcard.CardNotFoundError as e:
+        card_text = "Could not find the card: {CARD}".format(CARD=str(e))
     bot.reply(card_text)
 
 
@@ -46,6 +49,9 @@ def rulings(bot, trigger):
 
 @willie.module.commands("flavor")
 def flavor(bot, trigger):
-    find_card = mtgcard.find_card(trigger.group(2))
-    for flavor in find_card.get_flavor_text():
-        bot.reply(flavor)
+    try:
+        card = mtgcard.find_card(trigger.group(2))
+    except mtgcard.CardNotFoundError as e:
+        bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+    else:
+        bot.reply(card.get_flavor_text())
