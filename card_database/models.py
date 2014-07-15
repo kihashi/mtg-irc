@@ -79,10 +79,10 @@ class MagicCard(Entity):
             return (self.rulings[0], 1, len(self.rulings))
         else:
             if ruling_number >= len(self.rulings):
-                ruling_number = len(self.rulings) - 1
+                ruling_number = len(self.rulings)
             elif ruling_number <= 0:
                 ruling_number = 0
-            return (self.rulings[ruling_number], ruling_number, len(self.rulings))
+            return (self.rulings[ruling_number - 1], ruling_number, len(self.rulings))
 
     def get_flavor_text(self, flavor_expansion=None, get_all=None):
         if get_all is not None:
