@@ -84,8 +84,8 @@ class MagicCard(Entity):
                 ruling_number = 0
             return (self.rulings[ruling_number], ruling_number, len(self.rulings))
 
-    def get_flavor_text(self, flavor_expansion=None):
-        if flavor_expansion is None:
+    def get_flavor_text(self, flavor_expansion=None, get_all=None):
+        if get_all is not None:
             flavor_array = []
             for release in self.releases:
                 flavor_array.append(release.get_flavor_text())
