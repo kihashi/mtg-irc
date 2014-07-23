@@ -5,6 +5,8 @@ A module for the IRC Bot [Phenny][] that allows users to query magic cards.
 
 [Phenny]: http://inamidst.com/phenny/
 
+NOTE: The below is terribly out of date. It is for an old version that no longer exists. An update will be done when the latest version is released.
+
 Dependencies
 ------------
 
