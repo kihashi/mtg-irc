@@ -22,7 +22,8 @@ def create_rarities():
     for r in [(u"Common", u"C"),
               (u"Uncommon", u"U"),
               (u"Rare", u"R"),
-              (u"Mythic Rare", u"M")]:
+              (u"Mythic Rare", u"M"),
+              (u"Time Spiral: Special")]:
         models.Rarity(rarity=r[0], abbreviation=r[1])
 
 
