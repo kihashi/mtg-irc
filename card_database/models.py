@@ -97,7 +97,10 @@ class MagicCard(Entity):
             else:
                 return None
         else:
-            #TODO: return flavor text from the specific expansion.
+            # expansion_set = Expansion.query.filter(Expansion.cards.has(())
+            # if not expansion_set:
+            #     raise ExpansionNotFoundError
+            # release = CardRelease.query.get_by(card=self,expansion=flavor_expansion)
             return ""
 
 
@@ -188,7 +191,10 @@ class CardRelease(Entity):
         return str(self.card.name) + "-" + str(self.expansion)
 
     def get_flavor_text(self):
-        return u"[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text).encode('utf-8')
+        if self.flavor_text is None:
+            return None
+        else:
+            return u"[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text).encode('utf-8')
 
 
 class Layout(Entity):
