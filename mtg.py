@@ -49,9 +49,22 @@ def rulings(bot, trigger):
 
 @willie.module.commands("flavor")
 def flavor(bot, trigger):
+    input_text = trigger.group(2).split("|")
+    card_name = input_text[0]
+    expansion_name = None
+    if len(input_text) > 1:
+        expansion_name = input_text[1].strip()
     try:
-        card = mtgcard.find_card(trigger.group(2))
+        card = mtgcard.find_card(card_name)
+        if expansion_name is not None:
+            expansion = mtgcard.find_expansion(expansion_name)
+            release = mtgcard._find_release(card, expansion)
+            bot.reply(release.flavor_text)
+        else:
+            bot.reply(card.get_flavor_text())
     except mtgcard.CardNotFoundError as e:
         bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
-    else:
-        bot.reply(card.get_flavor_text())
+    except mtgcard.ExpansionNotFoundError as e:
+        bot.reply("Could not find the expansion: {EXP}".format(EXP=str(e)))
+    except mtgcard.ReleaseNotFoundError as e:
+        bot.reply(str(e))
