@@ -59,7 +59,32 @@ def find_card_by_search_name(input_card):
 
 
 def find_cards_like(input_card):
+    # TODO: Implement this method.
     raise CardNotFoundError(input_card)
+
+
+def find_expansion(exp_abbrev):
+    q = models.Expansion.get_by(abbreviation=exp_abbrev)
+    if not q:
+        raise ExpansionNotFoundError(exp_abbrev)
+    else:
+        return q
+
+
+def find_release_by_name(card_name, expansion_abbreviation):
+    card = find_card(card_name)
+    expansion = find_expansion(expansion_abbreviation)
+    card_release = _find_release(card, expansion)
+    return card_release
+
+
+def _find_release(card, expansion):
+    card_release = models.CardRelease.get_by(card=card,
+                                             expansion=expansion)
+    if card_release is not None:
+        return card_release
+    else:
+        raise ReleaseNotFoundError(card, expansion)
 
 
 class CardNotFoundError(Exception):
@@ -68,6 +93,23 @@ class CardNotFoundError(Exception):
 
     def __str__(self):
         return self.card_name
+
+
+class ExpansionNotFoundError(Exception):
+    def __init__(self, exp_abbrev):
+        self.expansion = exp_abbrev
+
+    def __str__(self):
+        return self.expansion
+
+
+class ReleaseNotFoundError(Exception):
+    def __init__(self, card, expansion):
+        self.card = card
+        self.expansion = expansion
+
+    def __str__(self):
+        return self.card.name + " is not in " + str(self.expansion)
 
 
 def main(argv):
