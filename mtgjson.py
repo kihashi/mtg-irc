@@ -134,6 +134,8 @@ def _parse_card(card_json, expansion):
             if 'flavor' in card_json:
                 db_cardrelease.flavor_text = card_json['flavor']
 
+            db_cardrelease.mtgoprice = models.MTGOPrice()
+
         except Exception as e:
             print e
             print card_json
