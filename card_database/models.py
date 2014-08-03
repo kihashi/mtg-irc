@@ -188,6 +188,7 @@ class CardRelease(Entity):
     rarity = ManyToOne("Rarity")
     flavor_text = Field(Unicode(50))
     multiverse_id = Field(Integer)
+    mtgoprice = OneToOne("MTGOPrice", inverse='release')
 
     def __str__(self):
         return str(self.card.name) + "-" + str(self.expansion)
@@ -209,9 +210,13 @@ class Layout(Entity):
         return self.abbreviation
 
 
-class mtgoprice(Entity):
+class MTGOPrice(Entity):
     using_options(shortnames=True)
 
-    card = ManyToOne('MagicCard')
-    expansion = ManyToOne('Expansion')
+    release = ManyToOne("CardRelease")
     price = Field(Float)
+    foil_price = Field(Float)
+    link = Field(Unicode(30))
+
+    def __str__(self):
+        return u"[{EXP}]: {PRICE}".format(EXP=self.release.expansion.abbreviation, PRICE=str(self.price))
