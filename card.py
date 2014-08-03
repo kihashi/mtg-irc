@@ -90,7 +90,12 @@ def _find_release(card, expansion):
         raise ReleaseNotFoundError(card, expansion)
 
 
-class CardNotFoundError(Exception):
+class CardError(Exception):
+    def __init__(self):
+        pass
+
+
+class CardNotFoundError(CardError):
     def __init__(self, card_name):
         self.card_name = card_name
 
@@ -98,7 +103,7 @@ class CardNotFoundError(Exception):
         return self.card_name
 
 
-class ExpansionNotFoundError(Exception):
+class ExpansionNotFoundError(CardError):
     def __init__(self, exp_abbrev):
         self.expansion = exp_abbrev
 
@@ -106,7 +111,7 @@ class ExpansionNotFoundError(Exception):
         return self.expansion
 
 
-class ReleaseNotFoundError(Exception):
+class ReleaseNotFoundError(CardError):
     def __init__(self, card, expansion):
         self.card = card
         self.expansion = expansion
