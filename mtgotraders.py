@@ -6,6 +6,7 @@ License: BSD 3 Clause License
 '''
 
 import requests
+import card as mtgcard
 import config
 
 
@@ -16,30 +17,23 @@ def get_raw_list(url):
 
 
 def parse_list(price_text):
-    card_dict = {}
-    for line in price_text:
-        line_list = line.split("|")
-        if line_list[0] != "BOOSTER" \
-           and \
-           line_list[0] != "" \
-           and \
-           line_list[1] != "EVENT":
-            if line_list[3].lower() not in card_dict:
-                card_dict[line_list[3].lower()] = {}
-
-            if line_list[0] not in card_dict[line_list[3].lower()]:
-                card_dict[line_list[3].lower()][line_list[0]] = {}
-
-            if line_list[2] == "R":
-                card_dict[line_list[3].lower()][line_list[0]]["reg_price"] \
-                    = line_list[5]
-                card_dict[line_list[3].lower()][line_list[0]]["link"] \
-                    = store_url + line_list[6]
+    for line in price_text.splitlines():
+        line_list = line.replace("<br>", "").strip().split("|")
+        if line_list[0] != "BOOSTER":
+            try:
+                card_release = mtgcard.find_release_by_name(line_list[3],
+                                                            line_list[0])
+            except mtgcard.CardError as e:
+                print e
+                print line
+            except IndexError as e:
+                print e
+                print line
             else:
-                card_dict[line_list[3].lower()][line_list[0]]["foil_price"] \
-                    = line_list[5]
-
-    return card_dict
+                if line_list[2] == "R":
+                    card_release.mtgoprice.price = float(line_list[5])
+                else:
+                    card_release.mtgoprice.foil_price = float(line_list[5])
 
 
 def main():
