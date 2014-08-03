@@ -6,9 +6,7 @@ License: BSD 3 Clause License
 '''
 
 import requests
-
-store_url = "http://www.mtgotraders.com/store/"
-price_api_url = ""  # Url can be obtained from MTGO Traders.
+import config
 
 
 def get_raw_list(url):
@@ -45,10 +43,7 @@ def parse_list(price_text):
 
 
 def main():
-    raw_list = get_raw_list()
-    card_dict = parse_list(raw_list)
-
-    print(card_dict['Garruk, Primal Hunter'])
+    parse_list(get_raw_list(config.mtgotraders_api_url))
 
 if __name__ == '__main__':
     main()
