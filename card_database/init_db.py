@@ -45,7 +45,6 @@ def main():
     models.setup()
     create_colors()
     create_rarities()
-    create_expansions()
     create_layouts()
     models.close()
 
