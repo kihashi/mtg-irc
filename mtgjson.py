@@ -37,6 +37,12 @@ def _parse_set(set_json):
         if not db_expansion:
             db_expansion = models.Expansion(name=set_json['name'],
                                             abbreviation=set_json['code'])
+            if 'oldCode' in set_json:
+                db_expansion.old_code = set_json['oldCode']
+
+            if 'gathererCode' in set_json:
+                db_expansion.gatherer_code = set_json['gathererCode']
+
     for card in set_json['cards']:
         _parse_card(card, db_expansion)
 
@@ -127,6 +133,8 @@ def _parse_card(card_json, expansion):
 
             if 'flavor' in card_json:
                 db_cardrelease.flavor_text = card_json['flavor']
+
+            db_cardrelease.mtgoprice = models.MTGOPrice()
 
         except Exception as e:
             print e
