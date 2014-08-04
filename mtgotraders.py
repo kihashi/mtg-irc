@@ -37,6 +37,7 @@ def parse_list(price_text):
                     card_release.mtgoprice.price = float(line_list[5])
                 else:
                     card_release.mtgoprice.foil_price = float(line_list[5])
+    mtgcard.models.close()
 
 
 def main():
