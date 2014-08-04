@@ -44,11 +44,17 @@ def download_data():
 
 
 @task
+def eprices():
+    sh('python mtgotraders.py')
+
+
+@task
 def fromcleanall():
     clean()
     download_data()
     init()
     allsets()
+    eprices()
     test()
 
 
