@@ -17,6 +17,16 @@ def price(bot, trigger):
     bot.reply(card_price)
 
 
+@willie.module.commands("eprice")
+def eprice(bot, trigger):
+    try:
+        card = mtgcard.find_card(trigger.group(2))
+    except mtgcard.CardNotFoundError as e:
+        bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+    else:
+        bot.reply(card.get_mtgoprice())
+
+
 @willie.module.commands("card")
 def card(bot, trigger):
     try:
