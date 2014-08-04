@@ -24,11 +24,14 @@ def parse_list(price_text):
                 card_release = mtgcard.find_release_by_name(line_list[3],
                                                             line_list[0])
             except mtgcard.CardError as e:
-                print e
+                print "---------------------------"
+                print type(e)
                 print line
+                print "Card: " + line_list[3]
+                print "Set:" + line_list[0]
+                print "Price: " + line_list[5]
             except IndexError as e:
-                print e
-                print line
+                pass
             else:
                 if line_list[2] == "R":
                     card_release.mtgoprice.price = float(line_list[5])
