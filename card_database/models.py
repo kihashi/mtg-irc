@@ -103,6 +103,16 @@ class MagicCard(Entity):
             # release = CardRelease.query.get_by(card=self,expansion=flavor_expansion)
             return ""
 
+    def get_mtgoprice(self):
+        output = self.name
+        for release in self.releases:
+            if release.mtgoprice.price is not None:
+                output += " | " + str(release.mtgoprice)
+        if output == self.name:
+            return None
+        else:
+            return output
+
 
 class Ruling(Entity):
     using_options(shortnames=True)
