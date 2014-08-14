@@ -75,6 +75,8 @@ class MagicCard(Entity):
     def get_rulings(self, ruling_number=None, get_all=None):
         if get_all is not None:
             return self.rulings
+        if len(self.rulings) < 1:
+            return (None, 0, 0)
         if ruling_number is None:
             return (self.rulings[0], 1, len(self.rulings))
         else:
