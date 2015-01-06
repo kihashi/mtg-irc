@@ -70,7 +70,9 @@ def find_expansion(exp_abbrev):
         if not q:
             q = models.Expansion.get_by(old_code=exp_abbrev)
             if not q:
-                raise ExpansionNotFoundError(exp_abbrev)
+                q = models.Expansion.get_by(mtgo_code=exp_abbrev)
+                if not q:
+                    raise ExpansionNotFoundError(exp_abbrev)
     return q
 
 
