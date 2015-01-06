@@ -8,6 +8,7 @@ License: BSD 3 Clause License
 import requests
 import card as mtgcard
 import config
+import datetime
 
 
 def get_raw_list(url):
@@ -34,6 +35,7 @@ def parse_list(price_text):
                     card_release.mtgoprice.price = float(line_list[5])
                 else:
                     card_release.mtgoprice.foil_price = float(line_list[5])
+                card_release.mtgoprice.last_fetch = datetime.datetime.now()
             except mtgcard.CardError as e:
                 print "---------------------------"
                 print type(e)
@@ -48,6 +50,7 @@ def parse_list(price_text):
                     card_release.mtgoprice.price = float(line_list[5])
                 else:
                     card_release.mtgoprice.foil_price = float(line_list[5])
+                card_release.mtgoprice.last_fetch = datetime.datetime.now()
     mtgcard.models.close()
 
 
