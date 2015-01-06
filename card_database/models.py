@@ -1,4 +1,5 @@
 from elixir import *
+import datetime
 
 metadata.bind = "sqlite:///cards.sqlite"
 metadata.bind.echo = False
@@ -114,6 +115,12 @@ class MagicCard(Entity):
             return None
         else:
             return output
+
+    def is_price_out_of_date(self):
+        if (datetime.datetime.today() - self.releases[0].mtgoprice.last_fetch).days >= 1:
+            return True
+        else:
+            return False
 
 
 class Ruling(Entity):
@@ -233,6 +240,7 @@ class MTGOPrice(Entity):
     price = Field(Float)
     foil_price = Field(Float)
     link = Field(Unicode(30))
+    last_fetch = Field(DateTime)
 
     def __str__(self):
         return u"[{EXP}]: {PRICE}".format(EXP=self.release.expansion.abbreviation, PRICE=str(self.price))
