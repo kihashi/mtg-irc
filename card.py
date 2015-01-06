@@ -162,5 +162,9 @@ if __name__ == "__main__":
                         "--flavor",
                         action="store_true",
                         help="Get the flavor texts for a specific card")
+    parser.add_argument("-s",
+                        "--set",
+                        action="store_true",
+                        help="Get the set name for a specific code.")
     args = parser.parse_args()
     main(args)
