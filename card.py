@@ -150,6 +150,10 @@ if __name__ == "__main__":
                         "--rulings",
                         action="store_true",
                         help="Get the rulings for the specified card.")
+    parser.add_argument("-e",
+                        "--eprice",
+                        action="store_true",
+                        help="Get the MTGO price for the specified card.")
     parser.add_argument("-t",
                         "--text",
                         action="store_true",
