@@ -186,6 +186,7 @@ class Expansion(Entity):
     abbreviation = Field(Unicode(10))
     old_code = Field(Unicode(10))
     gatherer_code = Field(Unicode(10))
+    mtgo_code = Field(Unicode(10))
     cards = OneToMany("CardRelease")
 
     def __repr__(self):
