@@ -128,16 +128,24 @@ def main(argv):
         sys.exit()
     else:
         try:
-            card_obj = find_card(" ".join(argv.card))
-            if argv.text:
-                print(card_obj.get_card_text())
-            elif argv.rulings:
+            if argv.rulings:
+                card_obj = find_card(" ".join(argv.card))
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_rulings())
             elif argv.flavor:
+                card_obj = find_card(" ".join(argv.card))
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_flavor_text())
+            elif argv.eprice:
+                card_obj = find_card(" ".join(argv.card))
+                print(card_obj.get_mtgoprice())
+            elif argv.set:
+                models.setup()
+                set_obj = find_expansion(" ".join(argv.card))
+                models.close()
+                print(set_obj)
             else:
+                card_obj = find_card(" ".join(argv.card))
                 print(card_obj.get_card_text())
         except CardNotFoundError as e:
             print("Could not find the card: " + str(e))
