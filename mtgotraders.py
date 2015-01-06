@@ -1,3 +1,5 @@
+#!/usr/bin/python -tt
+# -*- coding: utf-8 -*-
 '''
 A set of helper methods to help get pricing information from MTGO Traders.
 
@@ -9,6 +11,11 @@ import requests
 import card as mtgcard
 import config
 import datetime
+import codecs
+import sys
+
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
 
 
 def get_raw_list(url):
