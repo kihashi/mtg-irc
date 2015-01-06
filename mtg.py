@@ -9,6 +9,7 @@ License: BSD 3-clause
 import willie
 from willie.modules import price as mtgprice
 from willie.modules import card as mtgcard
+from willie.modules import mtgotraders as mtgotraders
 
 
 @willie.module.commands("price")
@@ -24,6 +25,8 @@ def eprice(bot, trigger):
     except mtgcard.CardNotFoundError as e:
         bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
     else:
+        if card.is_price_out_of_date():
+            mtgotraders.main()
         bot.reply(card.get_mtgoprice())
 
 
