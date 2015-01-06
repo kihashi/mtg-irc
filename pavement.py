@@ -13,8 +13,10 @@ def init():
 def clean():
     if os.path.isfile('cards.sqlite'):
         sh('rm cards.sqlite')
-    else:
-        print 'Card Database not present.'
+    if os.path.isfile('AllSets-x.json'):
+        sh('rm AllSets-x.json')
+    if os.path.isfile('MRD-x.json'):
+        sh('rm MRD-x.json')
 
 
 @task
