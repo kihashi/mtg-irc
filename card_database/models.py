@@ -192,6 +192,9 @@ class Expansion(Entity):
     def __repr__(self):
         return self.abbreviation
 
+    def get_name(self):
+        return self.name
+
 
 class CardRelease(Entity):
     using_options(shortnames=True)
