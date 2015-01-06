@@ -23,6 +23,17 @@ def parse_list(price_text):
             try:
                 card_release = mtgcard.find_release_by_name(line_list[3],
                                                             line_list[0])
+            except mtgcard.ReleaseNotFoundError as e:
+                card = mtgcard.find_card(line_list[3])
+                expansion = mtgcard.find_expansion(line_list[0])
+                card_release = mtgcard.models.CardRelease()
+                card_release.expansion = expansion
+                card_release.card = card
+                card_release.mtgoprice = mtgcard.models.MTGOPrice()
+                if line_list[2] == "R":
+                    card_release.mtgoprice.price = float(line_list[5])
+                else:
+                    card_release.mtgoprice.foil_price = float(line_list[5])
             except mtgcard.CardError as e:
                 print "---------------------------"
                 print type(e)
