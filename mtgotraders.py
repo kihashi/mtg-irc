@@ -44,12 +44,7 @@ def parse_list(price_text):
                     card_release.mtgoprice.foil_price = float(line_list[5])
                 card_release.mtgoprice.last_fetch = datetime.datetime.now()
             except mtgcard.CardError as e:
-                print "---------------------------"
-                print type(e)
-                print line
-                print "Card: " + line_list[3]
-                print "Set:" + line_list[0]
-                print "Price: " + line_list[5]
+                pass
             except IndexError as e:
                 pass
             else:
