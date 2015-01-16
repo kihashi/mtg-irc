@@ -13,8 +13,10 @@ def init():
 def clean():
     if os.path.isfile('cards.sqlite'):
         sh('rm cards.sqlite')
-    else:
-        print 'Card Database not present.'
+    if os.path.isfile('AllSets-x.json'):
+        sh('rm AllSets-x.json')
+    if os.path.isfile('MRD-x.json'):
+        sh('rm MRD-x.json')
 
 
 @task
@@ -45,7 +47,8 @@ def download_data():
 
 @task
 def eprices():
-    sh('python mtgotraders.py')
+    sh('python expansions.py')
+    sh('python mtgotraders.py > mtgotraders.log')
 
 
 @task
@@ -73,6 +76,7 @@ def deploy():
     sh('cp mtg.py ../willie/willie/modules/')
     sh('cp card.py ../willie/willie/modules/')
     sh('cp price.py ../willie/willie/modules/')
+    sh('cp mtgotraders.py ../willie/willie/modules/')
     sh('cp cards.sqlite ../willie/')
     if os.path.isfile('config.py'):
         sh('cp config.py ../willie/willie/modules/')

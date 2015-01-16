@@ -20,7 +20,6 @@ def find_card(input_card):
     '''
 
     input_card = sanitize(input_card)
-    models.setup()
     try:
         return find_card_by_name(input_card)
     except CardNotFoundError:
@@ -28,7 +27,6 @@ def find_card(input_card):
             return find_card_by_search_name(input_card)
         except CardNotFoundError:
             return find_cards_like(input_card)
-    models.close()
 
 
 def sanitize(input):
@@ -70,7 +68,9 @@ def find_expansion(exp_abbrev):
         if not q:
             q = models.Expansion.get_by(old_code=exp_abbrev)
             if not q:
-                raise ExpansionNotFoundError(exp_abbrev)
+                q = models.Expansion.get_by(mtgo_code=exp_abbrev)
+                if not q:
+                    raise ExpansionNotFoundError(exp_abbrev)
     return q
 
 
@@ -126,28 +126,41 @@ def main(argv):
         sys.exit()
     else:
         try:
-            card_obj = find_card(" ".join(argv.card))
-            if argv.text:
-                print(card_obj.get_card_text())
-            elif argv.rulings:
+            if argv.rulings:
+                card_obj = find_card(" ".join(argv.card))
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_rulings())
             elif argv.flavor:
+                card_obj = find_card(" ".join(argv.card))
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_flavor_text())
+            elif argv.eprice:
+                card_obj = find_card(" ".join(argv.card))
+                print(card_obj.get_mtgoprice())
+            elif argv.set:
+                models.setup()
+                set_obj = find_expansion(" ".join(argv.card))
+                models.close()
+                print(set_obj)
             else:
+                card_obj = find_card(" ".join(argv.card))
                 print(card_obj.get_card_text())
         except CardNotFoundError as e:
             print("Could not find the card: " + str(e))
 
 
 if __name__ == "__main__":
+    models.setup()
     parser = argparse.ArgumentParser()
     parser.add_argument("card", nargs="+", help="The Card to find.")
     parser.add_argument("-r",
                         "--rulings",
                         action="store_true",
                         help="Get the rulings for the specified card.")
+    parser.add_argument("-e",
+                        "--eprice",
+                        action="store_true",
+                        help="Get the MTGO price for the specified card.")
     parser.add_argument("-t",
                         "--text",
                         action="store_true",
@@ -156,5 +169,10 @@ if __name__ == "__main__":
                         "--flavor",
                         action="store_true",
                         help="Get the flavor texts for a specific card")
+    parser.add_argument("-s",
+                        "--set",
+                        action="store_true",
+                        help="Get the set name for a specific code.")
     args = parser.parse_args()
     main(args)
+    models.close()
