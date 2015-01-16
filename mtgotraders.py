@@ -58,11 +58,12 @@ def parse_list(price_text):
                 else:
                     card_release.mtgoprice.foil_price = float(line_list[5])
                 card_release.mtgoprice.last_fetch = datetime.datetime.now()
-    mtgcard.models.close()
 
 
 def main():
+    mtgcard.models.setup()
     parse_list(get_raw_list(config.mtgotraders_api_url))
+    mtgcard.models.close()
 
 if __name__ == '__main__':
     main()

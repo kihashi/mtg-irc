@@ -14,12 +14,15 @@ from willie.modules import mtgotraders as mtgotraders
 
 @willie.module.commands("price")
 def price(bot, trigger):
+    mtgcard.models.setup()
     card_price = mtgprice.get_tcgplayer_price(trigger.group(2))
     bot.reply(card_price)
+    mtgcard.models.close()
 
 
 @willie.module.commands("eprice")
 def eprice(bot, trigger):
+    mtgcard.models.setup()
     try:
         card = mtgcard.find_card(trigger.group(2))
     except mtgcard.CardNotFoundError as e:
@@ -28,19 +31,23 @@ def eprice(bot, trigger):
         if card.is_price_out_of_date():
             mtgotraders.main()
         bot.reply(card.get_mtgoprice())
+    mtgcard.models.close()
 
 
 @willie.module.commands("card")
 def card(bot, trigger):
+    mtgcard.models.setup()
     try:
         card_text = mtgcard.find_card(trigger.group(2)).get_card_text()
     except mtgcard.CardNotFoundError as e:
         card_text = "Could not find the card: {CARD}".format(CARD=str(e))
     bot.reply(card_text)
+    mtgcard.models.close()
 
 
 @willie.module.commands("rulings")
 def rulings(bot, trigger):
+    mtgcard.models.setup()
     input_text = trigger.group(2).split("|")
     card_name = input_text[0]
     if len(input_text) > 1:
@@ -58,10 +65,12 @@ def rulings(bot, trigger):
         bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
     else:
         bot.reply(str(card_rulings[0]) + " | " + str(card_rulings[1]) + " of " + str(card_rulings[2]))
+    mtgcard.models.close()
 
 
 @willie.module.commands("flavor")
 def flavor(bot, trigger):
+    mtgcard.models.setup()
     input_text = trigger.group(2).split("|")
     card_name = input_text[0]
     expansion_name = None
@@ -81,3 +90,4 @@ def flavor(bot, trigger):
         bot.reply("Could not find the expansion: {EXP}".format(EXP=str(e)))
     except mtgcard.ReleaseNotFoundError as e:
         bot.reply(str(e))
+    mtgcard.models.close()

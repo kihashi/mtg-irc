@@ -20,7 +20,6 @@ def find_card(input_card):
     '''
 
     input_card = sanitize(input_card)
-    models.setup()
     try:
         return find_card_by_name(input_card)
     except CardNotFoundError:
@@ -28,7 +27,6 @@ def find_card(input_card):
             return find_card_by_search_name(input_card)
         except CardNotFoundError:
             return find_cards_like(input_card)
-    models.close()
 
 
 def sanitize(input):
@@ -152,6 +150,7 @@ def main(argv):
 
 
 if __name__ == "__main__":
+    models.setup()
     parser = argparse.ArgumentParser()
     parser.add_argument("card", nargs="+", help="The Card to find.")
     parser.add_argument("-r",
@@ -176,3 +175,4 @@ if __name__ == "__main__":
                         help="Get the set name for a specific code.")
     args = parser.parse_args()
     main(args)
+    models.close()
