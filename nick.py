@@ -5,32 +5,49 @@ Author: John Cleaver
 License: BSD 3 Clause.
 '''
 
+import card as mtgcard
+
 nicknames = {
-    "Penis Wurm": "Armada Wurm",
-    "Bob": "Dark Confidant",
-    "Jens": "Solemn Simulacrum",
-    "Olle": "Sylvan Safekeeper",
-    "Darwin": "Avalanche Riders",
-    "Mike": "Rootwater Thief",
-    "Chris": "Meddling Mage",
-    "Finkel": "Shadowmage Infiltrator",
-    "Kai": "Voidmage Prodigy",
-    "Terry": "Rakdos Augermage",
-    "Ruel": "Ranger of Eos",
-    "Tiago": "Snapcaster Mage",
-    "Sad Robot": "Solemn Simulacrum",
-    "Skittles": "Skithiryx, the Blight Dragon",
-    "Tim": "Prodigal Sorcerer",
-    "Pimp": "Putrid Imp",
-    "The Rock": "Phyrexian Negator",
-    "Prime Time": "Primeval Titan",
-    "O-Stone": "Oblivion Stone",
-    "O Stone": "Oblivion Stone",
-    "Swagtusk": "Thragtusk",
-    "Baby Jace": "Jace Beleren",
-    "Papa Jace": "Jace, The Mind Sculptor",
-    "Emo Jace": "Jace, Memory Adept",
-    "New New Jace": "Jace, Architect of Thought",
-    "Two Punch Steve": "Magister Sphinx",
-    "Dirty South": "Assemble the Legion"
+    "Dark Confidant": "Bob",
+    "Solemn Simulacrum": "Jens",
+    "Sylvan Safekeeper": "Olle",
+    "Avalanche Riders": "Darwin",
+    "Rootwater Thief": "Mike",
+    "Meddling Mage": "Chris",
+    "Shadowmage Infiltrator": "Finkel",
+    "Voidmage Prodigy": "Kai",
+    "Rakdos Augermage": "Terry",
+    "Ranger of Eos": "Ruel",
+    "Snapcaster Mage": "Tiago",
+    "Solemn Simulacrum": "Sad Robot",
+    "Skithiryx, the Blight Dragon": "Skittles",
+    "Prodigal Sorcerer": "Tim",
+    "Putrid Imp": "Pimp",
+    "Phyrexian Negator": "The Rock",
+    "Primeval Titan": "Prime Time",
+    "Oblivion Stone": "O-Stone",
+    "Oblivion Stone": "O Stone",
+    "Thragtusk": "Swagtusk",
+    "Jace Beleren": "Baby Jace",
+    "Jace, The Mind Sculptor": "Papa Jace",
+    "Jace, Memory Adept": "Emo Jace",
+    "Jace, Architect of Thought": "New New Jace",
+    "Magister Sphinx": "Two Punch Steve",
+    "Assemble the Legion": "Dirty South"
 }
+
+
+def main():
+    mtgcard.models.setup()
+    for cardname, cardnickname in nicknames.iteritems():
+        try:
+            card = mtgcard.find_card(cardname)
+            db_nick = mtgcard.models.CardNick()
+            db_nick.nickname = cardnickname
+            card.nicknames.append(db_nick)
+        except mtgcard.CardNotFoundError:
+            pass
+    mtgcard.models.close()
+
+if __name__ == '__main__':
+    main()

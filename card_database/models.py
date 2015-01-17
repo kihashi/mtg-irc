@@ -33,6 +33,7 @@ class MagicCard(Entity):
     loyalty = Field(Integer)
     releases = OneToMany("CardRelease")
     rulings = OneToMany('Ruling')
+    nicknames = OneToMany("CardNick")
 
     def get_card_text(self):
         card_string = self.name
@@ -244,3 +245,10 @@ class MTGOPrice(Entity):
 
     def __str__(self):
         return u"[{EXP}]: {PRICE}".format(EXP=self.release.expansion.abbreviation, PRICE=str(self.price))
+
+
+class CardNick(Entity):
+    using_options(shortnames=True)
+
+    card = ManyToOne("MagicCard")
+    nickname = Field(Unicode(50))
