@@ -26,7 +26,10 @@ def find_card(input_card):
         try:
             return find_card_by_search_name(input_card)
         except CardNotFoundError:
-            return find_cards_like(input_card)
+            try:
+                return find_card_by_nickname(input_card)
+            except CardNotFoundError:
+                return find_cards_like(input_card)
 
 
 def sanitize(input):
@@ -54,6 +57,14 @@ def find_card_by_search_name(input_card):
         raise CardNotFoundError(input_card)
     else:
         return db_card
+
+
+def find_card_by_nickname(input_card):
+    db_nick = models.CardNick.get_by(nickname=input_card.title())
+    if not db_nick:
+        raise CardNotFoundError(input_card)
+    else:
+        return db_nick.card
 
 
 def find_cards_like(input_card):
