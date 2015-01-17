@@ -50,6 +50,10 @@ def eprices():
     sh('python expansions.py')
     sh('python mtgotraders.py > mtgotraders.log')
 
+@task
+def nicknames():
+    sh('python nick.py')
+
 
 @task
 def fromcleanall():
@@ -57,6 +61,7 @@ def fromcleanall():
     download_data()
     init()
     allsets()
+    nicknames()
     eprices()
     test()
 
@@ -67,6 +72,7 @@ def fromcleanone():
     download_data()
     init()
     oneset()
+    nicknames()
     test()
 
 
