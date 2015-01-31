@@ -32,8 +32,6 @@ def eprice(bot, trigger):
         except mtgcard.CardNotFoundError as e:
             bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
         else:
-            if card.is_price_out_of_date():
-                mtgotraders.main()
             bot.reply(card.get_mtgoprice())
         mtgcard.models.close()
     else:
