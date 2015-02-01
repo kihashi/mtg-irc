@@ -1,7 +1,7 @@
 from elixir import *
 import datetime
 
-metadata.bind = "sqlite:///cards.sqlite"
+metadata.bind = u"sqlite:///cards.sqlite"
 metadata.bind.echo = False
 
 
@@ -17,60 +17,60 @@ def close():
 class MagicCard(Entity):
     using_options(shortnames=True)
 
-    layout = ManyToOne('Layout')
+    layout = ManyToOne(u'Layout')
     name = Field(Unicode(50))
     search_name = Field(Unicode(50))
-    alt_side = ManyToOne('MagicCard')
+    alt_side = ManyToOne(u'MagicCard')
     mana_cost = Field(Unicode(30))
     converted_mana_cost = Field(Integer)
-    colors = ManyToMany('Color')
-    supertypes = ManyToMany('SuperType')
-    card_types = ManyToMany('CardType')
-    subtypes = ManyToMany('SubType')
+    colors = ManyToMany(u'Color')
+    supertypes = ManyToMany(u'SuperType')
+    card_types = ManyToMany(u'CardType')
+    subtypes = ManyToMany(u'SubType')
     rules_text = Field(UnicodeText())
     power = Field(Unicode(30))
     toughness = Field(Unicode(30))
     loyalty = Field(Integer)
-    releases = OneToMany("CardRelease")
-    rulings = OneToMany('Ruling')
-    nicknames = OneToMany("CardNick")
+    releases = OneToMany(u"CardRelease")
+    rulings = OneToMany(u'Ruling')
+    nicknames = OneToMany(u"CardNick")
 
     def get_card_text(self):
         card_string = self.name
 
         if self.mana_cost:
-            card_string += " | " + self.mana_cost
+            card_string += u" | " + self.mana_cost
 
-        card_string += " |"
+        card_string += u" |"
 
         for supers in self.supertypes:
-            card_string += " " + str(supers)
+            card_string += u" " + str(supers)
 
         for types in self.card_types:
-            card_string += " " + str(types)
+            card_string += u" " + str(types)
 
         if self.subtypes:
-            card_string += " --"
+            card_string += u" --"
             for subs in self.subtypes:
-                card_string += " " + str(subs)
+                card_string += u" " + str(subs)
 
         if self.rules_text:
-            card_string += " | " + self.rules_text
+            card_string += u" | " + self.rules_text
 
         if self.power and self.toughness:
-            card_string += " | " + self.power + "/" + self.toughness
+            card_string += u" | " + self.power + u"/" + self.toughness
 
         if self.loyalty:
-            card_string += " | " + str(self.loyalty)
+            card_string += u" | " + str(self.loyalty)
 
         if self.releases:
-            card_string += " | "
+            card_string += u" | "
             for release in self.releases:
-                card_string += str(release.expansion).upper() + "-" + str(release.rarity).upper() + ", "
+                card_string += str(release.expansion).upper() + u"-" + str(release.rarity).upper() + u", "
             card_string = card_string[:-2]
 
         if self.alt_side:
-            card_string += " | " + "Alt: " + str(self.alt_side)
+            card_string += u" | " + u"Alt: " + str(self.alt_side)
 
         return card_string
 
@@ -111,7 +111,7 @@ class MagicCard(Entity):
         output = self.name
         for release in self.releases:
             if release.mtgoprice.price is not None:
-                output += " | " + str(release.mtgoprice)
+                output += u" | " + str(release.mtgoprice)
         if output == self.name:
             return None
         else:
@@ -129,7 +129,7 @@ class Ruling(Entity):
 
     date = Field(Date)
     text = Field(UnicodeText())
-    card = ManyToOne('MagicCard')
+    card = ManyToOne(u'MagicCard')
 
     def __repr__(self):
         return u"[{DATE}]: {TEXT}".format(DATE=self.date, TEXT=self.text).encode('utf-8')
@@ -140,7 +140,7 @@ class Color(Entity):
 
     color = Field(Unicode(10))
     abbreviation = Field(Unicode(1))
-    cards = ManyToMany('MagicCard')
+    cards = ManyToMany(u'MagicCard')
 
     def __repr__(self):
         return self.color
@@ -150,7 +150,7 @@ class SuperType(Entity):
     using_options(shortnames=True)
 
     supertype = Field(Unicode(30))
-    cards = ManyToMany('MagicCard')
+    cards = ManyToMany(u'MagicCard')
 
     def __repr__(self):
         return self.supertype
@@ -160,7 +160,7 @@ class CardType(Entity):
     using_options(shortnames=True)
 
     magictype = Field(Unicode(30))
-    cards = ManyToMany('MagicCard')
+    cards = ManyToMany(u'MagicCard')
 
     def __repr__(self):
         return self.magictype
@@ -170,7 +170,7 @@ class SubType(Entity):
     using_options(shortnames=True)
 
     subtype = Field(Unicode(30))
-    cards = ManyToMany('MagicCard')
+    cards = ManyToMany(u'MagicCard')
 
     def __repr__(self):
         return self.subtype
@@ -181,7 +181,7 @@ class Rarity(Entity):
 
     rarity = Field(Unicode(10))
     abbreviation = Field(Unicode(5))
-    cards = OneToMany("CardRelease")
+    cards = OneToMany(u"CardRelease")
 
     def __repr__(self):
         return self.abbreviation
@@ -195,7 +195,7 @@ class Expansion(Entity):
     old_code = Field(Unicode(10))
     gatherer_code = Field(Unicode(10))
     mtgo_code = Field(Unicode(10))
-    cards = OneToMany("CardRelease")
+    cards = OneToMany(u"CardRelease")
 
     def __repr__(self):
         return self.abbreviation
@@ -207,15 +207,15 @@ class Expansion(Entity):
 class CardRelease(Entity):
     using_options(shortnames=True)
 
-    expansion = ManyToOne("Expansion")
-    card = ManyToOne("MagicCard")
-    rarity = ManyToOne("Rarity")
+    expansion = ManyToOne(u"Expansion")
+    card = ManyToOne(u"MagicCard")
+    rarity = ManyToOne(u"Rarity")
     flavor_text = Field(Unicode(50))
     multiverse_id = Field(Integer)
-    mtgoprice = OneToOne("MTGOPrice", inverse='release')
+    mtgoprice = OneToOne(u"MTGOPrice", inverse=u'release')
 
     def __str__(self):
-        return str(self.card.name) + "-" + str(self.expansion)
+        return str(self.card.name) + u"-" + str(self.expansion)
 
     def get_flavor_text(self):
         if self.flavor_text is None:
@@ -237,7 +237,7 @@ class Layout(Entity):
 class MTGOPrice(Entity):
     using_options(shortnames=True)
 
-    release = ManyToOne("CardRelease")
+    release = ManyToOne(u"CardRelease")
     price = Field(Float)
     foil_price = Field(Float)
     link = Field(Unicode(30))
@@ -250,5 +250,5 @@ class MTGOPrice(Entity):
 class CardNick(Entity):
     using_options(shortnames=True)
 
-    card = ManyToOne("MagicCard")
+    card = ManyToOne(u"MagicCard")
     nickname = Field(Unicode(50))
