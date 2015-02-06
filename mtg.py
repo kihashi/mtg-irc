@@ -10,6 +10,7 @@ import willie
 from willie.modules import price as mtgprice
 from willie.modules import card as mtgcard
 from willie.modules import mtgotraders as mtgotraders
+from urllib import quote
 
 
 @willie.module.commands("price")
@@ -104,3 +105,30 @@ def flavor(bot, trigger):
         mtgcard.models.close()
     else:
         bot.reply("Usage: .flavor CARD_NAME [| SET_CODE]'")
+
+@willie.module.commands("image")
+def image(bot, trigger):
+    if trigger.group(2) is not None:
+        mtgcard.models.setup()
+        input_text = trigger.group(2).split("|")
+        card_name = input_text[0]
+        expansion_name = None
+        if len(input_text) > 1:
+            expansion_name = input_text[1].strip()
+        try:
+            card = mtgcard.find_card(card_name)
+            if expansion_name is not None:
+                expansion = mtgcard.find_expansion(expansion_name)
+                release = mtgcard._find_release(card, expansion)
+                bot.reply(quote(("http://mtgimage.com/multiverseid/" + str(release.multiverse_id) + ".jpg").encode("UTF-8"), ":/"))
+            else:
+                bot.reply(quote(("http://mtgimage.com/card/" + card.name + ".jpg").encode("utf-8"), ":/"))
+        except mtgcard.CardNotFoundError as e:
+            bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+        except mtgcard.ExpansionNotFoundError as e:
+            bot.reply("Could not find the expansion: {EXP}".format(EXP=str(e)))
+        except mtgcard.ReleaseNotFoundError as e:
+            bot.reply(str(e))
+        mtgcard.models.close()
+    else:
+        bot.reply("Usage: .image CARD_NAME [| SET_CODE]'")
