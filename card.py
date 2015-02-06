@@ -68,8 +68,11 @@ def find_card_by_nickname(input_card):
 
 
 def find_cards_like(input_card):
-    # TODO: Implement this method.
-    raise CardNotFoundError(input_card)
+    db_card = models.MagicCard.query.filter(models.MagicCard.search_name.contains(input_card.lower().replace("'", "").replace(",", ""))).first()
+    if not db_card:
+        raise CardNotFoundError(input_card)
+    else:
+        return db_card
 
 
 def find_expansion(exp_abbrev):
