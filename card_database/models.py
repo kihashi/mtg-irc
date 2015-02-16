@@ -28,6 +28,7 @@ class MagicCard(Entity):
     card_types = ManyToMany(u'CardType')
     subtypes = ManyToMany(u'SubType')
     rules_text = Field(UnicodeText())
+    printed_text = Field(UnicodeText())
     power = Field(Unicode(30))
     toughness = Field(Unicode(30))
     loyalty = Field(Integer)
@@ -73,6 +74,9 @@ class MagicCard(Entity):
             card_string += u" | " + u"Alt: " + str(self.alt_side)
 
         return card_string
+
+    def get_printed_text(self):
+        return self.name + u" | " + self.printed_text
 
     def get_rulings(self, ruling_number=None, get_all=None):
         if get_all is not None:

@@ -53,6 +53,20 @@ def card(bot, trigger):
         bot.reply("Usage: '.card CARD_NAME'")
 
 
+@willie.module.commands("printed")
+def printed(bot, trigger):
+    if trigger.group(2) is not None:
+        mtgcard.models.setup()
+        try:
+            card_text = mtgcard.find_card(trigger.group(2)).get_printed_text()
+        except mtgcard.CardNotFoundError as e:
+            card_text = "Could not find the card: {CARD}".format(CARD=str(e))
+        bot.reply(card_text)
+        mtgcard.models.close()
+    else:
+        bot.reply("Usage: '.printed CARD_NAME'")
+
+
 @willie.module.commands("rulings")
 def rulings(bot, trigger):
     if trigger.group(2) is not None:

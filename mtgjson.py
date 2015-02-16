@@ -66,6 +66,9 @@ def _parse_card(card_json, expansion):
         if 'text' in card_json:
             db_card.rules_text = card_json['text'].replace("\n", " ")
 
+        if 'originalText' in card_json:
+            db_card.printed_text = card_json['originalText'].replace("\n", " ")
+
         if 'power' in card_json:
             db_card.power = card_json['power']
 
