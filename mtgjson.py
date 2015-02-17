@@ -66,9 +66,6 @@ def _parse_card(card_json, expansion):
         if 'text' in card_json:
             db_card.rules_text = card_json['text'].replace("\n", " ")
 
-        if 'originalText' in card_json:
-            db_card.printed_text = card_json['originalText'].replace("\n", " ")
-
         if 'power' in card_json:
             db_card.power = card_json['power']
 
@@ -118,11 +115,25 @@ def _parse_card(card_json, expansion):
                               "%Y-%m-%d").date(),
                               text=card_ruling['text'],
                               card=db_card)
+
+        if 'legalities' in card_json:
+            for card_format, card_legality in card_json['legalities'].iteritems():
+                db_format = models.Format.get_by(format_name=card_format)
+                if db_format is not None:
+                    models.Legality(card=db_card,
+                                    format_name=db_format,
+                                    legality=card_legality)
+
     finally:
         try:
             db_cardrelease = models.CardRelease()
             db_cardrelease.expansion = expansion
             db_cardrelease.card = db_card
+
+            if 'originalText' in card_json:
+                if expansion.name == card_json['printings'][0]:
+                    db_card.printed_text = card_json['originalText'].replace("\n", " ")
+
 
             if 'rarity' in card_json:
                 db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
