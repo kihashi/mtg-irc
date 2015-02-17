@@ -66,9 +66,6 @@ def _parse_card(card_json, expansion):
         if 'text' in card_json:
             db_card.rules_text = card_json['text'].replace("\n", " ")
 
-        if 'originalText' in card_json:
-            db_card.printed_text = card_json['originalText'].replace("\n", " ")
-
         if 'power' in card_json:
             db_card.power = card_json['power']
 
@@ -123,6 +120,11 @@ def _parse_card(card_json, expansion):
             db_cardrelease = models.CardRelease()
             db_cardrelease.expansion = expansion
             db_cardrelease.card = db_card
+
+            if 'originalText' in card_json:
+                if expansion.name == card_json['printings'][0]:
+                    db_card.printed_text = card_json['originalText'].replace("\n", " ")
+
 
             if 'rarity' in card_json:
                 db_rarity = models.Rarity.get_by(rarity=card_json['rarity'])
