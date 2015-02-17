@@ -115,6 +115,15 @@ def _parse_card(card_json, expansion):
                               "%Y-%m-%d").date(),
                               text=card_ruling['text'],
                               card=db_card)
+
+        if 'legalities' in card_json:
+            for card_format, card_legality in card_json['legalities'].iteritems():
+                db_format = models.Format.get_by(format_name=card_format)
+                if db_format is not None:
+                    models.Legality(card=db_card,
+                                    format_name=db_format,
+                                    legality=card_legality)
+
     finally:
         try:
             db_cardrelease = models.CardRelease()
