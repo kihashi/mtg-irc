@@ -35,6 +35,7 @@ class MagicCard(Entity):
     releases = OneToMany(u"CardRelease")
     rulings = OneToMany(u'Ruling')
     nicknames = OneToMany(u"CardNick")
+    legality = OneToMany(u"Legality")
 
     def get_card_text(self):
         card_string = self.name
@@ -76,6 +77,7 @@ class MagicCard(Entity):
         return card_string
 
     def get_printed_text(self):
+        if self.printed_text is not None:
         return self.name + u" | " + self.printed_text
 
     def get_rulings(self, ruling_number=None, get_all=None):
@@ -110,6 +112,13 @@ class MagicCard(Entity):
             #     raise ExpansionNotFoundError
             # release = CardRelease.query.get_by(card=self,expansion=flavor_expansion)
             return ""
+
+    def get_legality(self):
+        legality_text = self.name
+        for l in self.legality:
+            legality_text += " | " + l.format_name.format_name + ": " + l.legality
+
+        return legality_text
 
     def get_mtgoprice(self):
         output = self.name
@@ -256,3 +265,18 @@ class CardNick(Entity):
 
     card = ManyToOne(u"MagicCard")
     nickname = Field(Unicode(50))
+
+
+class Format(Entity):
+    using_options(shortnames=True)
+
+    format_name = Field(Unicode(50))
+    legality = OneToMany(u"Legality")
+
+
+class Legality(Entity):
+    using_options(shortnames=True)
+
+    card = ManyToOne(u"MagicCard")
+    format_name = ManyToOne(u"Format")
+    legality = Field(Unicode(50))
