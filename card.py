@@ -151,6 +151,9 @@ def main(argv):
             elif argv.eprice:
                 card_obj = find_card(" ".join(argv.card))
                 print(card_obj.get_mtgoprice())
+            elif argv.legality:
+                card_obj = find_card(" ".join(argv.card))
+                print(card_obj.get_legality())
             elif argv.printed:
                 card_obj = find_card(" ".join(argv.card))
                 print(card_obj.get_printed_text())
@@ -194,6 +197,10 @@ if __name__ == "__main__":
                         "--printed",
                         action="store_true",
                         help="Get the text originally printed on the card.")
+    parser.add_argument("-l",
+                        "--legality",
+                        action="store_true",
+                        help="Get the format legality for the specified card.")
     args = parser.parse_args()
     main(args)
     models.close()
