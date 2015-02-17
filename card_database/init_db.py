@@ -41,11 +41,22 @@ def create_layouts():
         models.Layout(layout=l[0], abbreviation=l[1])
 
 
+def create_formats():
+    for f in ["Standard",
+              "Modern",
+              "Legacy",
+              "Vintage",
+              "Commander",
+              "Pauper"]:
+        models.Format(format_name=f)
+
+
 def main():
     models.setup()
     create_colors()
     create_rarities()
     create_layouts()
+    create_formats()
     models.close()
 
 if __name__ == '__main__':
