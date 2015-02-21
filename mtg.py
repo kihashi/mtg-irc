@@ -31,12 +31,12 @@ def eprice(bot, trigger):
         try:
             card = mtgcard.find_card(trigger.group(2))
         except mtgcard.CardNotFoundError as e:
-            bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+            bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         else:
             bot.reply(card.get_mtgoprice())
         mtgcard.models.close()
     else:
-        bot.reply("Usage: '.eprice CARD_NAME'")
+        bot.reply(u"Usage: '.eprice CARD_NAME'")
 
 
 @willie.module.commands("card")
@@ -46,11 +46,11 @@ def card(bot, trigger):
         try:
             card_text = mtgcard.find_card(trigger.group(2)).get_card_text()
         except mtgcard.CardNotFoundError as e:
-            card_text = "Could not find the card: {CARD}".format(CARD=str(e))
+            card_text = (u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         bot.reply(card_text)
         mtgcard.models.close()
     else:
-        bot.reply("Usage: '.card CARD_NAME'")
+        bot.reply(u"Usage: '.card CARD_NAME'")
 
 
 @willie.module.commands("printed")
@@ -60,7 +60,7 @@ def printed(bot, trigger):
         try:
             card_text = mtgcard.find_card(trigger.group(2)).get_printed_text()
         except mtgcard.CardNotFoundError as e:
-            card_text = "Could not find the card: {CARD}".format(CARD=str(e))
+            card_text = u"Could not find the card: {CARD}".format(CARD=unicode(e))
         bot.reply(card_text)
         mtgcard.models.close()
     else:
@@ -74,37 +74,37 @@ def legality(bot, trigger):
         try:
             card_text = mtgcard.find_card(trigger.group(2)).get_legality()
         except mtgcard.CardNotFoundError as e:
-            card_text = "Could not find the card: {CARD}".format(CARD=str(e))
+            card_text = u"Could not find the card: {CARD}".format(CARD=unicode(e))
         bot.reply(card_text)
         mtgcard.models.close()
     else:
-        bot.reply("Usage: '.legality CARD_NAME'")
+        bot.reply(u"Usage: '.legality CARD_NAME'")
 
 
 @willie.module.commands("rulings")
 def rulings(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
-        input_text = trigger.group(2).split("|")
+        input_text = trigger.group(2).split(u"|")
         card_name = input_text[0]
         if len(input_text) > 1:
             ruling_no = input_text[1]
             try:
                 ruling_no = int(ruling_no)
             except ValueError:
-                bot.reply("That is is not a number. Try .ruling CardName | 1")
+                bot.reply(u"That is is not a number. Try .ruling CardName | 1")
                 return
         else:
             ruling_no = None
         try:
             card_rulings = mtgcard.find_card(card_name).get_rulings(ruling_no)
         except mtgcard.CardNotFoundError as e:
-            bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+            bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         else:
-            bot.reply(str(card_rulings[0]) + " | " + str(card_rulings[1]) + " of " + str(card_rulings[2]))
+            bot.reply(unicode(card_rulings[0]) + u" | " + unicode(card_rulings[1]) + u" of " + unicode(card_rulings[2]))
         mtgcard.models.close()
     else:
-        bot.reply("Usage: '.rulings CARD_NAME [| RULING_NUMBER]'")
+        bot.reply(u"Usage: '.rulings CARD_NAME [| RULING_NUMBER]'")
 
 
 @willie.module.commands("flavor")
@@ -125,38 +125,39 @@ def flavor(bot, trigger):
             else:
                 bot.reply(card.get_flavor_text())
         except mtgcard.CardNotFoundError as e:
-            bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+            bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         except mtgcard.ExpansionNotFoundError as e:
-            bot.reply("Could not find the expansion: {EXP}".format(EXP=str(e)))
+            bot.reply(u"Could not find the expansion: {EXP}".format(EXP=unicode(e)))
         except mtgcard.ReleaseNotFoundError as e:
-            bot.reply(str(e))
+            bot.reply(e)
         mtgcard.models.close()
     else:
-        bot.reply("Usage: .flavor CARD_NAME [| SET_CODE]'")
+        bot.reply(u"Usage: .flavor CARD_NAME [| SET_CODE]'")
+
 
 @willie.module.commands("image")
 def image(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
-        input_text = trigger.group(2).split("|")
-        card_name = input_text[0]
+        input_text = trigger.group(2).split(u"|")
+        card_name = unicode(input_text[0])
         expansion_name = None
         if len(input_text) > 1:
-            expansion_name = input_text[1].strip()
+            expansion_name = unicode(input_text[1].strip())
         try:
             card = mtgcard.find_card(card_name)
             if expansion_name is not None:
                 expansion = mtgcard.find_expansion(expansion_name)
                 release = mtgcard._find_release(card, expansion)
-                bot.reply(quote(("http://mtgimage.com/multiverseid/" + str(release.multiverse_id) + ".jpg").encode("UTF-8"), ":/"))
+                bot.reply(willie.web.quote(u"http://mtgimage.com/multiverseid/" + release.multiverse_id + u".jpg", u":/"))
             else:
-                bot.reply(quote(("http://mtgimage.com/card/" + card.name + ".jpg").encode("utf-8"), ":/"))
+                bot.reply(willie.web.quote(u"http://mtgimage.com/card/" + card.name + u".jpg", u":/"))
         except mtgcard.CardNotFoundError as e:
-            bot.reply("Could not find the card: {CARD}".format(CARD=str(e)))
+            bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         except mtgcard.ExpansionNotFoundError as e:
-            bot.reply("Could not find the expansion: {EXP}".format(EXP=str(e)))
+            bot.reply(u"Could not find the expansion: {EXP}".format(EXP=unicode(e)))
         except mtgcard.ReleaseNotFoundError as e:
-            bot.reply(str(e))
+            bot.reply(e)
         mtgcard.models.close()
     else:
-        bot.reply("Usage: .image CARD_NAME [| SET_CODE]'")
+        bot.reply(u"Usage: .image CARD_NAME [| SET_CODE]'")

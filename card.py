@@ -37,7 +37,7 @@ def sanitize(input):
     Makes sure that the input string is clean.
     '''
 
-    return unicode(input.strip())
+    return input.strip()
 
 
 def find_card_by_name(input_card):
@@ -51,8 +51,8 @@ def find_card_by_name(input_card):
 def find_card_by_search_name(input_card):
     db_card = models.MagicCard.get_by(search_name=
                                       input_card.lower()
-                                      .replace("'", "")
-                                      .replace(",", ""))
+                                      .replace(u"'", u"")
+                                      .replace(u",", u""))
     if not db_card:
         raise CardNotFoundError(input_card)
     else:
@@ -113,16 +113,22 @@ class CardNotFoundError(CardError):
     def __init__(self, card_name):
         self.card_name = card_name
 
-    def __str__(self):
+    def __unicode__(self):
         return self.card_name
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class ExpansionNotFoundError(CardError):
     def __init__(self, exp_abbrev):
         self.expansion = exp_abbrev
 
-    def __str__(self):
+    def __unicode__(self):
         return self.expansion
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class ReleaseNotFoundError(CardError):
@@ -130,43 +136,47 @@ class ReleaseNotFoundError(CardError):
         self.card = card
         self.expansion = expansion
 
+    def __unicode__(self):
+        return self.card.name + u" is not in " + self.expansion
+
     def __str__(self):
-        return self.card.name + " is not in " + str(self.expansion)
+        return self.__unicode__()
 
 
 def main(argv):
     if not argv.card:
-        print("You must specify a card.")
+        print(u"You must specify a card.")
         sys.exit()
     else:
         try:
             if argv.rulings:
-                card_obj = find_card(" ".join(argv.card))
+                card_obj = find_card(u" ".join(argv.card))
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_rulings())
             elif argv.flavor:
-                card_obj = find_card(" ".join(argv.card))
+                card_obj = find_card(u" ".join(argv.card))
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(card_obj.get_flavor_text())
             elif argv.eprice:
-                card_obj = find_card(" ".join(argv.card))
+                card_obj = find_card(u" ".join(argv.card))
                 print(card_obj.get_mtgoprice())
             elif argv.legality:
-                card_obj = find_card(" ".join(argv.card))
+                card_obj = find_card(u" ".join(argv.card))
                 print(card_obj.get_legality())
             elif argv.printed:
-                card_obj = find_card(" ".join(argv.card))
+                card_obj = find_card(u" ".join(argv.card))
                 print(card_obj.get_printed_text())
             elif argv.set:
                 models.setup()
-                set_obj = find_expansion(" ".join(argv.card))
+                set_obj = find_expansion(u" ".join(argv.card))
                 models.close()
                 print(set_obj)
             else:
-                card_obj = find_card(" ".join(argv.card))
+                card_obj = find_card(u" ".join(argv.card))
                 print(card_obj.get_card_text())
+                type(card_obj.name)
         except CardNotFoundError as e:
-            print("Could not find the card: " + str(e))
+            print(u"Could not find the card: " + unicode(e))
 
 
 if __name__ == "__main__":

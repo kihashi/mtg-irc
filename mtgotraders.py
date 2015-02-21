@@ -26,8 +26,8 @@ def get_raw_list(url):
 
 def parse_list(price_text):
     for line in price_text.splitlines():
-        line_list = line.replace("<br>", "").strip().split("|")
-        if line_list[0] != "BOOSTER":
+        line_list = line.replace(u"<br>", u"").strip().split(u"|")
+        if line_list[0] != u"BOOSTER":
             try:
                 card_release = mtgcard.find_release_by_name(line_list[3],
                                                             line_list[0])
@@ -38,7 +38,7 @@ def parse_list(price_text):
                 card_release.expansion = expansion
                 card_release.card = card
                 card_release.mtgoprice = mtgcard.models.MTGOPrice()
-                if line_list[2] == "R":
+                if line_list[2] == u"R":
                     card_release.mtgoprice.price = float(line_list[5])
                 else:
                     card_release.mtgoprice.foil_price = float(line_list[5])
@@ -48,7 +48,7 @@ def parse_list(price_text):
             except IndexError as e:
                 pass
             else:
-                if line_list[2] == "R":
+                if line_list[2] == u"R":
                     card_release.mtgoprice.price = float(line_list[5])
                 else:
                     card_release.mtgoprice.foil_price = float(line_list[5])

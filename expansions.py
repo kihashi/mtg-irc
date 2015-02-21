@@ -12,14 +12,14 @@ import card as mtgcard
 from card_database import models
 
 expansions = {
-    "ULG": "UL",
-    "UDS": "UD"
+    u"ULG": u"UL",
+    u"UDS": u"UD"
 }
 
 
 models.setup()
-promo = models.Expansion(name="Promotional",
-                         abbreviation="PRM",
+promo = models.Expansion(name=u"Promotional",
+                         abbreviation=u"PRM",
                          )
 for k, v in expansions.iteritems():
     mtgcard.find_expansion(k).mtgo_code = v
