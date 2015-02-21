@@ -46,15 +46,15 @@ class MagicCard(Entity):
         card_string += u" |"
 
         for supers in self.supertypes:
-            card_string += u" " + str(supers)
+            card_string += u" " + unicode(supers)
 
         for types in self.card_types:
-            card_string += u" " + str(types)
+            card_string += u" " + unicode(types)
 
         if self.subtypes:
             card_string += u" --"
             for subs in self.subtypes:
-                card_string += u" " + str(subs)
+                card_string += u" " + unicode(subs)
 
         if self.rules_text:
             card_string += u" | " + self.rules_text
@@ -68,11 +68,11 @@ class MagicCard(Entity):
         if self.releases:
             card_string += u" | "
             for release in self.releases:
-                card_string += str(release.expansion).upper() + u"-" + str(release.rarity).upper() + u", "
+                card_string += unicode(release.expansion).upper() + u"-" + unicode(release.rarity).upper() + u", "
             card_string = card_string[:-2]
 
         if self.alt_side:
-            card_string += u" | " + u"Alt: " + str(self.alt_side)
+            card_string += u" | " + u"Alt: " + unicode(self.alt_side)
 
         return card_string
 
