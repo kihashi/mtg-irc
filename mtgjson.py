@@ -64,7 +64,7 @@ def _parse_card(card_json, expansion):
             db_card.mana_cost = card_json['manaCost']
 
         if 'text' in card_json:
-            db_card.rules_text = card_json['text'].replace("\n", " ")
+            db_card.rules_text = card_json['text'].replace(u"\n", u" | ")
 
         if 'power' in card_json:
             db_card.power = card_json['power']
@@ -132,7 +132,7 @@ def _parse_card(card_json, expansion):
 
             if 'originalText' in card_json:
                 if expansion.name == card_json['printings'][0]:
-                    db_card.printed_text = card_json['originalText'].replace("\n", " ")
+                    db_card.printed_text = card_json['originalText'].replace(u"\n", u" | ")
 
 
             if 'rarity' in card_json:
