@@ -130,12 +130,6 @@ class MagicCard(Entity):
         else:
             return output
 
-    def is_price_out_of_date(self):
-        if (datetime.datetime.today() - self.releases[0].mtgoprice.last_fetch).days >= 1:
-            return True
-        else:
-            return False
-
 
 class Ruling(Entity):
     using_options(shortnames=True)
