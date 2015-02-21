@@ -17,11 +17,16 @@ from urllib import quote
 def price(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
-        card_price = mtgprice.get_tcgplayer_price(trigger.group(2))
-        bot.reply(card_price)
+        try:
+            card_name = mtgcard.find_card(trigger.group(2)).name
+        except mtgcard.CardNotFoundError as e:
+            bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
+        else: 
+            card_price = mtgprice.get_tcgplayer_price(card_name)
+            bot.reply(card_price)
         mtgcard.models.close()
     else:
-        bot.reply("Usage: '.price CARD_NAME'")
+        bot.reply(u"Usage: '.price CARD_NAME'")
 
 
 @willie.module.commands("eprice")
