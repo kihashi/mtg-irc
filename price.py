@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ET
 import sys
 import argparse
 import config
+from unidecode import unidecode
 
 get_vars = {"pk": config.tcgplayer_partner_code, "s": "", "p": ""}
 
@@ -20,17 +21,22 @@ def get_tcgplayer_price(card_name):
     card_name = sanitize(card_name)
     try:
         tcgxml = get_tcgplayer_xml(card_name)
+
     except requests.RequestException as e:
-        return "TCGPlayer is either down or is having problems." \
-               + " " \
-               + "Try again later." \
-               + " " \
-               + str(e)
+        return u"TCGPlayer is either down or is having problems." \
+               + u" " \
+               + u"Try again later." \
+               + u" " \
+               + unicode(e)
     else:
         try:
+            if tcgxml == u"Product not found.":
+                raise CardNotFoundError(card_name)
             tcgprice = parse_tcg_player_xml(card_name, tcgxml)
         except CardNotFoundError as e:
-            return "Could not find the card: " + str(e)
+            return u"Could not find the card: " + unicode(e)
+        except ET.ParseError as e:
+            return u"TCGPlayer is not returning XML for that. Perhaps something went wrong?"
         else:
             return tcgprice
 
@@ -39,9 +45,8 @@ def get_tcgplayer_xml(card_name, url=config.tcgplayer_api_url):
     """ Makes the API call and returns the resulting XML. """
     if not url:
         raise NoUrlException()
-    get_vars['p'] = card_name
+    get_vars['p'] = unidecode(card_name)
     r = requests.get(url, params=get_vars)
-    r.raise_for_status()
     return r.text
 
 
@@ -56,7 +61,8 @@ def parse_tcg_player_xml(card_name, xml):
                     root[0][1].text,
                     root[0][2].text,
                     root[0][3].text,
-                    root[0][4].text)
+                    root[0][4].text,
+                    root[0][5].text)
 
     return card
 
@@ -66,23 +72,26 @@ def sanitize(card_name):
 
 
 class TCGPrice():
-    def __init__(self, card, high, low, avg, link):
+    def __init__(self, card, high, low, avg, foil, link):
         self.card = card
         self.high = high
         self.low = low
         self.avg = avg
+        self.foil = foil
         self.link = link
 
-    def __str__(self):
+    def __unicode__(self):
         return (self.card
-                + " | "
-                + "Avg: " + self.avg
-                + " | "
-                + "Low: " + self.low
-                + " | "
-                + "High: " + self.high
-                + " | "
-                + "Link: " + self.link)
+                + u" | "
+                + u"Avg: " + self.avg
+                + u" | "
+                + u"Low: " + self.low
+                + u" | "
+                + u"High: " + self.high
+                + u" | "
+                + u"Foil: " + self.foil
+                + u" | "
+                + u"Link: " + self.link)
 
     def __iter__(self):
         for attr, value in self.__dict__.iteritems():
