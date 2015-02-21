@@ -124,7 +124,7 @@ class MagicCard(Entity):
         output = self.name
         for release in self.releases:
             if release.mtgoprice.price is not None:
-                output += u" | " + str(release.mtgoprice)
+                output += u" | " + unicode(release.mtgoprice)
         if output == self.name:
             return None
         else:
