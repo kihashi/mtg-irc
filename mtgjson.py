@@ -17,7 +17,7 @@ import card as card_funcs
 
 def parse_mtgojson(file_location, argv):
     with open(file_location, 'r') as json_file:
-        file_json = json.loads(json_file.read())
+        file_json = json.loads(json_file.read().decode('utf-8'))
     models.setup()
     if argv.set:
         _parse_set(file_json)
@@ -32,7 +32,7 @@ def _parse_file(file_json):
 
 
 def _parse_set(set_json):
-    if "name" in set_json:
+    if u"name" in set_json:
         db_expansion = models.Expansion.get_by(name=set_json['name'])
         if not db_expansion:
             db_expansion = models.Expansion(name=set_json['name'],
@@ -55,7 +55,7 @@ def _parse_card(card_json, expansion):
 
         db_card.name = card_json['name']
         #FIXME: This line breaks everything.
-        db_card.search_name = unidecode(card_json['name'].lower().replace("'", "").replace(",", ""))
+        db_card.search_name = unidecode(card_json['name'].lower().replace(u"'", u"").replace(u",", u""))
 
         if 'cmc' in card_json:
             db_card.converted_mana_cost = card_json['cmc']

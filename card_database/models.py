@@ -78,7 +78,7 @@ class MagicCard(Entity):
 
     def get_printed_text(self):
         if self.printed_text is not None:
-        return self.name + u" | " + self.printed_text
+            return self.name + u" | " + self.printed_text
 
     def get_rulings(self, ruling_number=None, get_all=None):
         if get_all is not None:
@@ -111,12 +111,12 @@ class MagicCard(Entity):
             # if not expansion_set:
             #     raise ExpansionNotFoundError
             # release = CardRelease.query.get_by(card=self,expansion=flavor_expansion)
-            return ""
+            return u""
 
     def get_legality(self):
         legality_text = self.name
         for l in self.legality:
-            legality_text += " | " + l.format_name.format_name + ": " + l.legality
+            legality_text += u" | " + l.format_name.format_name + u": " + l.legality
 
         return legality_text
 
@@ -144,8 +144,11 @@ class Ruling(Entity):
     text = Field(UnicodeText())
     card = ManyToOne(u'MagicCard')
 
-    def __repr__(self):
-        return u"[{DATE}]: {TEXT}".format(DATE=self.date, TEXT=self.text).encode('utf-8')
+    def __unicode__(self):
+        return u"[{DATE}]: {TEXT}".format(DATE=self.date, TEXT=self.text)
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Color(Entity):
@@ -155,8 +158,11 @@ class Color(Entity):
     abbreviation = Field(Unicode(1))
     cards = ManyToMany(u'MagicCard')
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.color
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class SuperType(Entity):
@@ -165,8 +171,11 @@ class SuperType(Entity):
     supertype = Field(Unicode(30))
     cards = ManyToMany(u'MagicCard')
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.supertype
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class CardType(Entity):
@@ -175,8 +184,11 @@ class CardType(Entity):
     magictype = Field(Unicode(30))
     cards = ManyToMany(u'MagicCard')
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.magictype
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class SubType(Entity):
@@ -185,8 +197,11 @@ class SubType(Entity):
     subtype = Field(Unicode(30))
     cards = ManyToMany(u'MagicCard')
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.subtype
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Rarity(Entity):
@@ -196,8 +211,11 @@ class Rarity(Entity):
     abbreviation = Field(Unicode(5))
     cards = OneToMany(u"CardRelease")
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.abbreviation
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Expansion(Entity):
@@ -210,8 +228,11 @@ class Expansion(Entity):
     mtgo_code = Field(Unicode(10))
     cards = OneToMany(u"CardRelease")
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.abbreviation
+
+    def __str__(self):
+        return self.__unicode__()
 
     def get_name(self):
         return self.name
@@ -227,14 +248,17 @@ class CardRelease(Entity):
     multiverse_id = Field(Integer)
     mtgoprice = OneToOne(u"MTGOPrice", inverse=u'release')
 
+    def __unicode__(self):
+        return self.card.name + u"-" + unicode(self.expansion)
+
     def __str__(self):
-        return str(self.card.name) + u"-" + str(self.expansion)
+        return self.__unicode__()
 
     def get_flavor_text(self):
         if self.flavor_text is None:
             return None
         else:
-            return u"[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text).encode('utf-8')
+            return u"[{EXPANSION}]: {TEXT}".format(EXPANSION=self.expansion, TEXT=self.flavor_text)
 
 
 class Layout(Entity):
@@ -243,8 +267,11 @@ class Layout(Entity):
     layout = Field(Unicode(30))
     abbreviation = Field(Unicode(2))
 
-    def __repr__(self):
+    def __unicode__(self):
         return self.abbreviation
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class MTGOPrice(Entity):
@@ -256,8 +283,11 @@ class MTGOPrice(Entity):
     link = Field(Unicode(30))
     last_fetch = Field(DateTime)
 
+    def __unicode__(self):
+        return u"[{EXP}]: {PRICE}".format(EXP=self.release.expansion.abbreviation, PRICE=unicode(self.price))
+
     def __str__(self):
-        return u"[{EXP}]: {PRICE}".format(EXP=self.release.expansion.abbreviation, PRICE=str(self.price))
+        return self.__unicode__()
 
 
 class CardNick(Entity):
