@@ -76,15 +76,15 @@ def find_cards_like(input_card):
 
 
 def find_expansion(exp_abbrev):
-    q = models.Expansion.get_by(abbreviation=exp_abbrev)
+    q = models.Expansion.get_by(abbreviation=exp_abbrev.upper())
     if not q:
-        q = models.Expansion.get_by(gatherer_code=exp_abbrev)
+        q = models.Expansion.get_by(gatherer_code=exp_abbrev.upper())
         if not q:
-            q = models.Expansion.get_by(old_code=exp_abbrev)
+            q = models.Expansion.get_by(old_code=exp_abbrev.upper())
             if not q:
-                q = models.Expansion.get_by(mtgo_code=exp_abbrev)
+                q = models.Expansion.get_by(mtgo_code=exp_abbrev.upper())
                 if not q:
-                    raise ExpansionNotFoundError(exp_abbrev)
+                    raise ExpansionNotFoundError(exp_abbrev.upper())
     return q
 
 
