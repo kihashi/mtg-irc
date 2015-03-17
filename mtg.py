@@ -154,9 +154,9 @@ def image(bot, trigger):
             if expansion_name is not None:
                 expansion = mtgcard.find_expansion(expansion_name)
                 release = mtgcard._find_release(card, expansion)
-                bot.reply(willie.web.quote(u"http://mtgimage.com/multiverseid/" + unicode(release.multiverse_id) + u".jpg", u":/"))
+                bot.reply(willie.web.quote(u"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + unicode(release.multiverse_id) + u"&type=card", u":/"))
             else:
-                bot.reply(willie.web.quote(u"http://mtgimage.com/card/" + card.name + u".jpg", u":/"))
+                bot.reply(willie.web.quote(u"http://gatherer.wizards.com/Handlers/Image.ashx?name=" + card.name + u"&type=card", u":/"))
         except mtgcard.CardNotFoundError as e:
             bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         except mtgcard.ExpansionNotFoundError as e:
