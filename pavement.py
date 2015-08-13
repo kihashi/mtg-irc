@@ -1,6 +1,4 @@
 from paver.easy import *
-import paver.doctools
-from paver.setuputils import setup
 import os.path
 
 
@@ -78,11 +76,11 @@ def fromcleanone():
 
 @task
 def deploy():
-    sh('cp -r card_database ../willie/willie/modules/')
-    sh('cp mtg.py ../willie/willie/modules/')
-    sh('cp card.py ../willie/willie/modules/')
-    sh('cp price.py ../willie/willie/modules/')
-    sh('cp mtgotraders.py ../willie/willie/modules/')
-    sh('cp cards.sqlite ../willie/')
+    sh('cp -r card_database ../sopel/sopel/modules/')
+    sh('cp mtg.py ../sopel/sopel/modules/')
+    sh('cp card.py ../sopel/sopel/modules/')
+    sh('cp price.py ../sopel/sopel/modules/')
+    sh('cp mtgotraders.py ../sopel/sopel/modules/')
+    sh('cp cards.sqlite ../sopel/')
     if os.path.isfile('config.py'):
-        sh('cp config.py ../willie/willie/modules/')
+        sh('cp config.py ../sopel/sopel/modules/')
