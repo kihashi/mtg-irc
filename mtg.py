@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
-mtg.py
+'''Magic: The Gathering Card Module for Sopel
 
-A sopel front-end for MTG Functions.
+Includes commands for getting card text, prices, and other card information.
 Author: John Cleaver
 License: BSD 3-clause
 '''
