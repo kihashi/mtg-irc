@@ -6,7 +6,7 @@ Author: John Cleaver
 License: BSD 3-clause
 '''
 
-import sopel
+import sopel.module
 from sopel.modules import price as mtgprice
 from sopel.modules import card as mtgcard
 
