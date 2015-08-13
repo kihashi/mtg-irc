@@ -1,5 +1,4 @@
 from elixir import *
-import datetime
 
 metadata.bind = u"sqlite:///cards.sqlite"
 metadata.bind.echo = False

@@ -10,8 +10,6 @@ License: BSD 3-clause
 import sopel
 from sopel.modules import price as mtgprice
 from sopel.modules import card as mtgcard
-from sopel.modules import mtgotraders as mtgotraders
-from urllib import quote
 
 
 @sopel.module.commands("price")
