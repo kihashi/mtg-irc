@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
-'''
-mtg.py
+'''Magic: The Gathering Card Module for Sopel
 
-A willie front-end for MTG Functions.
+Includes commands for getting card text, prices, and other card information.
 Author: John Cleaver
 License: BSD 3-clause
 '''
 
-import willie
-from willie.modules import price as mtgprice
-from willie.modules import card as mtgcard
-from willie.modules import mtgotraders as mtgotraders
-from urllib import quote
+import sopel.module
+from sopel.modules import price as mtgprice
+from sopel.modules import card as mtgcard
 
 
-@willie.module.commands("price")
+@sopel.module.commands("price")
 def price(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -30,7 +27,7 @@ def price(bot, trigger):
         bot.reply(u"Usage: '.price CARD_NAME'")
 
 
-@willie.module.commands("eprice")
+@sopel.module.commands("eprice")
 def eprice(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -45,7 +42,7 @@ def eprice(bot, trigger):
         bot.reply(u"Usage: '.eprice CARD_NAME'")
 
 
-@willie.module.commands("card")
+@sopel.module.commands("card")
 def card(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -59,7 +56,7 @@ def card(bot, trigger):
         bot.reply(u"Usage: '.card CARD_NAME'")
 
 
-@willie.module.commands("printed")
+@sopel.module.commands("printed")
 def printed(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -73,7 +70,7 @@ def printed(bot, trigger):
         bot.reply("Usage: '.printed CARD_NAME'")
 
 
-@willie.module.commands("legality")
+@sopel.module.commands("legality")
 def legality(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -87,7 +84,7 @@ def legality(bot, trigger):
         bot.reply(u"Usage: '.legality CARD_NAME'")
 
 
-@willie.module.commands("rulings")
+@sopel.module.commands("rulings")
 def rulings(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -113,7 +110,7 @@ def rulings(bot, trigger):
         bot.reply(u"Usage: '.rulings CARD_NAME [| RULING_NUMBER]'")
 
 
-@willie.module.commands("flavor")
+@sopel.module.commands("flavor")
 def flavor(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -141,7 +138,7 @@ def flavor(bot, trigger):
         bot.reply(u"Usage: .flavor CARD_NAME [| SET_CODE]'")
 
 
-@willie.module.commands("image")
+@sopel.module.commands("image")
 def image(bot, trigger):
     if trigger.group(2) is not None:
         mtgcard.models.setup()
@@ -155,9 +152,9 @@ def image(bot, trigger):
             if expansion_name is not None:
                 expansion = mtgcard.find_expansion(expansion_name)
                 release = mtgcard._find_release(card, expansion)
-                bot.reply(willie.web.quote(u"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + unicode(release.multiverse_id) + u"&type=card", u":/,=&?"))
+                bot.reply(sopel.web.quote(u"http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + unicode(release.multiverse_id) + u"&type=card", u":/,=&?"))
             else:
-                bot.reply(willie.web.quote(u"http://gatherer.wizards.com/Handlers/Image.ashx?name=" + card.name + u"&type=card", u":/,=&?'!Æt\"æÄäÁáÂâÖöÛûÜü"))
+                bot.reply(sopel.web.quote(u"http://gatherer.wizards.com/Handlers/Image.ashx?name=" + card.name + u"&type=card", u":/,=&?'!Æt\"æÄäÁáÂâÖöÛûÜü"))
         except mtgcard.CardNotFoundError as e:
             bot.reply(u"Could not find the card: {CARD}".format(CARD=unicode(e)))
         except mtgcard.ExpansionNotFoundError as e:
